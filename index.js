@@ -1,6 +1,6 @@
 const axios = require('axios')
 
-const scdl = (url, clientID = 'nFU72dQEK92nbTsMX8i9j73cRLq0xCr7') => {
+const scdl = (url, clientID) => {
     return new Promise((resolve, reject) => {
 
         axios.get(url, {
