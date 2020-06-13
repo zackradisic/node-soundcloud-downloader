@@ -24,3 +24,10 @@ You can obtain a Client ID by visting the Soundcloud website and inspecting netw
 ```
 https://api-v2.soundcloud.com/me/play-history/tracks?client_id={CLIENT ID IS HERE}&limit=25&offset=0&linked_partitioning=1&app_version=1590494738&app_locale=en
 ```
+
+### To-do
+If I have the time and there is enough demand, I am interested in implementing the following functionalities:
+- Audio format selection
+- Ability to use HTTP Live Streaming (HLS) rather than downloading the entire file at once
+
+If you have any feature requests do not hesitate to post an issue
