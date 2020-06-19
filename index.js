@@ -49,6 +49,7 @@ const scdl = (url, clientID) => {
 
             }).catch(err => reject(err))
         })
+        .catch(err => reject(err))
 
     })
 }
