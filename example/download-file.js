@@ -1,12 +1,7 @@
-import scdl from '../index'
-import fs from 'fs'
+const scdl = require('../')
+const fs = require('fs')
 
-const SOUNDCLOUD_URL = 'https://soundcloud.com/monsune_inc/outta-my-mindf'
-const CLIENT_ID = 'YOUR CLIENT ID HERE'
+const SOUNDCLOUD_URL = 'https://soundcloud.com/monsune_inc/outta-my-mind'
+const CLIENT_ID = 'your client id here'
 
-const downloadToFile = async () => {
-  const data = await scdl.download(SOUNDCLOUD_URL, CLIENT_ID)
-  data.pipe(fs.createWriteStream('audio.mp3'))
-}
-
-downloadToFile()
+scdl.download(SOUNDCLOUD_URL, CLIENT_ID).then(data => data.pipe(fs.createWriteStream('audio.mp3')))
