@@ -3,7 +3,6 @@ import m3u8stream from 'm3u8stream'
 import STREAMING_PROTOCOLS from './protocols'
 
 const fromInfo = async (info, clientID) => {
-  console.log(info)
   if (!validateInfo) throw new Error('Invalid info object provided')
 
   const link = `${info.url}?client_id=${clientID}`
