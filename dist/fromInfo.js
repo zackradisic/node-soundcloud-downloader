@@ -24,18 +24,16 @@ var fromInfo = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log(info);
-
             if (validateInfo) {
-              _context.next = 3;
+              _context.next = 2;
               break;
             }
 
             throw new Error('Invalid info object provided');
 
-          case 3:
+          case 2:
             link = "".concat(info.url, "?client_id=").concat(clientID);
-            _context.next = 6;
+            _context.next = 5;
             return _axios["default"].get(link, {
               headers: {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
@@ -45,36 +43,36 @@ var fromInfo = /*#__PURE__*/function () {
               withCredentials: true
             });
 
-          case 6:
+          case 5:
             res = _context.sent;
 
             if (res.data.url) {
-              _context.next = 9;
+              _context.next = 8;
               break;
             }
 
             throw new Error("Invalid response from Soundcloud. Check if the URL provided is correct: ".concat(link));
 
-          case 9:
+          case 8:
             if (!(info.format.protocol === _protocols["default"].PROGRESSIVE)) {
-              _context.next = 14;
+              _context.next = 13;
               break;
             }
 
-            _context.next = 12;
+            _context.next = 11;
             return _axios["default"].get(res.data.url, {
               withCredentials: true,
               responseType: 'stream'
             });
 
-          case 12:
+          case 11:
             r = _context.sent;
             return _context.abrupt("return", r.data);
 
-          case 14:
+          case 13:
             return _context.abrupt("return", (0, _m3u8stream["default"])(res.data.url));
 
-          case 15:
+          case 14:
           case "end":
             return _context.stop();
         }

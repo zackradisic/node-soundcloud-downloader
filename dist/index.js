@@ -58,6 +58,7 @@ scdl.filterFormats = _filterFormats["default"];
 scdl.STREAMING_PROTOCOLS = _protocols["default"];
 scdl.FORMATS = _formats["default"];
 scdl.download = download;
+scdl.getInfo = _info["default"];
 var _default = scdl;
 exports["default"] = _default;
 //# sourceMappingURL=index.js.map
