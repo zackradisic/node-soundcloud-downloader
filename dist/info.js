@@ -14,24 +14,22 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 var _axios = _interopRequireDefault(require("axios"));
 
 var getInfo = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(url) {
-    var res, mediaRaw, media;
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(url, clientID) {
+    var res;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _axios["default"].get(url, {
+            return _axios["default"].get("https://api-v2.soundcloud.com/resolve?url=".concat(url, "&client_id=").concat(clientID), {
               withCredentials: true
             });
 
           case 2:
             res = _context.sent;
-            mediaRaw = '{' + res.data.slice(res.data.indexOf('"media":{'), res.data.indexOf(',"title"')) + '}';
-            media = JSON.parse(mediaRaw).media.transcodings;
-            return _context.abrupt("return", media);
+            return _context.abrupt("return", res.data);
 
-          case 6:
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -39,7 +37,7 @@ var getInfo = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function getInfo(_x) {
+  return function getInfo(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();

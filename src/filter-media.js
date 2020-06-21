@@ -1,5 +1,5 @@
 
-const filterFormats = (info, predicateObj) => {
+const filterMedia = (info, predicateObj) => {
   return info.filter(({ format }) => {
     let match = false
     if (predicateObj.protocol) match = format.protocol === predicateObj.protocol
@@ -8,4 +8,4 @@ const filterFormats = (info, predicateObj) => {
   })
 }
 
-export default filterFormats
+export default filterMedia

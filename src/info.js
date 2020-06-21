@@ -1,14 +1,12 @@
 import axios from 'axios'
 
-const getInfo = async url => {
-  const res = await axios.get(url, {
+
+const getInfo = async (url, clientID) => {
+  const res = await axios.get(`https://api-v2.soundcloud.com/resolve?url=${url}&client_id=${clientID}`, {
     withCredentials: true
   })
 
-  const mediaRaw = '{' + res.data.slice(res.data.indexOf('"media":{'), res.data.indexOf(',"title"')) + '}'
-  const media = JSON.parse(mediaRaw).media.transcodings
-
-  return media
+  return res.data
 }
 
 export default getInfo

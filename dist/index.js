@@ -13,9 +13,9 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _info = _interopRequireDefault(require("./info"));
 
-var _filterFormats = _interopRequireDefault(require("./filter-formats"));
+var _filterMedia = _interopRequireDefault(require("./filter-media"));
 
-var _fromInfo = _interopRequireDefault(require("./fromInfo"));
+var _downloadMedia = _interopRequireDefault(require("./download-media"));
 
 var _protocols = _interopRequireDefault(require("./protocols"));
 
@@ -36,7 +36,7 @@ var download = /*#__PURE__*/function () {
           case 2:
             info = _context.sent;
             _context.next = 5;
-            return (0, _fromInfo["default"])(info[0], clientID);
+            return (0, _downloadMedia["default"])(info.media.transcodings[0], clientID);
 
           case 5:
             return _context.abrupt("return", _context.sent);
@@ -54,7 +54,7 @@ var download = /*#__PURE__*/function () {
   };
 }();
 
-scdl.filterFormats = _filterFormats["default"];
+scdl.filterMedia = _filterMedia["default"];
 scdl.STREAMING_PROTOCOLS = _protocols["default"];
 scdl.FORMATS = _formats["default"];
 scdl.download = download;
