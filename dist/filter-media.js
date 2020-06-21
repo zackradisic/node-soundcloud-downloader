@@ -5,8 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var filterMedia = function filterMedia(info, predicateObj) {
-  return info.filter(function (_ref) {
+var filterMedia = function filterMedia(media, predicateObj) {
+  return media.filter(function (_ref) {
     var format = _ref.format;
     var match = false;
     if (predicateObj.protocol) match = format.protocol === predicateObj.protocol;

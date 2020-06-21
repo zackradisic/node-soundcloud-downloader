@@ -58,6 +58,7 @@ scdl.filterMedia = _filterMedia["default"];
 scdl.STREAMING_PROTOCOLS = _protocols["default"];
 scdl.FORMATS = _formats["default"];
 scdl.download = download;
+scdl.downloadMedia = _downloadMedia["default"];
 scdl.getInfo = _info["default"];
 var _default = scdl;
 exports["default"] = _default;

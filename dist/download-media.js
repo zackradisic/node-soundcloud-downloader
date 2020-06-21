@@ -17,22 +17,22 @@ var _m3u8stream = _interopRequireDefault(require("m3u8stream"));
 
 var _protocols = _interopRequireDefault(require("./protocols"));
 
-var fromInfo = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(info, clientID) {
+var fromMedia = /*#__PURE__*/function () {
+  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(media, clientID) {
     var link, res, r;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            if (validateInfo) {
+            if (validatemedia) {
               _context.next = 2;
               break;
             }
 
-            throw new Error('Invalid info object provided');
+            throw new Error('Invalid media object provided');
 
           case 2:
-            link = "".concat(info.url, "?client_id=").concat(clientID);
+            link = "".concat(media.url, "?client_id=").concat(clientID);
             _context.next = 5;
             return _axios["default"].get(link, {
               headers: {
@@ -54,7 +54,7 @@ var fromInfo = /*#__PURE__*/function () {
             throw new Error("Invalid response from Soundcloud. Check if the URL provided is correct: ".concat(link));
 
           case 8:
-            if (!(info.format.protocol === _protocols["default"].PROGRESSIVE)) {
+            if (!(media.format.protocol === _protocols["default"].PROGRESSIVE)) {
               _context.next = 13;
               break;
             }
@@ -80,16 +80,16 @@ var fromInfo = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function fromInfo(_x, _x2) {
+  return function fromMedia(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();
 
-var validateInfo = function validateInfo(info) {
-  if (!info.url || !info.format) return false;
+var validatemedia = function validatemedia(media) {
+  if (!media.url || !media.format) return false;
   return true;
 };
 
-var _default = fromInfo;
+var _default = fromMedia;
 exports["default"] = _default;
 //# sourceMappingURL=download-media.js.map

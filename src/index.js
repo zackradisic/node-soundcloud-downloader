@@ -15,6 +15,7 @@ scdl.filterMedia = filterMedia
 scdl.STREAMING_PROTOCOLS = STREAMING_PROTOCOLS
 scdl.FORMATS = FORMATS
 scdl.download = download
+scdl.downloadMedia = downloadMedia
 scdl.getInfo = getInfo
 
 export default scdl

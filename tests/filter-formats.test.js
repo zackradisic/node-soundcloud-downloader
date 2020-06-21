@@ -1,4 +1,4 @@
-import filterFormats from '../src/filter-formats'
+import filterFormats from '../src/filter-media'
 import STREAMING_PROTOCOLS from '../src/protocols'
 import FORMATS from '../src/formats'
 
