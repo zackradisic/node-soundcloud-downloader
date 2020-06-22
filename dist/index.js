@@ -17,6 +17,8 @@ var _filterMedia = _interopRequireDefault(require("./filter-media"));
 
 var _downloadMedia = _interopRequireDefault(require("./download-media"));
 
+var _downloadUrl = _interopRequireDefault(require("./download-url"));
+
 var _protocols = _interopRequireDefault(require("./protocols"));
 
 var _formats = _interopRequireDefault(require("./formats"));
@@ -59,6 +61,7 @@ scdl.STREAMING_PROTOCOLS = _protocols["default"];
 scdl.FORMATS = _formats["default"];
 scdl.download = download;
 scdl.downloadMedia = _downloadMedia["default"];
+scdl.downloadFromURL = _downloadUrl["default"];
 scdl.getInfo = _info["default"];
 var _default = scdl;
 exports["default"] = _default;
