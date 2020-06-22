@@ -34,7 +34,7 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
                     "mime_type": "audio/mpeg"
                 },
                 "quality": "sq"
-            }</details?>
+            }</details>
 
 ### Examples
 The easiest way to get Soundcloud audio is with the `scdl.download(url: string, clientID: string)` function, which returns a Promise containing a ReadableStream.
