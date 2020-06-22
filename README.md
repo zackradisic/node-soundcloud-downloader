@@ -24,7 +24,7 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
 - `media` is one of the objects from the array `media.transcoding` in the JSON response of `scdl.getInfo(url, clientID)`
 - `predicateObject` are the properties of the media you want to match
 
-<details><summary>Example of media object (pass this in to `scdl.downloadMedia()` and `scdl.filterMedia`</summary> {
+<details><summary>Example of media object (pass this in to `scdl.downloadMedia()` and `scdl.filterMedia`</summary>{
                 "url": "https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/hls",
                 "preset": "mp3_0_0",
                 "duration": 226031,
@@ -36,7 +36,7 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
                 "quality": "sq"
             }</details>
 
-### Examples
+## Examples
 The easiest way to get Soundcloud audio is with the `scdl.download(url: string, clientID: string)` function, which returns a Promise containing a ReadableStream.
 ```javascript
 const scdl = require('soundcloud-downloader')
@@ -67,13 +67,13 @@ client.on('ready', () => {
 You can view the code for these examples and find more in the [example](example) folder.
 
 
-### Client ID
+## Client ID
 You can obtain a Client ID by visting the Soundcloud website and inspecting network traffic (perhaps with Chrome DevTools or some HTTP proxy software) and looking for any requests to the Soundcloud API. Ex:
 ```
 https://api-v2.soundcloud.com/me/play-history/tracks?client_id={CLIENT ID IS HERE}&limit=25&offset=0&linked_partitioning=1&app_version=1590494738&app_locale=en
 ```
 
-### To-do
+## To-do
 If I have the time and there is enough demand, I am interested in implementing the following functionalities:
 - Audio format selection ✅
 - Ability to use HTTP Live Streaming (HLS) ✅
