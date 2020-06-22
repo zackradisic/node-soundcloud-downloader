@@ -4,7 +4,8 @@
   "description": "Download Soundcloud audio with Node.js",
   "main": "index.js",
   "scripts": {
-    "build": "npx babel src --out-dir dist --source-maps true"
+    "build": "npx babel src --out-dir dist --source-maps true",
+    "test" : "jest"
   },
   "keywords": [
     "soundcloud",
