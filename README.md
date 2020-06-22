@@ -1,4 +1,10 @@
 # node-soundcloud-downloader
+
+
+[![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
+[![downloads](https://img.shields.io/npm/dw/soundcloud-downloader)](https://www.npmjs.com/package/soundcloud-downloader)
+
+
 Download Soundcloud tracks with Node.js
 ```
 npm install soundcloud-downloader
