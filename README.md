@@ -73,6 +73,9 @@ You can obtain a Client ID by visting the Soundcloud website and inspecting netw
 https://api-v2.soundcloud.com/me/play-history/tracks?client_id={CLIENT ID IS HERE}&limit=25&offset=0&linked_partitioning=1&app_version=1590494738&app_locale=en
 ```
 
+Here is a picture of where you should be able to find it:
+![](img/clientid.png)
+
 ## To-do
 If I have the time and there is enough demand, I am interested in implementing the following functionalities:
 - Audio format selection ✅
