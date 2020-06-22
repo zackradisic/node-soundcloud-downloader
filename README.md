@@ -3,6 +3,7 @@
 
 [![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
 [![downloads](https://img.shields.io/npm/dw/soundcloud-downloader)](https://www.npmjs.com/package/soundcloud-downloader)
+![Node.js CI](https://github.com/zackradisic/node-soundcloud-downloader/workflows/Node.js%20CI/badge.svg)
 
 
 Download Soundcloud tracks with Node.js
