@@ -17,6 +17,8 @@ var _m3u8stream = _interopRequireDefault(require("m3u8stream"));
 
 var _protocols = _interopRequireDefault(require("./protocols"));
 
+var _util = require("./util");
+
 var fromMedia = /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(media, clientID) {
     var link, res, r;
@@ -32,8 +34,9 @@ var fromMedia = /*#__PURE__*/function () {
             throw new Error('Invalid media object provided');
 
           case 2:
+            _context.prev = 2;
             link = "".concat(media.url, "?client_id=").concat(clientID);
-            _context.next = 5;
+            _context.next = 6;
             return _axios["default"].get(link, {
               headers: {
                 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
@@ -43,41 +46,46 @@ var fromMedia = /*#__PURE__*/function () {
               withCredentials: true
             });
 
-          case 5:
+          case 6:
             res = _context.sent;
 
             if (res.data.url) {
-              _context.next = 8;
+              _context.next = 9;
               break;
             }
 
             throw new Error("Invalid response from Soundcloud. Check if the URL provided is correct: ".concat(link));
 
-          case 8:
+          case 9:
             if (!(media.format.protocol === _protocols["default"].PROGRESSIVE)) {
-              _context.next = 13;
+              _context.next = 14;
               break;
             }
 
-            _context.next = 11;
+            _context.next = 12;
             return _axios["default"].get(res.data.url, {
               withCredentials: true,
               responseType: 'stream'
             });
 
-          case 11:
+          case 12:
             r = _context.sent;
             return _context.abrupt("return", r.data);
 
-          case 13:
+          case 14:
             return _context.abrupt("return", (0, _m3u8stream["default"])(res.data.url));
 
-          case 14:
+          case 17:
+            _context.prev = 17;
+            _context.t0 = _context["catch"](2);
+            throw (0, _util.handleRequestErrs)(_context.t0);
+
+          case 20:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[2, 17]]);
   }));
 
   return function fromMedia(_x, _x2) {
