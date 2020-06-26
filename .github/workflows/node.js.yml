@@ -9,6 +9,7 @@ on:
     paths-ignore:
       - README.md
       - .github/
+      - package.json
   pull_request:
     branches: [ master ]
 
