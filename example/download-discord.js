@@ -10,7 +10,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   const channel = client.channels.cache.get(channelID)
   channel.join().then(connection => {
-    scdl(constants.url, constants.clientIDclientID).then(stream => {
+    scdl(constants.url, constants.clientID).then(stream => {
       connection.play(stream)
     })
   })

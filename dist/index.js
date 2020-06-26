@@ -15,9 +15,9 @@ var _info = _interopRequireDefault(require("./info"));
 
 var _filterMedia = _interopRequireDefault(require("./filter-media"));
 
-var _downloadMedia = _interopRequireDefault(require("./download-media"));
+var _download = require("./download");
 
-var _downloadUrl = _interopRequireDefault(require("./download-url"));
+var _isUrl = _interopRequireDefault(require("./is-url"));
 
 var _protocols = _interopRequireDefault(require("./protocols"));
 
@@ -38,7 +38,7 @@ var download = /*#__PURE__*/function () {
           case 2:
             info = _context.sent;
             _context.next = 5;
-            return (0, _downloadMedia["default"])(info.media.transcodings[0], clientID);
+            return (0, _download.fromMediaObj)(info.media.transcodings[0], clientID);
 
           case 5:
             return _context.abrupt("return", _context.sent);
@@ -60,9 +60,10 @@ scdl.filterMedia = _filterMedia["default"];
 scdl.STREAMING_PROTOCOLS = _protocols["default"];
 scdl.FORMATS = _formats["default"];
 scdl.download = download;
-scdl.downloadMedia = _downloadMedia["default"];
-scdl.downloadFromURL = _downloadUrl["default"];
+scdl.downloadMedia = _download.fromMediaObj;
+scdl.downloadFromURL = _download.fromURL;
 scdl.getInfo = _info["default"];
+scdl.isValidURL = _isUrl["default"];
 var _default = scdl;
 exports["default"] = _default;
 //# sourceMappingURL=index.js.map
