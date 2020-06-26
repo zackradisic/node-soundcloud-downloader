@@ -1,20 +1,23 @@
-const fs = require('fs')
+// const readChunk = require('read-chunk')
+const fileType = require('file-type')
 const scdl = require('../')
 
 scdl.download('https://soundcloud.com/monsune_inc/outta-my-mind', process.env.CLIENT_ID)
   .then(stream => {
-    stream.pipe(fs.createWriteStream('audio.mp3'))
+    fileType.fromStream(stream)
+      .then(type => {
+        if (type.mime !== 'audio/mpeg') {
+          console.log('Invalid file type: ' + type.mime)
+          process.exit(1)
+        }
 
-    stream.on('finish', () => {
-      const stats = fs.statSync('audio.mp3')
-      fs.unlinkSync('audio.mp3')
-      if (stats.size < 3000000) {
-        console.log('File size: ' + stats.size)
+        console.log('Success running download-check')
+        process.exit(0)
+      })
+      .catch(err => {
+        console.log(err)
         process.exit(1)
-      }
-
-      process.exit(0)
-    })
+      })
 
     stream.on('error', err => {
       console.log(err)
