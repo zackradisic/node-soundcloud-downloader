@@ -8,8 +8,8 @@ scdl.download('https://soundcloud.com/monsune_inc/outta-my-mind', process.env.CL
     stream.on('finish', () => {
       const stats = fs.statSync('audio.mp3')
       fs.unlinkSync('audio.mp3')
-      if (stats.size !== 3616181) {
-        console.log(stats.size)
+      if (stats.size < 3600000) {
+        console.log('File size: ' + stats.size)
         process.exit(1)
       }
 
