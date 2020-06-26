@@ -1,6 +1,7 @@
 # node-soundcloud-downloader
 
-[![npm version](https://badge.fury.io/js/soundcloud-downloader.svg)](https://badge.fury.io/js/soundcloud-downloader)
+
+[![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
 [![downloads](https://img.shields.io/npm/dw/soundcloud-downloader)](https://www.npmjs.com/package/soundcloud-downloader)
 ![Node.js CI](https://github.com/zackradisic/node-soundcloud-downloader/workflows/Node.js%20CI/badge.svg)
 
@@ -10,7 +11,12 @@ Download Soundcloud tracks with Node.js
 npm install soundcloud-downloader
 ```
 
-I couldn't find any packages that worked with a Discord bot I was working on so I created my own. 
+I couldn't find any packages that worked with a Discord bot I was working on so I created my own.
+
+- [API](#api)
+- [Examples](#examples)
+- [Obtaining a Client ID](#client-id)
+- [To do](#to-do)
 
 ## API
 
