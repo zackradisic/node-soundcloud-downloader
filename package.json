@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx babel src --out-dir dist --source-maps true",
-    "test" : "jest"
+    "test": "jest; node tests/download-check"
   },
   "keywords": [
     "soundcloud",
@@ -29,6 +29,7 @@
     "@babel/core": "^7.10.2",
     "@babel/plugin-transform-runtime": "^7.10.3",
     "@babel/preset-env": "^7.10.2",
+    "axios-mock-adapter": "^1.18.1",
     "babel-watch": "^7.0.0",
     "eslint": "^7.3.0",
     "eslint-config-standard": "^14.1.1",
@@ -37,6 +38,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "file-type": "^14.6.2",
     "jest": "^26.0.1"
   }
 }

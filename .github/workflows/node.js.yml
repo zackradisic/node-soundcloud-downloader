@@ -18,6 +18,9 @@ jobs:
       matrix:
         node-version: [10.x, 12.x, 14.x]
 
+    env:
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
