@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx babel src --out-dir dist --source-maps true",
-    "test": "jest; node tests/download-check"
+    "test": "jest"
   },
   "keywords": [
     "soundcloud",

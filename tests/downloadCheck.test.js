@@ -13,16 +13,21 @@ const scdl = require('../')
 const fileType = require('file-type')
 let downloadedFile
 
-console.log(process.env)
-console.log(process.env.CLIENT_ID)
+const CLIENT_ID = process.env.CLIENT_ID
 
 describe('Real Download Tests', () => {
   beforeAll(async () => {
-    if (process.env.CLIENT_ID) {
-      downloadedFile = await scdl.download(
-        'https://soundcloud.com/monsune_inc/outta-my-mind',
-        process.env.CLIENT_ID
-      )
+    if (CLIENT_ID) {
+      try {
+        console.info('Client ID', CLIENT_ID)
+        downloadedFile = await scdl.download(
+          'https://soundcloud.com/monsune_inc/outta-my-mind',
+          CLIENT_ID
+        )
+      } catch (err) {
+        console.error(err)
+        process.exit(1)
+      }
     } else {
       console.error('Client ID Undefined')
       process.exit(1)
