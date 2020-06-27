@@ -13,6 +13,7 @@ const scdl = require('../')
 const fileType = require('file-type')
 let downloadedFile
 
+console.log(process.env)
 console.log(process.env.CLIENT_ID)
 
 describe('Real Download Tests', () => {
