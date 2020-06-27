@@ -8,7 +8,7 @@
  * Author : Rahul Tarak
  *
  */
-
+require('dotenv').config()
 const scdl = require('../')
 const fileType = require('file-type')
 let downloadedFile
