@@ -19,7 +19,6 @@ describe('Real Download Tests', () => {
   beforeAll(async () => {
     if (CLIENT_ID) {
       try {
-        console.info('Client ID', CLIENT_ID)
         downloadedFile = await scdl.download(
           'https://soundcloud.com/monsune_inc/outta-my-mind',
           CLIENT_ID
