@@ -13,7 +13,7 @@ const scdl = require('../')
 const fileType = require('file-type')
 let downloadedFile
 
-const CLIENT_ID = process.env.CLIENT_ID
+const CLIENT_ID = 'aXd1ix9hLP655AohC5dUIEgxc8GSTWbs'
 
 describe('Real Download Tests', () => {
   beforeAll(async () => {
