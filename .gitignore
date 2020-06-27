@@ -1,2 +1,3 @@
 node_modules/
 client_id.env
+.env
