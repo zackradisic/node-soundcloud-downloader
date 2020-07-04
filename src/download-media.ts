@@ -2,8 +2,9 @@ import axios from 'axios'
 import m3u8stream from 'm3u8stream'
 import STREAMING_PROTOCOLS from './protocols'
 import { handleRequestErrs } from './util'
+import { Transcoding } from './info'
 
-const fromMedia = async (media, clientID) => {
+const fromMedia = async (media: Transcoding, clientID: string): Promise<any | m3u8stream.Stream> => {
   if (!validatemedia) throw new Error('Invalid media object provided')
 
   try {
@@ -25,14 +26,13 @@ const fromMedia = async (media, clientID) => {
       })
       return r.data
     }
-
     return m3u8stream(res.data.url)
   } catch (err) {
     throw handleRequestErrs(err)
   }
 }
 
-const validatemedia = media => {
+const validatemedia = (media: Transcoding) => {
   if (!media.url || !media.format) return false
   return true
 }

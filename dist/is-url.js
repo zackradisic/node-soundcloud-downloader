@@ -1,15 +1,9 @@
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
+exports.__esModule = true;
 var regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/;
-
-var isURL = function isURL(url) {
-  return url.match(regexp) && url.match(regexp)[2];
+var isURL = function (url) {
+    if (!url.match(regexp))
+        return false;
+    return url.match(regexp) && url.match(regexp)[2];
 };
-
-var _default = isURL;
-exports["default"] = _default;
-//# sourceMappingURL=is-url.js.map
+exports["default"] = isURL;

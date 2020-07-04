@@ -1,114 +1,86 @@
 "use strict";
-
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-
-var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
-var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
-
-var _info = _interopRequireDefault(require("./info"));
-
-var _filterMedia = _interopRequireDefault(require("./filter-media"));
-
-var _download = require("./download");
-
-var _isUrl = _interopRequireDefault(require("./is-url"));
-
-var _protocols = _interopRequireDefault(require("./protocols"));
-
-var _formats = _interopRequireDefault(require("./formats"));
-
-var scdl = {};
-
-var download = /*#__PURE__*/function () {
-  var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(url, clientID) {
-    var info;
-    return _regenerator["default"].wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return (0, _info["default"])(url, clientID);
-
-          case 2:
-            info = _context.sent;
-            _context.next = 5;
-            return (0, _download.fromMediaObj)(info.media.transcodings[0], clientID);
-
-          case 5:
-            return _context.abrupt("return", _context.sent);
-
-          case 6:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function download(_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var downloadFormat = /*#__PURE__*/function () {
-  var _ref2 = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(url, clientID, format) {
-    var info, filtered;
-    return _regenerator["default"].wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            _context2.next = 2;
-            return (0, _info["default"])(url, clientID);
-
-          case 2:
-            info = _context2.sent;
-            filtered = (0, _filterMedia["default"])(info.media.transcodings, {
-              format: format
-            });
-            console.log(filtered);
-
-            if (!(filtered.length === 0)) {
-              _context2.next = 7;
-              break;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
             }
-
-            throw new Error("Could not find media with specified format: (".concat(format, ")"));
-
-          case 7:
-            _context2.next = 9;
-            return (0, _download.fromMediaObj)(filtered[0], clientID);
-
-          case 9:
-            return _context2.abrupt("return", _context2.sent);
-
-          case 10:
-          case "end":
-            return _context2.stop();
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+exports.__esModule = true;
+var info_1 = __importDefault(require("./info"));
+var filter_media_1 = __importDefault(require("./filter-media"));
+var download_1 = require("./download");
+var is_url_1 = __importDefault(require("./is-url"));
+var protocols_1 = require("./protocols");
+var formats_1 = require("./formats");
+var download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+    var info;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
+            case 1:
+                info = _a.sent();
+                return [4 /*yield*/, download_1.fromMediaObj(info.media.transcodings[0], clientID)];
+            case 2: return [2 /*return*/, _a.sent()];
         }
-      }
-    }, _callee2);
-  }));
-
-  return function downloadFormat(_x3, _x4, _x5) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-scdl.filterMedia = _filterMedia["default"];
-scdl.STREAMING_PROTOCOLS = _protocols["default"];
-scdl.FORMATS = _formats["default"];
+    });
+}); };
+var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
+    var info, filtered;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
+            case 1:
+                info = _a.sent();
+                filtered = filter_media_1["default"](info.media.transcodings, { format: format });
+                console.log(filtered);
+                if (filtered.length === 0)
+                    throw new Error("Could not find media with specified format: (" + format + ")");
+                return [4 /*yield*/, download_1.fromMediaObj(filtered[0], clientID)];
+            case 2: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+var scdl = {};
+scdl.filterMedia = filter_media_1["default"];
+scdl.STREAMING_PROTOCOLS = protocols_1._PROTOCOLS;
+scdl.FORMATS = formats_1._FORMATS;
 scdl.download = download;
-scdl.downloadMedia = _download.fromMediaObj;
-scdl.downloadFromURL = _download.fromURL;
-scdl.getInfo = _info["default"];
-scdl.isValidURL = _isUrl["default"];
+scdl.downloadMedia = download_1.fromMediaObj;
+scdl.downloadFromURL = download_1.fromURL;
+scdl.getInfo = info_1["default"];
+scdl.isValidURL = is_url_1["default"];
 scdl.downloadFormat = downloadFormat;
-var _default = scdl;
-exports["default"] = _default;
-//# sourceMappingURL=index.js.map
+exports["default"] = scdl;

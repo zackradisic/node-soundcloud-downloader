@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/protocols.js"],"names":["STREAMING_PROTOCOLS","HLS","PROGRESSIVE"],"mappings":";;;;;;AAAA,IAAMA,mBAAmB,GAAG;AAC1BC,EAAAA,GAAG,EAAE,KADqB;AAE1BC,EAAAA,WAAW,EAAE;AAFa,CAA5B;eAKeF,mB","sourcesContent":["const STREAMING_PROTOCOLS = {\n  HLS: 'hls',\n  PROGRESSIVE: 'progressive'\n}\n\nexport default STREAMING_PROTOCOLS\n"],"file":"protocols.js"}

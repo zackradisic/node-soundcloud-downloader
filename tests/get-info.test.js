@@ -1,7 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-import { getInfoBase } from '../src/info'
+import { getInfoBase } from '../dist/info'
 
 const sampleData = {
   comment_count: 952,

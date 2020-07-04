@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/formats.js"],"names":["FORMATS","MP3","OPUS"],"mappings":";;;;;;AAAA,IAAMA,OAAO,GAAG;AACdC,EAAAA,GAAG,EAAE,YADS;AAEdC,EAAAA,IAAI,EAAE;AAFQ,CAAhB;eAKeF,O","sourcesContent":["const FORMATS = {\n  MP3: 'audio/mpeg',\n  OPUS: 'audio/ogg; codecs=\"opus\"'\n}\n\nexport default FORMATS\n"],"file":"formats.js"}

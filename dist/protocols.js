@@ -1,13 +1,13 @@
 "use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
-var STREAMING_PROTOCOLS = {
-  HLS: 'hls',
-  PROGRESSIVE: 'progressive'
+exports.__esModule = true;
+exports._PROTOCOLS = void 0;
+var STREAMING_PROTOCOLS;
+(function (STREAMING_PROTOCOLS) {
+    STREAMING_PROTOCOLS["HLS"] = "hls";
+    STREAMING_PROTOCOLS["PROGRESSIVE"] = "progressive";
+})(STREAMING_PROTOCOLS || (STREAMING_PROTOCOLS = {}));
+exports._PROTOCOLS = {
+    HLS: STREAMING_PROTOCOLS.HLS,
+    PROGRESSIVE: STREAMING_PROTOCOLS.PROGRESSIVE
 };
-var _default = STREAMING_PROTOCOLS;
-exports["default"] = _default;
-//# sourceMappingURL=protocols.js.map
+exports["default"] = STREAMING_PROTOCOLS;

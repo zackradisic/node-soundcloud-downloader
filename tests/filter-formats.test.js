@@ -1,6 +1,6 @@
-import filterFormats from '../src/filter-media'
-import STREAMING_PROTOCOLS from '../src/protocols'
-import FORMATS from '../src/formats'
+import filterFormats from '../dist/filter-media'
+import STREAMING_PROTOCOLS from '../dist/protocols'
+import FORMATS from '../dist/formats'
 
 const testInfo = [
   {
