@@ -1,6 +1,6 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import { fromURLBase, fromMediaObjBase, getMediaURL, getProgressiveStream, getHLSStream } from '../src/download'
+import { fromURLBase, fromMediaObjBase, getMediaURL, getProgressiveStream, getHLSStream } from '../dist/download'
 
 const download = {
   fromURLBase,

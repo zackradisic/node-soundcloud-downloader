@@ -2,7 +2,7 @@ import axios from 'axios'
 import m3u8stream from 'm3u8stream'
 import { handleRequestErrs } from './util'
 
-const fromURL = async (url, clientID) => {
+const fromURL = async (url: string, clientID: string): Promise<any | m3u8stream.Stream> => {
   try {
     const link = `${url}?client_id=${clientID}`
     const res = await axios.get(link, {

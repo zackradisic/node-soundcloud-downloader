@@ -1,5 +1,6 @@
+import { AxiosError } from 'axios'
 
-export const handleRequestErrs = err => {
+export const handleRequestErrs = (err: AxiosError) => {
   if (!err.response) return err
   if (!err.response.status) return err
 
