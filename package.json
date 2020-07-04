@@ -3,6 +3,7 @@
   "version": "0.0.9",
   "description": "Download Soundcloud audio with Node.js",
   "main": "index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "build": "npx tsc src/*.ts --outDir dist --esModuleInterop",
     "test": "jest"
