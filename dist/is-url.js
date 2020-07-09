@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+/** @internal @packageDocumentation */
 var regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/;
 var isURL = function (url) {
     if (!url.match(regexp))

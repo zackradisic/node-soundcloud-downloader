@@ -1,3 +1,5 @@
+/** @internal @packageDocumentation */
+
 import { AxiosError } from 'axios'
 
 export const handleRequestErrs = (err: AxiosError) => {

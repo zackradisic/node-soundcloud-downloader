@@ -1,4 +1,4 @@
-import { scdl as _scdl } from './src/index'
+import { SCDL as _scdl } from './src/index'
 
 declare const scdl: _scdl
 

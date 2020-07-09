@@ -39,12 +39,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+exports.SCDL = void 0;
 var info_1 = __importDefault(require("./info"));
 var filter_media_1 = __importDefault(require("./filter-media"));
 var download_1 = require("./download");
 var is_url_1 = __importDefault(require("./is-url"));
 var protocols_1 = require("./protocols");
 var formats_1 = require("./formats");
+/** @internal */
 var download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     var info;
     return __generator(this, function (_a) {
@@ -57,6 +59,7 @@ var download = function (url, clientID) { return __awaiter(void 0, void 0, void 
         }
     });
 }); };
+/** @internal */
 var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
     return __generator(this, function (_a) {
@@ -65,7 +68,6 @@ var downloadFormat = function (url, clientID, format) { return __awaiter(void 0,
             case 1:
                 info = _a.sent();
                 filtered = filter_media_1["default"](info.media.transcodings, { format: format });
-                console.log(filtered);
                 if (filtered.length === 0)
                     throw new Error("Could not find media with specified format: (" + format + ")");
                 return [4 /*yield*/, download_1.fromMediaObj(filtered[0], clientID)];
@@ -73,14 +75,57 @@ var downloadFormat = function (url, clientID, format) { return __awaiter(void 0,
         }
     });
 }); };
-var scdl = {};
-scdl.filterMedia = filter_media_1["default"];
+var SCDL = /** @class */ (function () {
+    function SCDL() {
+    }
+    /**
+     * Returns a media Transcoding that matches the given predicate object
+     * @param media - The Transcodings to filter
+     * @param predicateObj - The desired Transcoding object to match
+     * @returns An array of Transcodings that match the predicate object
+     */
+    SCDL.prototype.filterMedia = function (media, predicateObj) {
+        return filter_media_1["default"](media, predicateObj);
+    };
+    /**
+     * Get the audio of a given track. It returns the first format found.
+     *
+     * @param url - The URL of the Soundcloud track
+     * @param clientID - A Soundcloud Client ID
+     * @returns A ReadableStream containing the audio data
+    */
+    SCDL.prototype.download = function (url, clientID) {
+        return download(url, clientID);
+    };
+    /**
+     *  Get the audio of a given track with the specified format
+     * @param url - The URL of the Soundcloud track
+     * @param clientID - A Soundcloud Client ID
+     * @param format - The desired format
+    */
+    SCDL.prototype.downloadFormat = function (url, clientID, format) {
+        return downloadFormat(url, clientID, format);
+    };
+    /**
+     * Returns a info about a given track.
+     * @param url - URL of the Soundcloud track
+     * @param clientID - A Soundcloud Client ID
+     * @returns Info about the track
+    */
+    SCDL.prototype.getInfo = function (url, clientID) {
+        return info_1["default"](url, clientID);
+    };
+    /**
+     * Returns whether or not the given URL is a valid Soundcloud URL
+     * @param url - URL of the Soundcloud track
+    */
+    SCDL.prototype.isValidUrl = function (url) {
+        return is_url_1["default"](url);
+    };
+    return SCDL;
+}());
+exports.SCDL = SCDL;
+var scdl = new SCDL();
 scdl.STREAMING_PROTOCOLS = protocols_1._PROTOCOLS;
 scdl.FORMATS = formats_1._FORMATS;
-scdl.download = download;
-scdl.downloadMedia = download_1.fromMediaObj;
-scdl.downloadFromURL = download_1.fromURL;
-scdl.getInfo = info_1["default"];
-scdl.isValidURL = is_url_1["default"];
-scdl.downloadFormat = downloadFormat;
 exports["default"] = scdl;
