@@ -1,4 +1,5 @@
 "use strict";
+/** @internal @packageDocumentation */
 exports.__esModule = true;
 exports.handleRequestErrs = void 0;
 exports.handleRequestErrs = function (err) {

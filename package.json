@@ -5,7 +5,8 @@
   "main": "index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "build": "npx tsc src/*.ts --outDir dist --esModuleInterop",
+    "docs": "typedoc --out docs ./src --esModuleInterop --stripInternal",
+    "build": "npx tsc src/*.ts --outDir dist --esModuleInterop && npm run docs",
     "test": "jest"
   },
   "keywords": [

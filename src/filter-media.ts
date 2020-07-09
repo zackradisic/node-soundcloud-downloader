@@ -7,6 +7,7 @@ export interface FilterPredicateObject {
   format?: FORMATS
 }
 
+/** @internal */
 const filterMedia = (media: Transcoding[], predicateObj: FilterPredicateObject): Transcoding[] => {
   return media.filter(({ format }) => {
     let match = false

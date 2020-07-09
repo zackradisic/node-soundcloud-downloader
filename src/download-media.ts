@@ -1,3 +1,5 @@
+/** @internal @packageDocumentation */
+
 import axios from 'axios'
 import m3u8stream from 'm3u8stream'
 import STREAMING_PROTOCOLS from './protocols'

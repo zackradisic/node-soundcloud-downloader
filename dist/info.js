@@ -43,6 +43,7 @@ exports.getInfoBase = void 0;
 /* eslint-disable camelcase */
 var axios_1 = __importDefault(require("axios"));
 var util_1 = require("./util");
+/** @internal */
 exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
     var res, err_1;
     return __generator(this, function (_a) {
@@ -63,6 +64,7 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
         }
     });
 }); };
+/** @internal */
 var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {

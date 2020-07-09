@@ -5,6 +5,9 @@ import { handleRequestErrs } from './util'
 import STREAMING_PROTOCOLS from './protocols'
 import FORMATS from './formats'
 
+/**
+ * Details about the track
+ */
 export interface TrackInfo {
   comment_count: number,
   full_duration: number,
@@ -58,6 +61,9 @@ export interface TrackInfo {
 
 }
 
+/**
+ * Represents an audio link to a Soundcloud Track
+ */
 export interface Transcoding {
   url: string,
   preset: string,
@@ -65,6 +71,7 @@ export interface Transcoding {
   format: { protocol: STREAMING_PROTOCOLS, mime_type: FORMATS}
 }
 
+/** @internal */
 export const getInfoBase = async (url: string, clientID: string, axiosRef: AxiosInstance): Promise<TrackInfo> => {
   try {
     const res = await axiosRef.get(`https://api-v2.soundcloud.com/resolve?url=${url}&client_id=${clientID}`, {
@@ -76,6 +83,8 @@ export const getInfoBase = async (url: string, clientID: string, axiosRef: Axios
     throw handleRequestErrs(err)
   }
 }
+
+/** @internal */
 const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
   return await getInfoBase(url, clientID, axios)
 }

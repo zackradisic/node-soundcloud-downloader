@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+/** @internal */
 var filterMedia = function (media, predicateObj) {
     return media.filter(function (_a) {
         var format = _a.format;
