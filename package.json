@@ -1,6 +1,6 @@
 {
   "name": "soundcloud-downloader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Download Soundcloud audio with Node.js",
   "main": "index.js",
   "types": "./index.d.ts",
