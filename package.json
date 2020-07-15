@@ -27,7 +27,8 @@
     "@babel/runtime": "^7.10.3",
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
-    "m3u8stream": "^0.7.1"
+    "m3u8stream": "^0.7.1",
+    "soundcloud-key-fetch": "^1.0.6"
   },
   "typings": "./index.d.ts",
   "devDependencies": {

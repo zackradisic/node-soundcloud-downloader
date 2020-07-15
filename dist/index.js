@@ -40,6 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.SCDL = void 0;
+var soundcloud_key_fetch_1 = __importDefault(require("soundcloud-key-fetch"));
 var info_1 = __importDefault(require("./info"));
 var filter_media_1 = __importDefault(require("./filter-media"));
 var download_1 = require("./download");
@@ -91,29 +92,62 @@ var SCDL = /** @class */ (function () {
      * Get the audio of a given track. It returns the first format found.
      *
      * @param url - The URL of the Soundcloud track
-     * @param clientID - A Soundcloud Client ID
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns A ReadableStream containing the audio data
     */
     SCDL.prototype.download = function (url, clientID) {
-        return download(url, clientID);
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = download;
+                        _b = [url];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
     };
     /**
      *  Get the audio of a given track with the specified format
      * @param url - The URL of the Soundcloud track
-     * @param clientID - A Soundcloud Client ID
      * @param format - The desired format
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
     */
-    SCDL.prototype.downloadFormat = function (url, clientID, format) {
-        return downloadFormat(url, clientID, format);
+    SCDL.prototype.downloadFormat = function (url, format, clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = downloadFormat;
+                        _b = [url];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format]))];
+                }
+            });
+        });
     };
     /**
      * Returns a info about a given track.
      * @param url - URL of the Soundcloud track
-     * @param clientID - A Soundcloud Client ID
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the track
     */
     SCDL.prototype.getInfo = function (url, clientID) {
-        return info_1["default"](url, clientID);
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = info_1["default"];
+                        _b = [url];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
     };
     /**
      * Returns whether or not the given URL is a valid Soundcloud URL
@@ -121,6 +155,26 @@ var SCDL = /** @class */ (function () {
     */
     SCDL.prototype.isValidUrl = function (url) {
         return is_url_1["default"](url);
+    };
+    /** @internal */
+    SCDL.prototype._assignClientID = function (clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!!clientID) return [3 /*break*/, 3];
+                        if (!!this._clientID) return [3 /*break*/, 2];
+                        _a = this;
+                        return [4 /*yield*/, soundcloud_key_fetch_1["default"].fetchKey()];
+                    case 1:
+                        _a._clientID = _b.sent();
+                        _b.label = 2;
+                    case 2: return [2 /*return*/, this._clientID];
+                    case 3: return [2 /*return*/, clientID];
+                }
+            });
+        });
     };
     return SCDL;
 }());
