@@ -1,3 +1,5 @@
+import sckey from 'soundcloud-key-fetch'
+
 import getInfo, { Transcoding } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { fromURL, fromMediaObj } from './download'
@@ -25,6 +27,8 @@ export class SCDL {
   STREAMING_PROTOCOLS: { [key: string]: STREAMING_PROTOCOLS }
   FORMATS: { [key: string]: FORMATS }
 
+  private _clientID?: string
+
   /**
    * Returns a media Transcoding that matches the given predicate object
    * @param media - The Transcodings to filter
@@ -39,31 +43,31 @@ export class SCDL {
    * Get the audio of a given track. It returns the first format found.
    *
    * @param url - The URL of the Soundcloud track
-   * @param clientID - A Soundcloud Client ID
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns A ReadableStream containing the audio data
   */
-  download (url: string, clientID: string) {
-    return download(url, clientID)
+  async download (url: string, clientID?: string) {
+    return download(url, await this._assignClientID(clientID))
   }
 
   /**
    *  Get the audio of a given track with the specified format
    * @param url - The URL of the Soundcloud track
-   * @param clientID - A Soundcloud Client ID
    * @param format - The desired format
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
   */
-  downloadFormat (url: string, clientID: string, format: FORMATS) {
-    return downloadFormat(url, clientID, format)
+  async downloadFormat (url: string, format: FORMATS, clientID?: string) {
+    return downloadFormat(url, await this._assignClientID(clientID), format)
   }
 
   /**
    * Returns a info about a given track.
    * @param url - URL of the Soundcloud track
-   * @param clientID - A Soundcloud Client ID
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the track
   */
-  getInfo (url: string, clientID: string) {
-    return getInfo(url, clientID)
+  async getInfo (url: string, clientID?: string) {
+    return getInfo(url, await this._assignClientID(clientID))
   }
 
   /**
@@ -72,6 +76,19 @@ export class SCDL {
   */
   isValidUrl (url: string) {
     return isValidURL(url)
+  }
+
+  /** @internal */
+  private async _assignClientID (clientID?: string): Promise<string> {
+    if (!clientID) {
+      if (!this._clientID) {
+        this._clientID = await sckey.fetchKey()
+      }
+
+      return this._clientID
+    }
+
+    return clientID
   }
 }
 const scdl = new SCDL()
