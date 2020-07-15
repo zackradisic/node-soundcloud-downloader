@@ -78,48 +78,23 @@
 					<li><a href="#client-id">Obtaining a Client ID</a></li>
 					<li><a href="#to-do">To do</a></li>
 				</ul>
-				<a href="#api" id="api" style="color: inherit; text-decoration: none;">
-					<h2>API</h2>
+				<a href="#api--documentation" id="api--documentation" style="color: inherit; text-decoration: none;">
+					<h2>API / Documentation</h2>
 				</a>
+				<p>Here are the two most commonly used functions:</p>
 				<a href="#scdldownloadurl-clientid" id="scdldownloadurl-clientid" style="color: inherit; text-decoration: none;">
-					<h3>scdl.download(url, clientID)</h3>
+					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download">scdl.download(url, clientID)</a></h3>
 				</a>
 				<ul>
 					<li>Gets the audio from the given URL, returns a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">ReadableStream</a>.</li>
 				</ul>
 				<a href="#scdlgetinfourl-clientid" id="scdlgetinfourl-clientid" style="color: inherit; text-decoration: none;">
-					<h3>scdl.getInfo(url, clientID)</h3>
+					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo">scdl.getInfo(url, clientID)</a></h3>
 				</a>
 				<ul>
 					<li>Returns a JSON object containing the track&#39;s information, as well as media links.</li>
 				</ul>
-				<a href="#scdldownloadmediamedia-clientid" id="scdldownloadmediamedia-clientid" style="color: inherit; text-decoration: none;">
-					<h3>scdl.downloadMedia(media, clientID)</h3>
-				</a>
-				<ul>
-					<li><code>media</code> is one of the objects from the array <code>media.transcoding</code> in the JSON response of <code>scdl.getInfo(url, clientID)</code></li>
-					<li>Returns a ReadableStream like <code>scdl.download(url, clientID)</code></li>
-					<li>Use this if you want to download a specific audio format</li>
-				</ul>
-				<a href="#scdlfiltermediamedia-predicateobject" id="scdlfiltermediamedia-predicateobject" style="color: inherit; text-decoration: none;">
-					<h3>scdl.filterMedia(media, predicateObject)</h3>
-				</a>
-				<ul>
-					<li>Filters through the track&#39;s media links returning the desired one</li>
-					<li><code>media</code> is one of the objects from the array <code>media.transcoding</code> in the JSON response of <code>scdl.getInfo(url, clientID)</code></li>
-					<li><code>predicateObject</code> are the properties of the media you want to match</li>
-				</ul>
-				<details><summary>Example of media object (pass this in to `scdl.downloadMedia()` and `scdl.filterMedia`</summary>{
-					"url": "https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/hls",
-					"preset": "mp3_0_0",
-					"duration": 226031,
-					"snipped": false,
-					"format": {
-					"protocol": "hls",
-					"mime_type": "audio/mpeg"
-					},
-					"quality": "sq"
-				}</details>
+				<p>Read the <a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html">docs</a> for more.</p>
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
