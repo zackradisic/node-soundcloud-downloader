@@ -20,16 +20,16 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
 
 ## API / Documentation
 Here are the two most commonly used functions:
-### [scdl.download(url, clientID)](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download)
+### [scdl.download(url, clientID?)](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download)
 - Gets the audio from the given URL, returns a [ReadableStream](https://nodejs.org/api/stream.html#stream_class_stream_readable).
 
-### [scdl.getInfo(url, clientID)](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo)
+### [scdl.getInfo(url, clientID?)](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo)
 - Returns a JSON object containing the track's information, as well as media links.
 
 Read the [docs](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html) for more.
 
 ## Examples
-The easiest way to get Soundcloud audio is with the `scdl.download(url: string, clientID: string)` function, which returns a Promise containing a ReadableStream.
+The easiest way to get Soundcloud audio is with the `scdl.download(url: string, clientID?: string)` function, which returns a Promise containing a ReadableStream. Note that the client ID is optional (the module will fetch one for you if not provided).
 ```javascript
 const scdl = require('soundcloud-downloader')
 const fs = require('fs')
