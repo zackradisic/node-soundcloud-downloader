@@ -18,7 +18,7 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
 - [Obtaining a Client ID](#client-id)
 - [To do](#to-do)
 
-## API / Documentation
+## API / [Documentation](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html)
 Here are the two most commonly used functions:
 ### [scdl.download(url, clientID?)](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download)
 - Gets the audio from the given URL, returns a [ReadableStream](https://nodejs.org/api/stream.html#stream_class_stream_readable).
