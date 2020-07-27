@@ -6,6 +6,28 @@ import STREAMING_PROTOCOLS from './protocols'
 import FORMATS from './formats'
 
 /**
+ * A Soundcloud user
+ */
+export interface User {
+  avatar_url: string,
+  city: string,
+  comments_count: number,
+  country_code: string,
+  created_at: string,
+  description: string,
+  followers_count: number,
+  followings_count: number,
+  first_name: string,
+  full_name: string,
+  groups_count: number,
+  id: number,
+  last_name: string,
+  permalink_url: string,
+  uri: string,
+  username: string
+}
+
+/**
  * Details about the track
  */
 export interface TrackInfo {
@@ -39,26 +61,46 @@ export interface TrackInfo {
   waveform_url: string,
   permalink: string,
   permalink_url: string,
-  user: {
-    avatar_url: string,
-    city: string,
-    comments_count: number,
-    country_code: string,
-    created_at: string,
-    description: string,
-    followers_count: number,
-    followings_count: number,
-    first_name: string,
-    full_name: string,
-    groups_count: number,
-    id: number,
-    last_name: string,
-    permalink_url: string,
-    uri: string,
-    username: string
-  },
+  user: User,
   playback_count: number
+}
 
+/**
+ * Details about a Set
+ */
+export interface SetInfo {
+  duration: number,
+  permalink_url: string,
+  reposts_count: number,
+  genre: string,
+  permalink: string,
+  purchase_url?: string,
+  description?: string,
+  uri: string,
+  label_name?: string,
+  tag_list: string,
+  set_type: string,
+  public: boolean,
+  track_count: number,
+  user_id: number,
+  last_modified: string,
+  license: string,
+  tracks: TrackInfo[],
+  id: number,
+  release_date?: string,
+  display_date: string,
+  sharing: string,
+  secret_token?: string,
+  created_at: string,
+  likes_count: number,
+  kind: string,
+  purchase_title?: string,
+  managed_by_feeds: boolean,
+  artwork_url?: string,
+  is_album: boolean,
+  user: User,
+  published_at: string,
+  embeddable_by: string
 }
 
 /**
@@ -68,16 +110,17 @@ export interface Transcoding {
   url: string,
   preset: string,
   snipped: boolean,
-  format: { protocol: STREAMING_PROTOCOLS, mime_type: FORMATS}
+  format: { protocol: STREAMING_PROTOCOLS, mime_type: FORMATS }
 }
 
 /** @internal */
-export const getInfoBase = async (url: string, clientID: string, axiosRef: AxiosInstance): Promise<TrackInfo> => {
+export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, clientID: string, axiosRef: AxiosInstance): Promise<T> => {
   try {
     const res = await axiosRef.get(`https://api-v2.soundcloud.com/resolve?url=${url}&client_id=${clientID}`, {
       withCredentials: true
     })
-    return res.data as TrackInfo
+
+    return res.data as T
   } catch (err) {
     console.log(err)
     throw handleRequestErrs(err)
@@ -86,7 +129,16 @@ export const getInfoBase = async (url: string, clientID: string, axiosRef: Axios
 
 /** @internal */
 const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
-  return await getInfoBase(url, clientID, axios)
+  const data = await getInfoBase<TrackInfo>(url, clientID, axios)
+  if (!data.media) throw new Error('The given URL does not link to a Soundcloud track')
+  return data
+}
+
+/** @internal */
+export const getSetInfo = async (url: string, clientID: string): Promise<SetInfo> => {
+  const data = await getInfoBase<SetInfo>(url, clientID, axios)
+  if (!data.tracks) throw new Error('The given URL does not link to a Soundcloud set')
+  return data
 }
 
 export default getInfo

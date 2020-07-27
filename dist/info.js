@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.getInfoBase = void 0;
+exports.getSetInfo = exports.getInfoBase = void 0;
 /* eslint-disable camelcase */
 var axios_1 = __importDefault(require("axios"));
 var util_1 = require("./util");
@@ -66,10 +66,29 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
 }); };
 /** @internal */
 var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+    var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1["default"])];
-            case 1: return [2 /*return*/, _a.sent()];
+            case 1:
+                data = _a.sent();
+                if (!data.media)
+                    throw new Error('The given URL does not link to a Soundcloud track');
+                return [2 /*return*/, data];
+        }
+    });
+}); };
+/** @internal */
+exports.getSetInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+    var data;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1["default"])];
+            case 1:
+                data = _a.sent();
+                if (!data.tracks)
+                    throw new Error('The given URL does not link to a Soundcloud set');
+                return [2 /*return*/, data];
         }
     });
 }); };

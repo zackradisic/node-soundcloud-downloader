@@ -1,4 +1,23 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -41,7 +60,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.SCDL = void 0;
 var soundcloud_key_fetch_1 = __importDefault(require("soundcloud-key-fetch"));
-var info_1 = __importDefault(require("./info"));
+var info_1 = __importStar(require("./info"));
 var filter_media_1 = __importDefault(require("./filter-media"));
 var download_1 = require("./download");
 var is_url_1 = __importDefault(require("./is-url"));
@@ -130,7 +149,7 @@ var SCDL = /** @class */ (function () {
         });
     };
     /**
-     * Returns a info about a given track.
+     * Returns info about a given track.
      * @param url - URL of the Soundcloud track
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the track
@@ -142,6 +161,26 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = info_1["default"];
+                        _b = [url];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
+    };
+    /**
+     * Returns info about the given set
+     * @param url - URL of the Soundcloud set
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
+     * @returns Info about the set
+     */
+    SCDL.prototype.getSetInfo = function (url, clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = info_1.getSetInfo;
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];

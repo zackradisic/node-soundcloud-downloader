@@ -1,6 +1,6 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { Transcoding } from './info'
+import getInfo, { getSetInfo, Transcoding, SetInfo, TrackInfo } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { fromURL, fromMediaObj } from './download'
 
@@ -12,6 +12,7 @@ import FORMATS, { _FORMATS } from './formats'
 /** @internal */
 const download = async (url: string, clientID: string) => {
   const info = await getInfo(url, clientID)
+
   return await fromMediaObj(info.media.transcodings[0], clientID)
 }
 
@@ -61,13 +62,23 @@ export class SCDL {
   }
 
   /**
-   * Returns a info about a given track.
+   * Returns info about a given track.
    * @param url - URL of the Soundcloud track
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the track
   */
   async getInfo (url: string, clientID?: string) {
     return getInfo(url, await this._assignClientID(clientID))
+  }
+
+  /**
+   * Returns info about the given set
+   * @param url - URL of the Soundcloud set
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
+   * @returns Info about the set
+   */
+  async getSetInfo (url: string, clientID?: string) {
+    return getSetInfo(url, await this._assignClientID(clientID))
   }
 
   /**
