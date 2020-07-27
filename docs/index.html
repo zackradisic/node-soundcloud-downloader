@@ -79,17 +79,17 @@
 					<li><a href="#to-do">To do</a></li>
 				</ul>
 				<a href="#api--documentation" id="api--documentation" style="color: inherit; text-decoration: none;">
-					<h2>API / Documentation</h2>
+					<h2>API / <a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html">Documentation</a></h2>
 				</a>
 				<p>Here are the two most commonly used functions:</p>
 				<a href="#scdldownloadurl-clientid" id="scdldownloadurl-clientid" style="color: inherit; text-decoration: none;">
-					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download">scdl.download(url, clientID)</a></h3>
+					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#download">scdl.download(url, clientID?)</a></h3>
 				</a>
 				<ul>
 					<li>Gets the audio from the given URL, returns a <a href="https://nodejs.org/api/stream.html#stream_class_stream_readable">ReadableStream</a>.</li>
 				</ul>
 				<a href="#scdlgetinfourl-clientid" id="scdlgetinfourl-clientid" style="color: inherit; text-decoration: none;">
-					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo">scdl.getInfo(url, clientID)</a></h3>
+					<h3><a href="https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo">scdl.getInfo(url, clientID?)</a></h3>
 				</a>
 				<ul>
 					<li>Returns a JSON object containing the track&#39;s information, as well as media links.</li>
@@ -98,7 +98,7 @@
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
-				<p>The easiest way to get Soundcloud audio is with the <code>scdl.download(url: string, clientID: string)</code> function, which returns a Promise containing a ReadableStream.</p>
+				<p>The easiest way to get Soundcloud audio is with the <code>scdl.download(url: string, clientID?: string)</code> function, which returns a Promise containing a ReadableStream. Note that the client ID is optional (the module will fetch one for you if not provided).</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scdl = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;soundcloud-downloader&#x27;</span>)
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)
 
