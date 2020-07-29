@@ -52,5 +52,7 @@
     "typedoc": "^0.17.8",
     "typescript": "^3.9.5"
   },
-  "publishConfig": { "registry": "https://npm.pkg.github.com/@zackradisic" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@zackradisic"
+  }
 }

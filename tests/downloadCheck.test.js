@@ -13,22 +13,13 @@ const scdl = require('../')
 const fileType = require('file-type')
 let downloadedFile
 
-const CLIENT_ID = 'aXd1ix9hLP655AohC5dUIEgxc8GSTWbs'
-
 describe('Real Download Tests', () => {
   beforeAll(async () => {
-    if (CLIENT_ID) {
-      try {
-        downloadedFile = await scdl.download(
-          'https://soundcloud.com/monsune_inc/outta-my-mind',
-          CLIENT_ID
-        )
-      } catch (err) {
-        console.error(err)
-        process.exit(1)
-      }
-    } else {
-      console.error('Client ID Undefined')
+    try {
+      downloadedFile = await scdl.download(
+        'https://soundcloud.com/monsune_inc/outta-my-mind')
+    } catch (err) {
+      console.error(err)
       process.exit(1)
     }
     // console.log(downloadedFile)
