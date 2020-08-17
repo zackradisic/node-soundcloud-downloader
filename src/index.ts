@@ -1,6 +1,6 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { getSetInfo, Transcoding, SetInfo, TrackInfo } from './info'
+import getInfo, { getSetInfo, Transcoding, SetInfo, TrackInfo, getTrackInfoByID } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { fromURL, fromMediaObj } from './download'
 
@@ -72,13 +72,24 @@ export class SCDL {
   }
 
   /**
+   * Returns info about a given track.
+   * @param id - The track ID
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
+   * @returns Info about the track
+   */
+  async getTrackInfoByID (id: number, clientID?: string) {
+    return await getTrackInfoByID(id, await this._assignClientID(clientID))
+  }
+
+  /**
    * Returns info about the given set
    * @param url - URL of the Soundcloud set
+   * @param full - Defaults to false. Whether or not to retrieve all info for every track in the set. Note: This is done track by track and can be quite slow if there are a large amount of tracks in the set.
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the set
    */
-  async getSetInfo (url: string, clientID?: string) {
-    return getSetInfo(url, await this._assignClientID(clientID))
+  async getSetInfo (url: string, full = false, clientID?: string) {
+    return getSetInfo(url, await this._assignClientID(clientID), full)
   }
 
   /**
