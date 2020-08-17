@@ -169,12 +169,35 @@ var SCDL = /** @class */ (function () {
         });
     };
     /**
+     * Returns info about a given track.
+     * @param id - The track ID
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
+     * @returns Info about the track
+     */
+    SCDL.prototype.getTrackInfoByID = function (id, clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = info_1.getTrackInfoByID;
+                        _b = [id];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [4 /*yield*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 2: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
+    /**
      * Returns info about the given set
      * @param url - URL of the Soundcloud set
+     * @param full - Defaults to false. Whether or not to retrieve all info for every track in the set. Note: This is done track by track and can be quite slow if there are a large amount of tracks in the set.
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the set
      */
-    SCDL.prototype.getSetInfo = function (url, clientID) {
+    SCDL.prototype.getSetInfo = function (url, full, clientID) {
+        if (full === void 0) { full = false; }
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
@@ -183,7 +206,7 @@ var SCDL = /** @class */ (function () {
                         _a = info_1.getSetInfo;
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), full]))];
                 }
             });
         });
