@@ -8,6 +8,7 @@ import isValidURL from './is-url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
+import { search } from './search'
 
 /** @internal */
 const download = async (url: string, clientID: string) => {
@@ -90,6 +91,16 @@ export class SCDL {
    */
   async getSetInfo (url: string, full = false, clientID?: string) {
     return getSetInfo(url, await this._assignClientID(clientID), full)
+  }
+
+  /**
+   * Searches for tracks/playlists for the given query
+   * @param query - The keywords for the search
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
+   * @returns SearchResponse
+   */
+  async search (query: string, clientID?: string) {
+    return search(query, await this._assignClientID(clientID))
   }
 
   /**

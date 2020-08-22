@@ -14,7 +14,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
@@ -66,6 +66,7 @@ var download_1 = require("./download");
 var is_url_1 = __importDefault(require("./is-url"));
 var protocols_1 = require("./protocols");
 var formats_1 = require("./formats");
+var search_1 = require("./search");
 /** @internal */
 var download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     var info;
@@ -207,6 +208,26 @@ var SCDL = /** @class */ (function () {
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), full]))];
+                }
+            });
+        });
+    };
+    /**
+     * Searches for tracks/playlists for the given query
+     * @param query - The keywords for the search
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
+     * @returns SearchResponse
+     */
+    SCDL.prototype.search = function (query, clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = search_1.search;
+                        _b = [query];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
             });
         });
