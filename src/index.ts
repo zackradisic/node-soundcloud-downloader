@@ -8,7 +8,7 @@ import isValidURL from './is-url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
-import { search } from './search'
+import { search, SoundcloudResource } from './search'
 
 /** @internal */
 const download = async (url: string, clientID: string) => {
@@ -73,13 +73,13 @@ export class SCDL {
   }
 
   /**
-   * Returns info about a given track.
-   * @param id - The track ID
+   * Returns info about the given track(s) specified by ID.
+   * @param ids - The ID(s) of the tracks
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the track
    */
-  async getTrackInfoByID (id: number, clientID?: string) {
-    return await getTrackInfoByID(id, await this._assignClientID(clientID))
+  async getTrackInfoByID (ids: number[], clientID?: string) {
+    return await getTrackInfoByID(await this._assignClientID(clientID), ids)
   }
 
   /**
@@ -89,18 +89,19 @@ export class SCDL {
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the set
    */
-  async getSetInfo (url: string, full = false, clientID?: string) {
-    return getSetInfo(url, await this._assignClientID(clientID), full)
+  async getSetInfo (url: string, clientID?: string) {
+    return getSetInfo(url, await this._assignClientID(clientID))
   }
 
   /**
    * Searches for tracks/playlists for the given query
+   * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'sets', 'all'
    * @param query - The keywords for the search
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns SearchResponse
    */
-  async search (query: string, clientID?: string) {
-    return search(query, await this._assignClientID(clientID))
+  async search (type: SoundcloudResource | 'all', query: string, clientID?: string) {
+    return search(type, query, await this._assignClientID(clientID))
   }
 
   /**

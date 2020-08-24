@@ -116,9 +116,9 @@ export interface Transcoding {
 }
 
 /** @internal */
-const getTrackInfoBase = async (trackID: number, clientID: string, axiosRef: AxiosInstance): Promise<TrackInfo> => {
+const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[]): Promise<TrackInfo> => {
   try {
-    const { data } = await axiosRef.get(`https://api-v2.soundcloud.com/tracks/${trackID}?client_id=${clientID}`)
+    const { data } = await axiosRef.get(`https://api-v2.soundcloud.com/tracks?ids=${ids.join(',')}&client_id=${clientID}`)
 
     return data as TrackInfo
   } catch (err) {
@@ -141,24 +141,16 @@ export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, cl
 }
 
 /** @internal */
-const getSetInfoBase = async (url: string, clientID: string, full: boolean, axiosRef: AxiosInstance): Promise<SetInfo> => {
+const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInstance): Promise<SetInfo> => {
   const setInfo = await getInfoBase<SetInfo>(url, clientID, axiosRef)
-  if (!full) return setInfo
 
   const incompleteTracks = setInfo.tracks.filter(track => !track.title)
   const completeTracks = setInfo.tracks.filter(track => track.title)
 
-  for (const track of incompleteTracks) {
-    try {
-      const info = await getTrackInfoBase(track.id, clientID, axiosRef)
-      completeTracks.push(info)
-    } catch (err) {
-      console.log(err)
-      completeTracks.push(track)
-    }
-  }
+  const ids = incompleteTracks.map(t => t.id)
+  const info = await getTrackInfoByID(clientID, ids)
 
-  setInfo.tracks = completeTracks
+  setInfo.tracks = completeTracks.concat(info)
   return setInfo
 }
 
@@ -170,14 +162,14 @@ const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
 }
 
 /** @internal */
-export const getSetInfo = async (url: string, clientID: string, full = false): Promise<SetInfo> => {
-  const data = await getSetInfoBase(url, clientID, full, axios)
+export const getSetInfo = async (url: string, clientID: string): Promise<SetInfo> => {
+  const data = await getSetInfoBase(url, clientID, axios)
   if (!data.tracks) throw new Error('The given URL does not link to a Soundcloud set')
   return data
 }
 
 /** @intenral */
-export const getTrackInfoByID = async (id: number, clientID: string) => {
-  return await getTrackInfoBase(id, clientID, axios)
+export const getTrackInfoByID = async (clientID: string, ids: number[]) => {
+  return await getTrackInfoBase(clientID, axios, ids)
 }
 export default getInfo

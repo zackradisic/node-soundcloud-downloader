@@ -170,22 +170,21 @@ var SCDL = /** @class */ (function () {
         });
     };
     /**
-     * Returns info about a given track.
-     * @param id - The track ID
+     * Returns info about the given track(s) specified by ID.
+     * @param ids - The ID(s) of the tracks
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the track
      */
-    SCDL.prototype.getTrackInfoByID = function (id, clientID) {
+    SCDL.prototype.getTrackInfoByID = function (ids, clientID) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         _a = info_1.getTrackInfoByID;
-                        _b = [id];
                         return [4 /*yield*/, this._assignClientID(clientID)];
-                    case 1: return [4 /*yield*/, _a.apply(void 0, _b.concat([_c.sent()]))];
-                    case 2: return [2 /*return*/, _c.sent()];
+                    case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), ids])];
+                    case 2: return [2 /*return*/, _b.sent()];
                 }
             });
         });
@@ -197,8 +196,7 @@ var SCDL = /** @class */ (function () {
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the set
      */
-    SCDL.prototype.getSetInfo = function (url, full, clientID) {
-        if (full === void 0) { full = false; }
+    SCDL.prototype.getSetInfo = function (url, clientID) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
@@ -207,25 +205,26 @@ var SCDL = /** @class */ (function () {
                         _a = info_1.getSetInfo;
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), full]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
             });
         });
     };
     /**
      * Searches for tracks/playlists for the given query
+     * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'sets', 'all'
      * @param query - The keywords for the search
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns SearchResponse
      */
-    SCDL.prototype.search = function (query, clientID) {
+    SCDL.prototype.search = function (type, query, clientID) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = search_1.search;
-                        _b = [query];
+                        _b = [type, query];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
