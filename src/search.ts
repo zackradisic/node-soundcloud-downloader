@@ -12,6 +12,13 @@ export type SearchResponse<T> = {
     query_urn: string
 }
 
+export type RelatedResponse<T> = {
+  collection: T[]
+  next_href: string,
+  query_urn: string,
+  variant: string
+}
+
 export type SearchResponseAll = SearchResponse<User | SetInfo | TrackInfo>
 
 export type SoundcloudResource = 'tracks' | 'people' | 'albums' | 'playlists'
@@ -23,7 +30,7 @@ export const search = async (type: SoundcloudResource | 'all', query: string, cl
 }
 
 /** @internal */
-export const related = async <T extends TrackInfo | User | SetInfo> (type: SoundcloudResource, id: number, limit = 10, offset = 0, clientID: string): Promise<SearchResponse<T>> => {
+export const related = async <T extends TrackInfo | User | SetInfo> (type: SoundcloudResource, id: number, limit = 10, offset = 0, clientID: string): Promise<RelatedResponse<T>> => {
   const { data } = await axios.get(`https://api-v2.soundcloud.com/${type}/${id}/related?client_id=${clientID}&offset=${offset}&limit=${limit}`)
-  return data as SearchResponse<T>
+  return data as RelatedResponse<T>
 }

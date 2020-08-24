@@ -212,7 +212,7 @@ var SCDL = /** @class */ (function () {
     };
     /**
      * Searches for tracks/playlists for the given query
-     * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'sets', 'all'
+     * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'playlists', 'all'
      * @param query - The keywords for the search
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns SearchResponse
@@ -225,6 +225,29 @@ var SCDL = /** @class */ (function () {
                     case 0:
                         _a = search_1.search;
                         _b = [type, query];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
+    };
+    /**
+     * Finds related tracks/playlists/albums to the given track/playlist/album specified by ID
+     * @param type - 'tracks', 'people', 'albums', 'playlists'
+     * @param id - The ID of the resource
+     * @param limit - The number of results to return
+     * @param offset - Used for pagination, set to 0 if you will not use this feature.
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
+     */
+    SCDL.prototype.related = function (type, id, limit, offset, clientID) {
+        if (offset === void 0) { offset = 0; }
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = search_1.related;
+                        _b = [type, id, limit, offset];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }

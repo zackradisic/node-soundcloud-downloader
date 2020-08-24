@@ -8,7 +8,7 @@ import isValidURL from './is-url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
-import { search, SoundcloudResource } from './search'
+import { search, related, SoundcloudResource } from './search'
 
 /** @internal */
 const download = async (url: string, clientID: string) => {
@@ -95,13 +95,25 @@ export class SCDL {
 
   /**
    * Searches for tracks/playlists for the given query
-   * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'sets', 'all'
+   * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'playlists', 'all'
    * @param query - The keywords for the search
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns SearchResponse
    */
   async search (type: SoundcloudResource | 'all', query: string, clientID?: string) {
     return search(type, query, await this._assignClientID(clientID))
+  }
+
+  /**
+   * Finds related tracks/playlists/albums to the given track/playlist/album specified by ID
+   * @param type - 'tracks', 'people', 'albums', 'playlists'
+   * @param id - The ID of the resource
+   * @param limit - The number of results to return
+   * @param offset - Used for pagination, set to 0 if you will not use this feature.
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
+   */
+  async related (type: SoundcloudResource, id: number, limit: number, offset = 0, clientID?: string) {
+    return related(type, id, limit, offset, await this._assignClientID(clientID))
   }
 
   /**
