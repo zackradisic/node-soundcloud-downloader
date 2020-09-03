@@ -10,7 +10,7 @@ describe('related()', () => {
 
   beforeAll(async () => {
     try {
-      searchResponse = await scdl.related('tracks', 170286204, limit, 0)
+      searchResponse = await scdl.related(170286204, limit, 0)
     } catch (err) {
       console.log(err)
       process.exit(1)
@@ -25,10 +25,9 @@ describe('related()', () => {
     expect(searchResponse.collection.length).toEqual(limit)
   })
 
-  it('resource returned corresponds to type parameter', () => {
+  it('returns a valid track object', () => {
     searchResponse.collection.forEach(track => {
-      expect(track.title).toBeDefined()
-      expect(track.media).toBeDefined()
+      expect(track.kind).toEqual('track')
     })
   })
 })
