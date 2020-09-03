@@ -49,7 +49,7 @@ exports.search = function (type, query, clientID) { return __awaiter(void 0, voi
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1["default"].get("" + baseURL + (type === 'all' ? '' : "/" + type + "/") + "?client_id=" + clientID + "&q=" + query)];
+            case 0: return [4 /*yield*/, axios_1["default"].get("" + baseURL + (type === 'all' ? '' : "/" + type) + "?client_id=" + clientID + "&q=" + query)];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];
@@ -57,14 +57,14 @@ exports.search = function (type, query, clientID) { return __awaiter(void 0, voi
     });
 }); };
 /** @internal */
-exports.related = function (type, id, limit, offset, clientID) {
+exports.related = function (id, limit, offset, clientID) {
     if (limit === void 0) { limit = 10; }
     if (offset === void 0) { offset = 0; }
     return __awaiter(void 0, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get("https://api-v2.soundcloud.com/" + type + "/" + id + "/related?client_id=" + clientID + "&offset=" + offset + "&limit=" + limit)];
+                case 0: return [4 /*yield*/, axios_1["default"].get("https://api-v2.soundcloud.com/tracks/" + id + "/related?client_id=" + clientID + "&offset=" + offset + "&limit=" + limit)];
                 case 1:
                     data = (_a.sent()).data;
                     return [2 /*return*/, data];

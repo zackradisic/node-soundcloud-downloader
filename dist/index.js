@@ -192,7 +192,6 @@ var SCDL = /** @class */ (function () {
     /**
      * Returns info about the given set
      * @param url - URL of the Soundcloud set
-     * @param full - Defaults to false. Whether or not to retrieve all info for every track in the set. Note: This is done track by track and can be quite slow if there are a large amount of tracks in the set.
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns Info about the set
      */
@@ -212,7 +211,7 @@ var SCDL = /** @class */ (function () {
     };
     /**
      * Searches for tracks/playlists for the given query
-     * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'playlists', 'all'
+     * @param type - The type of resource, one of: 'tracks', 'users', 'albums', 'playlists', 'all'
      * @param query - The keywords for the search
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      * @returns SearchResponse
@@ -232,14 +231,13 @@ var SCDL = /** @class */ (function () {
         });
     };
     /**
-     * Finds related tracks/playlists/albums to the given track/playlist/album specified by ID
-     * @param type - 'tracks', 'people', 'albums', 'playlists'
-     * @param id - The ID of the resource
+     * Finds related tracks to the given track specified by ID
+     * @param id - The ID of the track
      * @param limit - The number of results to return
      * @param offset - Used for pagination, set to 0 if you will not use this feature.
      * @param clientID - A Soundcloud Client ID, will find one if not provided
      */
-    SCDL.prototype.related = function (type, id, limit, offset, clientID) {
+    SCDL.prototype.related = function (id, limit, offset, clientID) {
         if (offset === void 0) { offset = 0; }
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
@@ -247,7 +245,7 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = search_1.related;
-                        _b = [type, id, limit, offset];
+                        _b = [id, limit, offset];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
