@@ -13,6 +13,13 @@ npm install soundcloud-downloader
 
 I couldn't find any packages that worked with a Discord bot I was working on so I created my own.
 
+#### Features
+- Extremely fast (interacts directly with the Soundcloud API)
+- Download/manipulate audio from Soundcloud (it is returned as a [stream](https://nodejs.org/api/stream.html))
+- Get information about [tracks](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo) and [playlists](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getsetinfo)
+- [Filter](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#filtermedia) and [download](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#downloadformat) specific formats
+
+#### Table of Contents
 - [API](#api)
 - [Examples](#examples)
 - [Obtaining a Client ID](#client-id)
