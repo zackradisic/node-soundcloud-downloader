@@ -18,6 +18,7 @@ I couldn't find any packages that worked with a Discord bot I was working on so 
 - Download/manipulate audio from Soundcloud (it is returned as a [stream](https://nodejs.org/api/stream.html))
 - Get information about [tracks](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getinfo) and [playlists](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#getsetinfo)
 - [Filter](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#filtermedia) and [download](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#downloadformat) specific formats
+- [Search](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#search) and find [related](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html#related) tracks/playlists/albums/users
 
 #### Table of Contents
 - [API](#api)
