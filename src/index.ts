@@ -94,7 +94,7 @@ export class SCDL {
 
   /**
    * Searches for tracks/playlists for the given query
-   * @param type - The type of resource, one of: 'tracks', 'people', 'albums', 'playlists', 'all'
+   * @param type - The type of resource, one of: 'tracks', 'users', 'albums', 'playlists', 'all'
    * @param query - The keywords for the search
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns SearchResponse
@@ -104,15 +104,14 @@ export class SCDL {
   }
 
   /**
-   * Finds related tracks/playlists/albums to the given track/playlist/album specified by ID
-   * @param type - 'tracks', 'people', 'albums', 'playlists'
-   * @param id - The ID of the resource
+   * Finds related tracks to the given track specified by ID
+   * @param id - The ID of the track
    * @param limit - The number of results to return
    * @param offset - Used for pagination, set to 0 if you will not use this feature.
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    */
-  async related (type: SoundcloudResource, id: number, limit: number, offset = 0, clientID?: string) {
-    return related(type, id, limit, offset, await this._assignClientID(clientID))
+  async related (id: number, limit: number, offset = 0, clientID?: string) {
+    return related(id, limit, offset, await this._assignClientID(clientID))
   }
 
   /**
