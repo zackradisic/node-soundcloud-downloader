@@ -1,8 +1,8 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { getSetInfo, Transcoding, SetInfo, TrackInfo, getTrackInfoByID } from './info'
+import getInfo, { getSetInfo, Transcoding, getTrackInfoByID } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
-import { fromURL, fromMediaObj } from './download'
+import { fromMediaObj } from './download'
 
 import isValidURL from './is-url'
 
