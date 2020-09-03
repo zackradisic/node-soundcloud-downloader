@@ -85,7 +85,6 @@ export class SCDL {
   /**
    * Returns info about the given set
    * @param url - URL of the Soundcloud set
-   * @param full - Defaults to false. Whether or not to retrieve all info for every track in the set. Note: This is done track by track and can be quite slow if there are a large amount of tracks in the set.
    * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the set
    */
