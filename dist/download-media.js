@@ -54,7 +54,7 @@ var fromMedia = function (media, clientID) { return __awaiter(void 0, void 0, vo
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 5, , 6]);
-                link = media.url + "?client_id=" + clientID;
+                link = util_1.appendURL(media.url, 'client_id', clientID);
                 return [4 /*yield*/, axios_1["default"].get(link, {
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',

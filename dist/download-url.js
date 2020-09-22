@@ -49,7 +49,7 @@ var fromURL = function (url, clientID) { return __awaiter(void 0, void 0, void 0
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                link = url + "?client_id=" + clientID;
+                link = util_1.appendURL(url, 'client_id', clientID);
                 return [4 /*yield*/, axios_1["default"].get(link, {
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',

@@ -3,14 +3,14 @@
 import axios from 'axios'
 import m3u8stream from 'm3u8stream'
 import STREAMING_PROTOCOLS from './protocols'
-import { handleRequestErrs } from './util'
+import { handleRequestErrs, appendURL } from './util'
 import { Transcoding } from './info'
 
 const fromMedia = async (media: Transcoding, clientID: string): Promise<any | m3u8stream.Stream> => {
   if (!validatemedia) throw new Error('Invalid media object provided')
 
   try {
-    const link = `${media.url}?client_id=${clientID}`
+    const link = appendURL(media.url, 'client_id', clientID)
     const res = await axios.get(link, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',

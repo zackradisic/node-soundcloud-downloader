@@ -50,7 +50,7 @@ var getTrackInfoBase = function (clientID, axiosRef, ids) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, axiosRef.get("https://api-v2.soundcloud.com/tracks?ids=" + ids.join(',') + "&client_id=" + clientID)];
+                return [4 /*yield*/, axiosRef.get(util_1.appendURL('https://api-v2.soundcloud.com/tracks', 'ids', ids.join(','), 'client_id', clientID))];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];
@@ -68,7 +68,7 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, axiosRef.get("https://api-v2.soundcloud.com/resolve?url=" + url + "&client_id=" + clientID, {
+                return [4 /*yield*/, axiosRef.get(util_1.appendURL('https://api-v2.soundcloud.com/resolve', 'url', url, 'client_id', clientID), {
                         withCredentials: true
                     })];
             case 1:

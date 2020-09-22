@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import axios, { AxiosInstance } from 'axios'
-import { handleRequestErrs } from './util'
+import { handleRequestErrs, appendURL } from './util'
 
 import STREAMING_PROTOCOLS from './protocols'
 import FORMATS from './formats'
@@ -118,7 +118,7 @@ export interface Transcoding {
 /** @internal */
 const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[]): Promise<TrackInfo> => {
   try {
-    const { data } = await axiosRef.get(`https://api-v2.soundcloud.com/tracks?ids=${ids.join(',')}&client_id=${clientID}`)
+    const { data } = await axiosRef.get(appendURL('https://api-v2.soundcloud.com/tracks', 'ids', ids.join(','), 'client_id', clientID))
 
     return data as TrackInfo
   } catch (err) {
@@ -129,7 +129,7 @@ const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: 
 /** @internal */
 export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, clientID: string, axiosRef: AxiosInstance): Promise<T> => {
   try {
-    const res = await axiosRef.get(`https://api-v2.soundcloud.com/resolve?url=${url}&client_id=${clientID}`, {
+    const res = await axiosRef.get(appendURL('https://api-v2.soundcloud.com/resolve', 'url', url, 'client_id', clientID), {
       withCredentials: true
     })
 
