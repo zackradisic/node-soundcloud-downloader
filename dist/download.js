@@ -40,10 +40,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.fromMediaObj = exports.fromMediaObjBase = exports.fromURL = exports.fromURLBase = exports.getHLSStream = exports.getProgressiveStream = exports.getMediaURL = void 0;
+exports.download = exports.fromMediaObj = exports.fromMediaObjBase = exports.fromURL = exports.fromURLBase = exports.getHLSStream = exports.getProgressiveStream = exports.getMediaURL = void 0;
 var axios_1 = __importDefault(require("axios"));
 var m3u8stream_1 = __importDefault(require("m3u8stream"));
 var util_1 = require("./util");
+var info_1 = __importDefault(require("./info"));
 exports.getMediaURL = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var res;
     return __generator(this, function (_a) {
@@ -118,10 +119,27 @@ exports.fromMediaObjBase = function (media, clientID, getMediaURLFunction, getPr
 }); };
 exports.fromMediaObj = function (media, clientID) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
-        case 0: return [4 /*yield*/, exports.fromMediaObjBase(media, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, exports.fromURL, axios_1["default"])];
-        case 1: return [2 /*return*/, _a.sent()];
+        case 0: return [4 /*yield*/, exports.fromMediaObjBase(media, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, exports.fromURL, axios_1["default"])
+            /** @internal */
+        ];
+        case 1: return [2 /*return*/, _a.sent()
+            /** @internal */
+        ];
     }
 }); }); };
+/** @internal */
+exports.download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+    var info;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
+            case 1:
+                info = _a.sent();
+                return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID)];
+            case 2: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
 var validatemedia = function (media) {
     if (!media.url || !media.format)
         return false;

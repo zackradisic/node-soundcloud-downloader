@@ -3,7 +3,7 @@
 import axios, { AxiosInstance } from 'axios'
 import m3u8stream from 'm3u8stream'
 import { handleRequestErrs, appendURL } from './util'
-import { Transcoding } from './info'
+import getInfo, { Transcoding } from './info'
 
 export const getMediaURL = async (url: string, clientID: string, axiosInstance: AxiosInstance): Promise<string> => {
   const res = await axiosInstance.get(appendURL(url, 'client_id', clientID), {
@@ -66,6 +66,13 @@ export const fromMediaObjBase = async (media: Transcoding, clientID: string,
 }
 
 export const fromMediaObj = async (media: Transcoding, clientID: string) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axios)
+
+/** @internal */
+export const download = async (url: string, clientID: string) => {
+  const info = await getInfo(url, clientID)
+
+  return await fromMediaObj(info.media.transcodings[0], clientID)
+}
 
 const validatemedia = (media: Transcoding) => {
   if (!media.url || !media.format) return false

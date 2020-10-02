@@ -145,6 +145,9 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
   const setInfo = await getInfoBase<SetInfo>(url, clientID, axiosRef)
 
   const incompleteTracks = setInfo.tracks.filter(track => !track.title)
+  if (incompleteTracks.length === 0) {
+    return setInfo
+  }
   const completeTracks = setInfo.tracks.filter(track => track.title)
 
   const ids = incompleteTracks.map(t => t.id)
