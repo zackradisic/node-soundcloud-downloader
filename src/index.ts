@@ -2,20 +2,14 @@ import sckey from 'soundcloud-key-fetch'
 
 import getInfo, { getSetInfo, Transcoding, getTrackInfoByID } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
-import { fromMediaObj } from './download'
+import { download, fromMediaObj } from './download'
 
 import isValidURL from './is-url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
 import { search, related, SoundcloudResource } from './search'
-
-/** @internal */
-const download = async (url: string, clientID: string) => {
-  const info = await getInfo(url, clientID)
-
-  return await fromMediaObj(info.media.transcodings[0], clientID)
-}
+import { downloadPlaylist } from './download-playlist'
 
 /** @internal */
 const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
@@ -112,6 +106,15 @@ export class SCDL {
    */
   async related (id: number, limit: number, offset = 0, clientID?: string) {
     return related(id, limit, offset, await this._assignClientID(clientID))
+  }
+
+  /**
+   * Returns the audio streams and titles of the tracks in the given playlist.
+   * @param url - The url of the playlist
+   * @param clientID - A Soundcloud Client ID, will find one if not provided
+   */
+  async downloadPlaylist (url: string, clientID?: string): Promise<[ReadableStream<any>[], String[]]> {
+    return downloadPlaylist(url, await this._assignClientID(clientID))
   }
 
   /**

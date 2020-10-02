@@ -91,6 +91,9 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
             case 1:
                 setInfo = _a.sent();
                 incompleteTracks = setInfo.tracks.filter(function (track) { return !track.title; });
+                if (incompleteTracks.length === 0) {
+                    return [2 /*return*/, setInfo];
+                }
                 completeTracks = setInfo.tracks.filter(function (track) { return track.title; });
                 ids = incompleteTracks.map(function (t) { return t.id; });
                 return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids)];

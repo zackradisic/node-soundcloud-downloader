@@ -67,19 +67,7 @@ var is_url_1 = __importDefault(require("./is-url"));
 var protocols_1 = require("./protocols");
 var formats_1 = require("./formats");
 var search_1 = require("./search");
-/** @internal */
-var download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
-    var info;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
-            case 1:
-                info = _a.sent();
-                return [4 /*yield*/, download_1.fromMediaObj(info.media.transcodings[0], clientID)];
-            case 2: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
+var download_playlist_1 = require("./download-playlist");
 /** @internal */
 var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
@@ -121,7 +109,7 @@ var SCDL = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        _a = download;
+                        _a = download_1.download;
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
@@ -246,6 +234,25 @@ var SCDL = /** @class */ (function () {
                     case 0:
                         _a = search_1.related;
                         _b = [id, limit, offset];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
+    };
+    /**
+     * Returns the audio streams and titles of the tracks in the given playlist.
+     * @param url - The url of the playlist
+     * @param clientID - A Soundcloud Client ID, will find one if not provided
+     */
+    SCDL.prototype.downloadPlaylist = function (url, clientID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = download_playlist_1.downloadPlaylist;
+                        _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }

@@ -11,7 +11,6 @@ describe('getSetInfo()', () => {
     beforeAll(async () => {
       try {
         info = await scdl.getSetInfo('https://soundcloud.com/user-845046062/sets/playlist')
-        console.log(info.tracks.length)
       } catch (err) {
         console.log(err)
         process.exit(1)
