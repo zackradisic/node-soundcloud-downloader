@@ -1,6 +1,6 @@
 {
   "name": "soundcloud-downloader",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Download Soundcloud audio with Node.js",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -51,8 +51,5 @@
     "jest": "^26.0.1",
     "typedoc": "^0.17.8",
     "typescript": "^4.0.2"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@zackradisic"
   }
 }
