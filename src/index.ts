@@ -10,6 +10,8 @@ import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
 import { search, related, SoundcloudResource } from './search'
 import { downloadPlaylist } from './download-playlist'
+import { AxiosInstance } from 'axios'
+import { axiosManager } from './axios'
 
 /** @internal */
 const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
@@ -24,6 +26,7 @@ export class SCDL {
   FORMATS: { [key: string]: FORMATS }
 
   private _clientID?: string
+  axios: AxiosInstance
 
   /**
    * Returns a media Transcoding that matches the given predicate object
@@ -115,6 +118,15 @@ export class SCDL {
    */
   async downloadPlaylist (url: string, clientID?: string): Promise<[ReadableStream<any>[], String[]]> {
     return downloadPlaylist(url, await this._assignClientID(clientID))
+  }
+
+  /**
+   * Sets the instance of Axios to use to make requests to SoundCloud API
+   * @param instance - An instance of Axios
+   */
+  setAxiosInstance (instance: AxiosInstance) {
+    this.axios = instance
+    axiosManager.instance = instance
   }
 
   /**

@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
-import axios, { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios'
+import { axiosManager } from './axios'
 import { handleRequestErrs, appendURL } from './util'
 
 import STREAMING_PROTOCOLS from './protocols'
@@ -159,20 +160,20 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
 
 /** @internal */
 const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
-  const data = await getInfoBase<TrackInfo>(url, clientID, axios)
+  const data = await getInfoBase<TrackInfo>(url, clientID, axiosManager.instance)
   if (!data.media) throw new Error('The given URL does not link to a Soundcloud track')
   return data
 }
 
 /** @internal */
 export const getSetInfo = async (url: string, clientID: string): Promise<SetInfo> => {
-  const data = await getSetInfoBase(url, clientID, axios)
+  const data = await getSetInfoBase(url, clientID, axiosManager.instance)
   if (!data.tracks) throw new Error('The given URL does not link to a Soundcloud set')
   return data
 }
 
 /** @intenral */
 export const getTrackInfoByID = async (clientID: string, ids: number[]) => {
-  return await getTrackInfoBase(clientID, axios, ids)
+  return await getTrackInfoBase(clientID, axiosManager.instance, ids)
 }
 export default getInfo

@@ -1,6 +1,7 @@
 /** @internal @packageDocumentation */
 
-import axios, { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios'
+import { axiosManager } from './axios'
 import m3u8stream from 'm3u8stream'
 import { handleRequestErrs, appendURL } from './util'
 import getInfo, { Transcoding } from './info'
@@ -53,7 +54,7 @@ export const fromURLBase: fromURLFunctionBase = async (url: string, clientID: st
   }
 }
 
-export const fromURL = async (url: string, clientID: string): Promise<any | m3u8stream.Stream> => await fromURLBase(url, clientID, getMediaURL, getProgressiveStream, getHLSStream, axios)
+export const fromURL = async (url: string, clientID: string): Promise<any | m3u8stream.Stream> => await fromURLBase(url, clientID, getMediaURL, getProgressiveStream, getHLSStream, axiosManager.instance)
 
 export const fromMediaObjBase = async (media: Transcoding, clientID: string,
   getMediaURLFunction: (url: string, clientID: string, axiosInstance: AxiosInstance) => Promise<string>,
@@ -65,7 +66,7 @@ export const fromMediaObjBase = async (media: Transcoding, clientID: string,
   return await fromURLFunction(media.url, clientID, getMediaURLFunction, getProgressiveStreamFunction, getHLSStreamFunction, axiosInstance)
 }
 
-export const fromMediaObj = async (media: Transcoding, clientID: string) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axios)
+export const fromMediaObj = async (media: Transcoding, clientID: string) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axiosManager.instance)
 
 /** @internal */
 export const download = async (url: string, clientID: string) => {
