@@ -35,13 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 exports.related = exports.search = void 0;
 /* eslint-disable camelcase */
-var axios_1 = __importDefault(require("axios"));
+var axios_1 = require("./axios");
 var util_1 = require("./util");
 /** @internal */
 var baseURL = 'https://api-v2.soundcloud.com/search';
@@ -50,7 +47,7 @@ exports.search = function (type, query, clientID) { return __awaiter(void 0, voi
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1["default"].get(util_1.appendURL("" + baseURL + (type === 'all' ? '' : "/" + type), 'client_id', clientID, 'q', query))];
+            case 0: return [4 /*yield*/, axios_1.axiosManager.instance.get(util_1.appendURL("" + baseURL + (type === 'all' ? '' : "/" + type), 'client_id', clientID, 'q', query))];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];
@@ -65,7 +62,7 @@ exports.related = function (id, limit, offset, clientID) {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1["default"].get(util_1.appendURL("https://api-v2.soundcloud.com/tracks/" + id + "/related", 'client_id', clientID, 'offset', '' + offset, 'limit', '' + limit))];
+                case 0: return [4 /*yield*/, axios_1.axiosManager.instance.get(util_1.appendURL("https://api-v2.soundcloud.com/tracks/" + id + "/related", 'client_id', clientID, 'offset', '' + offset, 'limit', '' + limit))];
                 case 1:
                     data = (_a.sent()).data;
                     return [2 /*return*/, data];

@@ -68,6 +68,7 @@ var protocols_1 = require("./protocols");
 var formats_1 = require("./formats");
 var search_1 = require("./search");
 var download_playlist_1 = require("./download-playlist");
+var axios_1 = require("./axios");
 /** @internal */
 var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
@@ -258,6 +259,14 @@ var SCDL = /** @class */ (function () {
                 }
             });
         });
+    };
+    /**
+     * Sets the instance of Axios to use to make requests to SoundCloud API
+     * @param instance - An instance of Axios
+     */
+    SCDL.prototype.setAxiosInstance = function (instance) {
+        this.axios = instance;
+        axios_1.axiosManager.instance = instance;
     };
     /**
      * Returns whether or not the given URL is a valid Soundcloud URL

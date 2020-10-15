@@ -35,13 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 exports.getTrackInfoByID = exports.getSetInfo = exports.getInfoBase = void 0;
-/* eslint-disable camelcase */
-var axios_1 = __importDefault(require("axios"));
+var axios_1 = require("./axios");
 var util_1 = require("./util");
 /** @internal */
 var getTrackInfoBase = function (clientID, axiosRef, ids) { return __awaiter(void 0, void 0, void 0, function () {
@@ -109,7 +105,7 @@ var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1["default"])];
+            case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1.axiosManager.instance)];
             case 1:
                 data = _a.sent();
                 if (!data.media)
@@ -123,7 +119,7 @@ exports.getSetInfo = function (url, clientID) { return __awaiter(void 0, void 0,
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getSetInfoBase(url, clientID, axios_1["default"])];
+            case 0: return [4 /*yield*/, getSetInfoBase(url, clientID, axios_1.axiosManager.instance)];
             case 1:
                 data = _a.sent();
                 if (!data.tracks)
@@ -136,7 +132,7 @@ exports.getSetInfo = function (url, clientID) { return __awaiter(void 0, void 0,
 exports.getTrackInfoByID = function (clientID, ids) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getTrackInfoBase(clientID, axios_1["default"], ids)];
+            case 0: return [4 /*yield*/, getTrackInfoBase(clientID, axios_1.axiosManager.instance, ids)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });

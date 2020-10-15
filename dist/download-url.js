@@ -40,7 +40,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var axios_1 = __importDefault(require("axios"));
+var axios_1 = require("./axios");
 var m3u8stream_1 = __importDefault(require("m3u8stream"));
 var util_1 = require("./util");
 var fromURL = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
@@ -50,7 +50,7 @@ var fromURL = function (url, clientID) { return __awaiter(void 0, void 0, void 0
             case 0:
                 _a.trys.push([0, 4, , 5]);
                 link = util_1.appendURL(url, 'client_id', clientID);
-                return [4 /*yield*/, axios_1["default"].get(link, {
+                return [4 /*yield*/, axios_1.axiosManager.instance.get(link, {
                         headers: {
                             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36',
                             Accept: '*/*',
@@ -63,7 +63,7 @@ var fromURL = function (url, clientID) { return __awaiter(void 0, void 0, void 0
                 if (!res.data.url)
                     throw new Error("Invalid response from Soundcloud. Check if the URL provided is correct: " + link);
                 if (!url.includes('/progressive')) return [3 /*break*/, 3];
-                return [4 /*yield*/, axios_1["default"].get(res.data.url, {
+                return [4 /*yield*/, axios_1.axiosManager.instance.get(res.data.url, {
                         withCredentials: true,
                         responseType: 'stream'
                     })];
