@@ -51,7 +51,7 @@ scdl.download(SOUNDCLOUD_URL, CLIENT_ID).then(stream => stream.pipe(fs.createWri
 You can do anything you like with the stream that is returned, an example with [Discord.js](https://github.com/discordjs/discord.js/):
 ```javascript
 const client = new Discord.Client()
-const url = 'https://soundcloud.com/monsune_inc/outta-my-mind'
+const url = 'https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the'
 const clientID = 'asdlkajasd'
 const channelID = '123456789'
 client.on('ready', () => {

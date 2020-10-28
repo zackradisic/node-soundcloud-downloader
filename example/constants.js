@@ -1,4 +1,4 @@
 module.exports = {
-  url: 'https://soundcloud.com/monsune_inc/outta-my-mind',
+  url: 'URL TO A TRACK',
   clientID: process.env.CLIENT_ID // remember that client ID is optional
 }
