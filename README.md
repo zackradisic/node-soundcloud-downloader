@@ -83,3 +83,8 @@ If I have the time and there is enough demand, I am interested in implementing t
 - Some more integrations with Discord.js like selecting best format for voice channels
 
 If you have any feature requests, suggestions or questions do not hesistate to post them in the issues section
+
+## Disclaimer
+I do not support piracy and this package is not designed for circumventing the technological measures employed
+by SoundCloud preventing unauthorized access to copyrighted works. This package is only for downloading
+audio you have access to.
