@@ -80,20 +80,42 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
 }); };
 /** @internal */
 var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
-    var setInfo, incompleteTracks, completeTracks, ids, info;
+    var setInfo, incompleteTracks, completeTracks, ids, splitIds, x, x, i, promises, info_1, info;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axiosRef)];
             case 1:
                 setInfo = _a.sent();
                 incompleteTracks = setInfo.tracks.filter(function (track) { return !track.title; });
+                console.log('test');
                 if (incompleteTracks.length === 0) {
                     return [2 /*return*/, setInfo];
                 }
                 completeTracks = setInfo.tracks.filter(function (track) { return track.title; });
                 ids = incompleteTracks.map(function (t) { return t.id; });
-                return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids)];
+                console.log(ids.length);
+                if (!(ids.length > 50)) return [3 /*break*/, 3];
+                splitIds = [];
+                for (x = 0; x <= Math.floor(ids.length / 50); x++) {
+                    splitIds.push([]);
+                }
+                for (x = 0; x < ids.length; x++) {
+                    i = Math.floor(x / 50);
+                    splitIds[i].push(ids[x]);
+                }
+                promises = splitIds.map(function (ids) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids)];
+                        case 1: return [2 /*return*/, _a.sent()];
+                    }
+                }); }); });
+                return [4 /*yield*/, Promise.all(promises)];
             case 2:
+                info_1 = _a.sent();
+                setInfo.tracks = completeTracks.concat.apply(completeTracks, info_1);
+                return [2 /*return*/, setInfo];
+            case 3: return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids)];
+            case 4:
                 info = _a.sent();
                 setInfo.tracks = completeTracks.concat(info);
                 return [2 /*return*/, setInfo];

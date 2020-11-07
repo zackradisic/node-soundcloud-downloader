@@ -152,6 +152,22 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
   const completeTracks = setInfo.tracks.filter(track => track.title)
 
   const ids = incompleteTracks.map(t => t.id)
+  if (ids.length > 50) {
+    const splitIds = []
+    for (let x = 0; x <= Math.floor(ids.length / 50); x++) {
+      splitIds.push([])
+    }
+
+    for (let x = 0; x < ids.length; x++) {
+      const i = Math.floor(x / 50)
+      splitIds[i].push(ids[x])
+    }
+
+    const promises = splitIds.map(async ids => await getTrackInfoByID(clientID, ids))
+    const info = await Promise.all(promises)
+    setInfo.tracks = completeTracks.concat(...info)
+    return setInfo
+  }
   const info = await getTrackInfoByID(clientID, ids)
 
   setInfo.tracks = completeTracks.concat(info)
