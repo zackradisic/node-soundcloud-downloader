@@ -6,6 +6,6 @@ scdl
   .downloadPlaylist('URL TO PLAYLIST')
   .then(([streams, trackNames]) => {
     streams.forEach((val, idx) => {
-      val.pipe(fs.createWriteStream(path.join('/Users/zackradisic/Desktop/sc-test', trackNames[idx] + '.mp3')))
+      val.pipe(fs.createWriteStream(path.join('/path/to/folder/', trackNames[idx] + '.mp3')))
     })
   })
