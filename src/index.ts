@@ -35,7 +35,7 @@ export class SCDL {
 
   private _clientID?: string
   axios: AxiosInstance
-  saveClientID = process.env.SAVE_CLIENT_ID.toLowerCase() === 'true'
+  saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false
 
   /**
    * Returns a media Transcoding that matches the given predicate object
