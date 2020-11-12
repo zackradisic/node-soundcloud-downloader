@@ -87,13 +87,11 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
             case 1:
                 setInfo = _a.sent();
                 incompleteTracks = setInfo.tracks.filter(function (track) { return !track.title; });
-                console.log('test');
                 if (incompleteTracks.length === 0) {
                     return [2 /*return*/, setInfo];
                 }
                 completeTracks = setInfo.tracks.filter(function (track) { return track.title; });
                 ids = incompleteTracks.map(function (t) { return t.id; });
-                console.log(ids.length);
                 if (!(ids.length > 50)) return [3 /*break*/, 3];
                 splitIds = [];
                 for (x = 0; x <= Math.floor(ids.length / 50); x++) {

@@ -69,6 +69,8 @@ var formats_1 = require("./formats");
 var search_1 = require("./search");
 var download_playlist_1 = require("./download-playlist");
 var axios_1 = require("./axios");
+var path = __importStar(require("path"));
+var fs = __importStar(require("fs"));
 /** @internal */
 var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
@@ -87,6 +89,7 @@ var downloadFormat = function (url, clientID, format) { return __awaiter(void 0,
 }); };
 var SCDL = /** @class */ (function () {
     function SCDL() {
+        this.saveClientID = process.env.SAVE_CLIENT_ID.toLowerCase() === 'true';
     }
     /**
      * Returns a media Transcoding that matches the given predicate object
@@ -278,20 +281,85 @@ var SCDL = /** @class */ (function () {
     /** @internal */
     SCDL.prototype._assignClientID = function (clientID) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var filename, c, _a, data, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        if (!!clientID) return [3 /*break*/, 3];
-                        if (!!this._clientID) return [3 /*break*/, 2];
+                        if (!!clientID) return [3 /*break*/, 8];
+                        if (!!this._clientID) return [3 /*break*/, 7];
+                        if (!this.saveClientID) return [3 /*break*/, 5];
+                        console.log('shit');
+                        filename = path.resolve(__dirname, '../client_id.json');
+                        return [4 /*yield*/, this._getClientIDFromFile(filename)];
+                    case 1:
+                        c = _c.sent();
+                        if (!!c) return [3 /*break*/, 3];
                         _a = this;
                         return [4 /*yield*/, soundcloud_key_fetch_1["default"].fetchKey()];
-                    case 1:
-                        _a._clientID = _b.sent();
-                        _b.label = 2;
-                    case 2: return [2 /*return*/, this._clientID];
-                    case 3: return [2 /*return*/, clientID];
+                    case 2:
+                        _a._clientID = _c.sent();
+                        data = {
+                            clientID: this._clientID,
+                            date: new Date().toISOString()
+                        };
+                        fs.writeFile(filename, JSON.stringify(data), {}, function (err) {
+                            if (err)
+                                console.log('Failed to save client_id to file: ' + err);
+                        });
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this._clientID = c;
+                        _c.label = 4;
+                    case 4: return [3 /*break*/, 7];
+                    case 5:
+                        _b = this;
+                        return [4 /*yield*/, soundcloud_key_fetch_1["default"].fetchKey()];
+                    case 6:
+                        _b._clientID = _c.sent();
+                        _c.label = 7;
+                    case 7: return [2 /*return*/, this._clientID];
+                    case 8: return [2 /*return*/, clientID];
                 }
+            });
+        });
+    };
+    /** @internal */
+    SCDL.prototype._getClientIDFromFile = function (filename) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        if (!fs.existsSync(filename))
+                            return resolve('');
+                        fs.readFile(filename, 'utf8', function (err, data) {
+                            if (err)
+                                return reject(err);
+                            var c;
+                            try {
+                                c = JSON.parse(data);
+                            }
+                            catch (err) {
+                                return reject(err);
+                            }
+                            if (!c.date && !c.clientID)
+                                return reject(new Error("Property 'data' or 'clientID' missing from client_id.json"));
+                            if (typeof c.clientID !== 'string')
+                                return reject(new Error("Property 'clientID' is not a string in client_id.json"));
+                            if (typeof c.date !== 'string')
+                                return reject(new Error("Property 'date' is not a string in client_id.json"));
+                            var d = new Date(c.date);
+                            if (!d.getDay())
+                                return reject(new Error("Invalid date object from 'date' in client_id.json"));
+                            var dayMs = 60 * 60 * 24 * 1000;
+                            if (new Date().getMilliseconds() - d.getMilliseconds() >= dayMs) {
+                                // Older than a day, delete
+                                fs.unlink(filename, function (err) { return console.log('Failed to delete client_id.json: ' + err); });
+                                return resolve('');
+                            }
+                            else {
+                                return resolve(c.clientID);
+                            }
+                        });
+                    })];
             });
         });
     };

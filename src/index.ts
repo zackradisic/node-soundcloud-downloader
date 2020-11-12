@@ -13,6 +13,9 @@ import { downloadPlaylist } from './download-playlist'
 import { AxiosInstance } from 'axios'
 import { axiosManager } from './axios'
 
+import * as path from 'path'
+import * as fs from 'fs'
+
 /** @internal */
 const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
   const info = await getInfo(url, clientID)
@@ -21,12 +24,18 @@ const downloadFormat = async (url: string, clientID: string, format: FORMATS) =>
   return await fromMediaObj(filtered[0], clientID)
 }
 
+interface ClientIDData {
+  clientID: string,
+  date: Date
+}
+
 export class SCDL {
   STREAMING_PROTOCOLS: { [key: string]: STREAMING_PROTOCOLS }
   FORMATS: { [key: string]: FORMATS }
 
   private _clientID?: string
   axios: AxiosInstance
+  saveClientID = process.env.SAVE_CLIENT_ID.toLowerCase() === 'true'
 
   /**
    * Returns a media Transcoding that matches the given predicate object
@@ -141,13 +150,61 @@ export class SCDL {
   private async _assignClientID (clientID?: string): Promise<string> {
     if (!clientID) {
       if (!this._clientID) {
-        this._clientID = await sckey.fetchKey()
+        if (this.saveClientID) {
+          const filename = path.resolve(__dirname, '../client_id.json')
+          const c = await this._getClientIDFromFile(filename)
+          if (!c) {
+            this._clientID = await sckey.fetchKey()
+            const data = {
+              clientID: this._clientID,
+              date: new Date().toISOString()
+            }
+            fs.writeFile(filename, JSON.stringify(data), {}, err => {
+              if (err) console.log('Failed to save client_id to file: ' + err)
+            })
+          } else {
+            this._clientID = c
+          }
+        } else {
+          this._clientID = await sckey.fetchKey()
+        }
       }
 
       return this._clientID
     }
 
     return clientID
+  }
+
+  /** @internal */
+  private async _getClientIDFromFile (filename: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      if (!fs.existsSync(filename)) return resolve('')
+
+      fs.readFile(filename, 'utf8', (err: NodeJS.ErrnoException, data: string) => {
+        if (err) return reject(err)
+        let c: ClientIDData
+        try {
+          c = JSON.parse(data)
+        } catch (err) {
+          return reject(err)
+        }
+
+        if (!c.date && !c.clientID) return reject(new Error("Property 'data' or 'clientID' missing from client_id.json"))
+        if (typeof c.clientID !== 'string') return reject(new Error("Property 'clientID' is not a string in client_id.json"))
+        if (typeof c.date !== 'string') return reject(new Error("Property 'date' is not a string in client_id.json"))
+        const d = new Date(c.date)
+        if (!d.getDay()) return reject(new Error("Invalid date object from 'date' in client_id.json"))
+        const dayMs = 60 * 60 * 24 * 1000
+        if (new Date().getMilliseconds() - d.getMilliseconds() >= dayMs) {
+          // Older than a day, delete
+          fs.unlink(filename, err => console.log('Failed to delete client_id.json: ' + err))
+          return resolve('')
+        } else {
+          return resolve(c.clientID)
+        }
+      })
+    })
   }
 }
 const scdl = new SCDL()
