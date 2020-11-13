@@ -89,7 +89,7 @@ var downloadFormat = function (url, clientID, format) { return __awaiter(void 0,
 }); };
 var SCDL = /** @class */ (function () {
     function SCDL() {
-        this.saveClientID = process.env.SAVE_CLIENT_ID.toLowerCase() === 'true';
+        this.saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false;
     }
     /**
      * Returns a media Transcoding that matches the given predicate object
@@ -288,7 +288,6 @@ var SCDL = /** @class */ (function () {
                         if (!!clientID) return [3 /*break*/, 8];
                         if (!!this._clientID) return [3 /*break*/, 7];
                         if (!this.saveClientID) return [3 /*break*/, 5];
-                        console.log('shit');
                         filename = path.resolve(__dirname, '../client_id.json');
                         return [4 /*yield*/, this._getClientIDFromFile(filename)];
                     case 1:
