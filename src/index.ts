@@ -173,6 +173,8 @@ export class SCDL {
       return this._clientID
     }
 
+    this._clientID = clientID
+
     return clientID
   }
 
