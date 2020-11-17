@@ -1,4 +1,4 @@
-# node-soundcloud-downloader
+![node-soundcloud-downloader](https://socialify.git.ci/zackradisic/node-soundcloud-downloader/image?font=Raleway&language=1&owner=1&stargazers=1&theme=Dark)
 
 
 [![Zack Radisic](https://img.shields.io/badge/Author-Zack%20Radisic-green)](https://github.com/zackradisic)
