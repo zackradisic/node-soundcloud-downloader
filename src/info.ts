@@ -144,7 +144,7 @@ export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, cl
 /** @internal */
 const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInstance): Promise<SetInfo> => {
   const setInfo = await getInfoBase<SetInfo>(url, clientID, axiosRef)
-
+  const temp = [...setInfo.tracks].map(track => track.id)
   const incompleteTracks = setInfo.tracks.filter(track => !track.title)
   if (incompleteTracks.length === 0) {
     return setInfo
@@ -171,7 +171,25 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
   const info = await getTrackInfoByID(clientID, ids)
 
   setInfo.tracks = completeTracks.concat(info)
+  setInfo.tracks = sortTracks(setInfo.tracks, temp)
   return setInfo
+}
+
+/** @internal */
+const sortTracks = (tracks: TrackInfo[], ids: number[]): TrackInfo[] => {
+  for (let i = 0; i < ids.length; i++) {
+    if (tracks[i].id !== ids[i]) {
+      for (let j = 0; j < tracks.length; j++) {
+        if (tracks[j].id === ids[i]) {
+          const temp = tracks[i]
+          tracks[i] = tracks[j]
+          tracks[j] = temp
+        }
+      }
+    }
+  }
+
+  return tracks
 }
 
 /** @internal */

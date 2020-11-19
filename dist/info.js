@@ -35,6 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 exports.getTrackInfoByID = exports.getSetInfo = exports.getInfoBase = void 0;
 var axios_1 = require("./axios");
@@ -80,12 +87,13 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
 }); };
 /** @internal */
 var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
-    var setInfo, incompleteTracks, completeTracks, ids, splitIds, x, x, i, promises, info_1, info;
+    var setInfo, temp, incompleteTracks, completeTracks, ids, splitIds, x, x, i, promises, info_1, info;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axiosRef)];
             case 1:
                 setInfo = _a.sent();
+                temp = __spreadArrays(setInfo.tracks).map(function (track) { return track.id; });
                 incompleteTracks = setInfo.tracks.filter(function (track) { return !track.title; });
                 if (incompleteTracks.length === 0) {
                     return [2 /*return*/, setInfo];
@@ -116,10 +124,26 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
             case 4:
                 info = _a.sent();
                 setInfo.tracks = completeTracks.concat(info);
+                // setInfo.tracks = sortTracks(setInfo.tracks, temp)
                 return [2 /*return*/, setInfo];
         }
     });
 }); };
+/** @internal */
+var sortTracks = function (tracks, ids) {
+    for (var i = 0; i < ids.length; i++) {
+        if (tracks[i].id !== ids[i]) {
+            for (var j = 0; j < tracks.length; j++) {
+                if (tracks[j].id === ids[i]) {
+                    var temp = tracks[i];
+                    tracks[i] = tracks[j];
+                    tracks[j] = temp;
+                }
+            }
+        }
+    }
+    return tracks;
+};
 /** @internal */
 var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     var data;

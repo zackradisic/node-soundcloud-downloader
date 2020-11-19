@@ -317,7 +317,9 @@ var SCDL = /** @class */ (function () {
                         _b._clientID = _c.sent();
                         _c.label = 7;
                     case 7: return [2 /*return*/, this._clientID];
-                    case 8: return [2 /*return*/, clientID];
+                    case 8:
+                        this._clientID = clientID;
+                        return [2 /*return*/, clientID];
                 }
             });
         });
