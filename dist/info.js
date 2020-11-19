@@ -46,7 +46,6 @@ exports.__esModule = true;
 exports.getTrackInfoByID = exports.getSetInfo = exports.getInfoBase = void 0;
 var axios_1 = require("./axios");
 var util_1 = require("./util");
-/** @internal */
 var getTrackInfoBase = function (clientID, axiosRef, ids) { return __awaiter(void 0, void 0, void 0, function () {
     var data, err_1;
     return __generator(this, function (_a) {
@@ -124,7 +123,7 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
             case 4:
                 info = _a.sent();
                 setInfo.tracks = completeTracks.concat(info);
-                // setInfo.tracks = sortTracks(setInfo.tracks, temp)
+                setInfo.tracks = sortTracks(setInfo.tracks, temp);
                 return [2 /*return*/, setInfo];
         }
     });
@@ -146,12 +145,32 @@ var sortTracks = function (tracks, ids) {
 };
 /** @internal */
 var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
-    var data;
+    var data, idString, id;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1.axiosManager.instance)];
+            case 0:
+                if (!url.includes('https://soundcloud.com/discover/sets/personalized-tracks::')) return [3 /*break*/, 2];
+                idString = util_1.extractIDFromPersonalizedTrackURL(url);
+                if (!idString)
+                    throw new Error('Could not parse track ID from given URL: ' + url);
+                id = void 0;
+                try {
+                    id = parseInt(idString);
+                }
+                catch (err) {
+                    throw new Error('Could not parse track ID from given URL: ' + url);
+                }
+                return [4 /*yield*/, exports.getTrackInfoByID(clientID, [id])];
             case 1:
+                data = (_a.sent())[0];
+                if (!data)
+                    throw new Error('Could not find track with ID: ' + id);
+                return [3 /*break*/, 4];
+            case 2: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1.axiosManager.instance)];
+            case 3:
                 data = _a.sent();
+                _a.label = 4;
+            case 4:
                 if (!data.media)
                     throw new Error('The given URL does not link to a Soundcloud track');
                 return [2 /*return*/, data];

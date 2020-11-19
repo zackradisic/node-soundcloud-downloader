@@ -18,3 +18,11 @@ export const appendURL = (url: string, ...params: string[]) => {
   })
   return u.href
 }
+
+export const extractIDFromPersonalizedTrackURL = (url: string): string => {
+  if (!url.includes('https://soundcloud.com/discover/sets/personalized-tracks::')) return ''
+
+  const split = url.split(':')
+  if (split.length < 5) return ''
+  return split[4]
+}

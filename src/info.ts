@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { AxiosInstance } from 'axios'
 import { axiosManager } from './axios'
-import { handleRequestErrs, appendURL } from './util'
+import { handleRequestErrs, appendURL, extractIDFromPersonalizedTrackURL } from './util'
 
 import STREAMING_PROTOCOLS from './protocols'
 import FORMATS from './formats'
@@ -116,12 +116,11 @@ export interface Transcoding {
   format: { protocol: STREAMING_PROTOCOLS, mime_type: FORMATS }
 }
 
-/** @internal */
-const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[]): Promise<TrackInfo> => {
+const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[]): Promise<TrackInfo[]> => {
   try {
     const { data } = await axiosRef.get(appendURL('https://api-v2.soundcloud.com/tracks', 'ids', ids.join(','), 'client_id', clientID))
 
-    return data as TrackInfo
+    return data as TrackInfo[]
   } catch (err) {
     throw handleRequestErrs(err)
   }
@@ -194,7 +193,22 @@ const sortTracks = (tracks: TrackInfo[], ids: number[]): TrackInfo[] => {
 
 /** @internal */
 const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
-  const data = await getInfoBase<TrackInfo>(url, clientID, axiosManager.instance)
+  let data
+  if (url.includes('https://soundcloud.com/discover/sets/personalized-tracks::')) {
+    const idString = extractIDFromPersonalizedTrackURL(url)
+    if (!idString) throw new Error('Could not parse track ID from given URL: ' + url)
+    let id: number
+    try {
+      id = parseInt(idString)
+    } catch (err) {
+      throw new Error('Could not parse track ID from given URL: ' + url)
+    }
+
+    data = (await getTrackInfoByID(clientID, [id]))[0]
+    if (!data) throw new Error('Could not find track with ID: ' + id)
+  } else {
+    data = await getInfoBase<TrackInfo>(url, clientID, axiosManager.instance)
+  }
   if (!data.media) throw new Error('The given URL does not link to a Soundcloud track')
   return data
 }
