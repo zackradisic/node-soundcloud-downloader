@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.extractIDFromPersonalizedTrackURL = exports.appendURL = exports.handleRequestErrs = void 0;
+exports.kindMismatchError = exports.extractIDFromPersonalizedTrackURL = exports.appendURL = exports.handleRequestErrs = exports.resolveURL = void 0;
 /** @internal @packageDocumentation */
 var url_1 = require("url");
+exports.resolveURL = 'https://api-v2.soundcloud.com/resolve';
 exports.handleRequestErrs = function (err) {
     if (!err.response)
         return err;
@@ -34,3 +35,4 @@ exports.extractIDFromPersonalizedTrackURL = function (url) {
         return '';
     return split[4];
 };
+exports.kindMismatchError = function (expected, received) { return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")"); };

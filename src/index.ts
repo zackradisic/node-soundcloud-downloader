@@ -1,6 +1,6 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { getSetInfo, Transcoding, getTrackInfoByID } from './info'
+import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
@@ -15,6 +15,9 @@ import { axiosManager } from './axios'
 
 import * as path from 'path'
 import * as fs from 'fs'
+import { PaginatedQuery } from './util'
+import { getLikes, Like } from './likes'
+import { getUser } from './user'
 
 /** @internal */
 const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
@@ -27,6 +30,11 @@ const downloadFormat = async (url: string, clientID: string, format: FORMATS) =>
 interface ClientIDData {
   clientID: string,
   date: Date
+}
+
+interface GetLikesOptions {
+  profileURL?: string,
+  id?: number
 }
 
 export class SCDL {
@@ -127,6 +135,25 @@ export class SCDL {
    */
   async downloadPlaylist (url: string, clientID?: string): Promise<[ReadableStream<any>[], String[]]> {
     return downloadPlaylist(url, await this._assignClientID(clientID))
+  }
+
+  /**
+   * Returns track information for a user's likes
+   * @param options - Can either be the profile URL of the user, or their ID
+   * @returns - An array of tracks
+   */
+  async getLikes (options: GetLikesOptions, limit = 10, offset = 0, clientID?: string): Promise<PaginatedQuery<Like>> {
+    let id: number
+    if (options.id) {
+      id = options.id
+    } else if (options.profileURL) {
+      const user = await getUser(options.profileURL, await this._assignClientID(clientID))
+      id = user.id
+    } else {
+      throw new Error('options.id or options.profileURL must be provided.')
+    }
+
+    return await getLikes(id, await this._assignClientID(clientID), limit, offset)
   }
 
   /**

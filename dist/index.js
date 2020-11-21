@@ -71,6 +71,8 @@ var download_playlist_1 = require("./download-playlist");
 var axios_1 = require("./axios");
 var path = __importStar(require("path"));
 var fs = __importStar(require("fs"));
+var likes_1 = require("./likes");
+var user_1 = require("./user");
 /** @internal */
 var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
@@ -259,6 +261,44 @@ var SCDL = /** @class */ (function () {
                         _b = [url];
                         return [4 /*yield*/, this._assignClientID(clientID)];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                }
+            });
+        });
+    };
+    /**
+     * Returns track information for a user's likes
+     * @param options - Can either be the profile URL of the user, or their ID
+     * @returns - An array of tracks
+     */
+    SCDL.prototype.getLikes = function (options, limit, offset, clientID) {
+        if (limit === void 0) { limit = 10; }
+        if (offset === void 0) { offset = 0; }
+        return __awaiter(this, void 0, void 0, function () {
+            var id, user, _a, _b, _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
+                    case 0:
+                        if (!options.id) return [3 /*break*/, 1];
+                        id = options.id;
+                        return [3 /*break*/, 5];
+                    case 1:
+                        if (!options.profileURL) return [3 /*break*/, 4];
+                        _a = user_1.getUser;
+                        _b = [options.profileURL];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 2: return [4 /*yield*/, _a.apply(void 0, _b.concat([_e.sent()]))];
+                    case 3:
+                        user = _e.sent();
+                        id = user.id;
+                        console.log(id);
+                        return [3 /*break*/, 5];
+                    case 4: throw new Error('options.id or options.profileURL must be provided.');
+                    case 5:
+                        _c = likes_1.getLikes;
+                        _d = [id];
+                        return [4 /*yield*/, this._assignClientID(clientID)];
+                    case 6: return [4 /*yield*/, _c.apply(void 0, _d.concat([_e.sent(), limit, offset]))];
+                    case 7: return [2 /*return*/, _e.sent()];
                 }
             });
         });
