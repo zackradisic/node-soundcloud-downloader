@@ -116,9 +116,13 @@ export interface Transcoding {
   format: { protocol: STREAMING_PROTOCOLS, mime_type: FORMATS }
 }
 
-const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[]): Promise<TrackInfo[]> => {
+const getTrackInfoBase = async (clientID: string, axiosRef: AxiosInstance, ids: number[], playlistID?: number, playlistSecretToken?: string): Promise<TrackInfo[]> => {
+  let url = appendURL('https://api-v2.soundcloud.com/tracks', 'ids', ids.join(','), 'client_id', clientID)
+  if (playlistID && playlistSecretToken) {
+    url = appendURL(url, 'playlistId', '' + playlistID, 'playlistSecretToken', playlistSecretToken)
+  }
   try {
-    const { data } = await axiosRef.get(appendURL('https://api-v2.soundcloud.com/tracks', 'ids', ids.join(','), 'client_id', clientID))
+    const { data } = await axiosRef.get(url)
 
     return data as TrackInfo[]
   } catch (err) {
@@ -144,6 +148,8 @@ export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, cl
 const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInstance): Promise<SetInfo> => {
   const setInfo = await getInfoBase<SetInfo>(url, clientID, axiosRef)
   const temp = [...setInfo.tracks].map(track => track.id)
+  const playlistID = setInfo.id
+  const playlistSecretToken = setInfo.secret_token
   const incompleteTracks = setInfo.tracks.filter(track => !track.title)
   if (incompleteTracks.length === 0) {
     return setInfo
@@ -162,12 +168,13 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
       splitIds[i].push(ids[x])
     }
 
-    const promises = splitIds.map(async ids => await getTrackInfoByID(clientID, ids))
+    const promises = splitIds.map(async ids => await getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken))
     const info = await Promise.all(promises)
     setInfo.tracks = completeTracks.concat(...info)
+    setInfo.tracks = sortTracks(setInfo.tracks, temp)
     return setInfo
   }
-  const info = await getTrackInfoByID(clientID, ids)
+  const info = await getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken)
 
   setInfo.tracks = completeTracks.concat(info)
   setInfo.tracks = sortTracks(setInfo.tracks, temp)
@@ -221,7 +228,7 @@ export const getSetInfo = async (url: string, clientID: string): Promise<SetInfo
 }
 
 /** @intenral */
-export const getTrackInfoByID = async (clientID: string, ids: number[]) => {
-  return await getTrackInfoBase(clientID, axiosManager.instance, ids)
+export const getTrackInfoByID = async (clientID: string, ids: number[], playlistID?: number, playlistSecretToken?: string) => {
+  return await getTrackInfoBase(clientID, axiosManager.instance, ids, playlistID, playlistSecretToken)
 }
 export default getInfo
