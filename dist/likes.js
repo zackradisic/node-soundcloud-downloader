@@ -37,10 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.getLikes = void 0;
-var axios_1 = require("./axios");
 var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/users/';
-exports.getLikes = function (id, clientID, limit, offset) {
+exports.getLikes = function (id, clientID, axiosInstance, limit, offset) {
     if (limit === void 0) { limit = 10; }
     if (offset === void 0) { offset = 0; }
     return __awaiter(void 0, void 0, void 0, function () {
@@ -49,7 +48,7 @@ exports.getLikes = function (id, clientID, limit, offset) {
             switch (_a.label) {
                 case 0:
                     u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + id + "/likes", 'client_id', clientID, 'limit', '' + limit, 'offset', '' + offset);
-                    return [4 /*yield*/, axios_1.axiosManager.instance.get(u)];
+                    return [4 /*yield*/, axiosInstance.get(u)];
                 case 1:
                     data = (_a.sent()).data;
                     query = data;

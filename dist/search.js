@@ -37,17 +37,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.related = exports.search = void 0;
-/* eslint-disable camelcase */
-var axios_1 = require("./axios");
 var util_1 = require("./util");
 /** @internal */
 var baseURL = 'https://api-v2.soundcloud.com/search';
 /** @internal */
-exports.search = function (type, query, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+exports.search = function (type, query, axiosInstance, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1.axiosManager.instance.get(util_1.appendURL("" + baseURL + (type === 'all' ? '' : "/" + type), 'client_id', clientID, 'q', query))];
+            case 0: return [4 /*yield*/, axiosInstance.get(util_1.appendURL("" + baseURL + (type === 'all' ? '' : "/" + type), 'client_id', clientID, 'q', query))];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];
@@ -55,14 +53,14 @@ exports.search = function (type, query, clientID) { return __awaiter(void 0, voi
     });
 }); };
 /** @internal */
-exports.related = function (id, limit, offset, clientID) {
+exports.related = function (id, limit, offset, axiosInstance, clientID) {
     if (limit === void 0) { limit = 10; }
     if (offset === void 0) { offset = 0; }
     return __awaiter(void 0, void 0, void 0, function () {
         var data;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.axiosManager.instance.get(util_1.appendURL("https://api-v2.soundcloud.com/tracks/" + id + "/related", 'client_id', clientID, 'offset', '' + offset, 'limit', '' + limit))];
+                case 0: return [4 /*yield*/, axiosInstance.get(util_1.appendURL("https://api-v2.soundcloud.com/tracks/" + id + "/related", 'client_id', clientID, 'offset', '' + offset, 'limit', '' + limit))];
                 case 1:
                     data = (_a.sent()).data;
                     return [2 /*return*/, data];

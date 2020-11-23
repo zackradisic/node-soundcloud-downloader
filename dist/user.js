@@ -37,15 +37,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.getUser = void 0;
-var axios_1 = require("./axios");
 var util_1 = require("./util");
-exports.getUser = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+exports.getUser = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var u, data;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 u = util_1.appendURL(util_1.resolveURL, 'url', url, 'client_id', clientID);
-                return [4 /*yield*/, axios_1.axiosManager.instance.get(u)];
+                return [4 /*yield*/, axiosInstance.get(u)];
             case 1:
                 data = (_a.sent()).data;
                 if (!data.avatar_url)

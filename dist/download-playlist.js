@@ -39,16 +39,16 @@ exports.__esModule = true;
 exports.downloadPlaylist = void 0;
 var download_1 = require("./download");
 var info_1 = require("./info");
-exports.downloadPlaylist = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+exports.downloadPlaylist = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var info, trackNames, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1.getSetInfo(url, clientID)];
+            case 0: return [4 /*yield*/, info_1.getSetInfo(url, clientID, axiosInstance)];
             case 1:
                 info = _a.sent();
                 trackNames = [];
                 return [4 /*yield*/, Promise.all(info.tracks.map(function (track) {
-                        var p = download_1.download(track.permalink_url, clientID);
+                        var p = download_1.download(track.permalink_url, clientID, axiosInstance);
                         trackNames.push(track.title);
                         return p;
                     }))];

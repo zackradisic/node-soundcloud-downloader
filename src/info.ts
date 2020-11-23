@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 import { AxiosInstance } from 'axios'
-import { axiosManager } from './axios'
 import { handleRequestErrs, appendURL, extractIDFromPersonalizedTrackURL } from './util'
 
 import STREAMING_PROTOCOLS from './protocols'
@@ -168,13 +167,13 @@ const getSetInfoBase = async (url: string, clientID: string, axiosRef: AxiosInst
       splitIds[i].push(ids[x])
     }
 
-    const promises = splitIds.map(async ids => await getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken))
+    const promises = splitIds.map(async ids => await getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken))
     const info = await Promise.all(promises)
     setInfo.tracks = completeTracks.concat(...info)
     setInfo.tracks = sortTracks(setInfo.tracks, temp)
     return setInfo
   }
-  const info = await getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken)
+  const info = await getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken)
 
   setInfo.tracks = completeTracks.concat(info)
   setInfo.tracks = sortTracks(setInfo.tracks, temp)
@@ -199,7 +198,7 @@ const sortTracks = (tracks: TrackInfo[], ids: number[]): TrackInfo[] => {
 }
 
 /** @internal */
-const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
+const getInfo = async (url: string, clientID: string, axiosInstance: AxiosInstance): Promise<TrackInfo> => {
   let data
   if (url.includes('https://soundcloud.com/discover/sets/personalized-tracks::')) {
     const idString = extractIDFromPersonalizedTrackURL(url)
@@ -211,24 +210,24 @@ const getInfo = async (url: string, clientID: string): Promise<TrackInfo> => {
       throw new Error('Could not parse track ID from given URL: ' + url)
     }
 
-    data = (await getTrackInfoByID(clientID, [id]))[0]
+    data = (await getTrackInfoByID(clientID, axiosInstance, [id]))[0]
     if (!data) throw new Error('Could not find track with ID: ' + id)
   } else {
-    data = await getInfoBase<TrackInfo>(url, clientID, axiosManager.instance)
+    data = await getInfoBase<TrackInfo>(url, clientID, axiosInstance)
   }
   if (!data.media) throw new Error('The given URL does not link to a Soundcloud track')
   return data
 }
 
 /** @internal */
-export const getSetInfo = async (url: string, clientID: string): Promise<SetInfo> => {
-  const data = await getSetInfoBase(url, clientID, axiosManager.instance)
+export const getSetInfo = async (url: string, clientID: string, axiosInstance: AxiosInstance): Promise<SetInfo> => {
+  const data = await getSetInfoBase(url, clientID, axiosInstance)
   if (!data.tracks) throw new Error('The given URL does not link to a Soundcloud set')
   return data
 }
 
 /** @intenral */
-export const getTrackInfoByID = async (clientID: string, ids: number[], playlistID?: number, playlistSecretToken?: string) => {
-  return await getTrackInfoBase(clientID, axiosManager.instance, ids, playlistID, playlistSecretToken)
+export const getTrackInfoByID = async (clientID: string, axiosInstance: AxiosInstance, ids: number[], playlistID?: number, playlistSecretToken?: string) => {
+  return await getTrackInfoBase(clientID, axiosInstance, ids, playlistID, playlistSecretToken)
 }
 export default getInfo

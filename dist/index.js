@@ -69,23 +69,22 @@ var formats_1 = require("./formats");
 var search_1 = require("./search");
 var download_playlist_1 = require("./download-playlist");
 var axios_1 = __importDefault(require("axios"));
-var axios_2 = require("./axios");
 var path = __importStar(require("path"));
 var fs = __importStar(require("fs"));
 var likes_1 = require("./likes");
 var user_1 = require("./user");
 /** @internal */
-var downloadFormat = function (url, clientID, format) { return __awaiter(void 0, void 0, void 0, function () {
+var downloadFormat = function (url, clientID, format, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var info, filtered;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
             case 1:
                 info = _a.sent();
                 filtered = filter_media_1["default"](info.media.transcodings, { format: format });
                 if (filtered.length === 0)
                     throw new Error("Could not find media with specified format: (" + format + ")");
-                return [4 /*yield*/, download_1.fromMediaObj(filtered[0], clientID)];
+                return [4 /*yield*/, download_1.fromMediaObj(filtered[0], clientID, axiosInstance)];
             case 2: return [2 /*return*/, _a.sent()];
         }
     });
@@ -136,7 +135,7 @@ var SCDL = /** @class */ (function () {
                         _a = download_1.download;
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -155,7 +154,7 @@ var SCDL = /** @class */ (function () {
                         _a = downloadFormat;
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format, this.axios]))];
                 }
             });
         });
@@ -174,7 +173,7 @@ var SCDL = /** @class */ (function () {
                         _a = info_1["default"];
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -184,7 +183,7 @@ var SCDL = /** @class */ (function () {
      * @param ids - The ID(s) of the tracks
      * @returns Info about the track
      */
-    SCDL.prototype.getTrackInfoByID = function (ids) {
+    SCDL.prototype.getTrackInfoByID = function (ids, playlistID, playlistSecretToken) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
@@ -192,7 +191,7 @@ var SCDL = /** @class */ (function () {
                     case 0:
                         _a = info_1.getTrackInfoByID;
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), ids])];
+                    case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), this.axios, ids, playlistID, playlistSecretToken])];
                     case 2: return [2 /*return*/, _b.sent()];
                 }
             });
@@ -212,7 +211,7 @@ var SCDL = /** @class */ (function () {
                         _a = info_1.getSetInfo;
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -230,7 +229,7 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = search_1.search;
-                        _b = [type, query];
+                        _b = [type, query, this.axios];
                         return [4 /*yield*/, this.getClientID()];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
@@ -251,7 +250,7 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = search_1.related;
-                        _b = [id, limit, offset];
+                        _b = [id, limit, offset, this.axios];
                         return [4 /*yield*/, this.getClientID()];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
@@ -271,7 +270,7 @@ var SCDL = /** @class */ (function () {
                         _a = download_playlist_1.downloadPlaylist;
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -296,13 +295,13 @@ var SCDL = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 2:
                         if (!options.profileURL) return [3 /*break*/, 4];
-                        return [4 /*yield*/, user_1.getUser(options.profileURL, clientID)];
+                        return [4 /*yield*/, user_1.getUser(options.profileURL, clientID, this.axios)];
                     case 3:
                         user = _a.sent();
                         id = user.id;
                         return [3 /*break*/, 5];
                     case 4: throw new Error('options.id or options.profileURL must be provided.');
-                    case 5: return [4 /*yield*/, likes_1.getLikes(id, clientID, limit, offset)];
+                    case 5: return [4 /*yield*/, likes_1.getLikes(id, clientID, this.axios, limit, offset)];
                     case 6: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -314,7 +313,6 @@ var SCDL = /** @class */ (function () {
      */
     SCDL.prototype.setAxiosInstance = function (instance) {
         this.axios = instance;
-        axios_2.axiosManager.instance = instance;
     };
     /**
      * Returns whether or not the given URL is a valid Soundcloud URL

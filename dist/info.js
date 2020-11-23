@@ -44,7 +44,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.getTrackInfoByID = exports.getSetInfo = exports.getInfoBase = void 0;
-var axios_1 = require("./axios");
 var util_1 = require("./util");
 var getTrackInfoBase = function (clientID, axiosRef, ids, playlistID, playlistSecretToken) { return __awaiter(void 0, void 0, void 0, function () {
     var url, data, err_1;
@@ -118,7 +117,7 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
                 }
                 promises = splitIds.map(function (ids) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
                     switch (_a.label) {
-                        case 0: return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken)];
+                        case 0: return [4 /*yield*/, exports.getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken)];
                         case 1: return [2 /*return*/, _a.sent()];
                     }
                 }); }); });
@@ -128,7 +127,7 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
                 setInfo.tracks = completeTracks.concat.apply(completeTracks, info_1);
                 setInfo.tracks = sortTracks(setInfo.tracks, temp);
                 return [2 /*return*/, setInfo];
-            case 3: return [4 /*yield*/, exports.getTrackInfoByID(clientID, ids, playlistID, playlistSecretToken)];
+            case 3: return [4 /*yield*/, exports.getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken)];
             case 4:
                 info = _a.sent();
                 setInfo.tracks = completeTracks.concat(info);
@@ -153,7 +152,7 @@ var sortTracks = function (tracks, ids) {
     return tracks;
 };
 /** @internal */
-var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+var getInfo = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var data, idString, id;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -169,13 +168,13 @@ var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0
                 catch (err) {
                     throw new Error('Could not parse track ID from given URL: ' + url);
                 }
-                return [4 /*yield*/, exports.getTrackInfoByID(clientID, [id])];
+                return [4 /*yield*/, exports.getTrackInfoByID(clientID, axiosInstance, [id])];
             case 1:
                 data = (_a.sent())[0];
                 if (!data)
                     throw new Error('Could not find track with ID: ' + id);
                 return [3 /*break*/, 4];
-            case 2: return [4 /*yield*/, exports.getInfoBase(url, clientID, axios_1.axiosManager.instance)];
+            case 2: return [4 /*yield*/, exports.getInfoBase(url, clientID, axiosInstance)];
             case 3:
                 data = _a.sent();
                 _a.label = 4;
@@ -187,11 +186,11 @@ var getInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0
     });
 }); };
 /** @internal */
-exports.getSetInfo = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+exports.getSetInfo = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getSetInfoBase(url, clientID, axios_1.axiosManager.instance)];
+            case 0: return [4 /*yield*/, getSetInfoBase(url, clientID, axiosInstance)];
             case 1:
                 data = _a.sent();
                 if (!data.tracks)
@@ -201,10 +200,10 @@ exports.getSetInfo = function (url, clientID) { return __awaiter(void 0, void 0,
     });
 }); };
 /** @intenral */
-exports.getTrackInfoByID = function (clientID, ids, playlistID, playlistSecretToken) { return __awaiter(void 0, void 0, void 0, function () {
+exports.getTrackInfoByID = function (clientID, axiosInstance, ids, playlistID, playlistSecretToken) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, getTrackInfoBase(clientID, axios_1.axiosManager.instance, ids, playlistID, playlistSecretToken)];
+            case 0: return [4 /*yield*/, getTrackInfoBase(clientID, axiosInstance, ids, playlistID, playlistSecretToken)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });

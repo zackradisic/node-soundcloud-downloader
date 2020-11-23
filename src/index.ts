@@ -11,7 +11,6 @@ import FORMATS, { _FORMATS } from './formats'
 import { search, related, SoundcloudResource } from './search'
 import { downloadPlaylist } from './download-playlist'
 import axios, { AxiosInstance } from 'axios'
-import { axiosManager } from './axios'
 
 import * as path from 'path'
 import * as fs from 'fs'
@@ -20,11 +19,11 @@ import { getLikes, Like } from './likes'
 import { getUser } from './user'
 
 /** @internal */
-const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
-  const info = await getInfo(url, clientID)
+const downloadFormat = async (url: string, clientID: string, format: FORMATS, axiosInstance: AxiosInstance) => {
+  const info = await getInfo(url, clientID, axiosInstance)
   const filtered = filterMedia(info.media.transcodings, { format: format })
   if (filtered.length === 0) throw new Error(`Could not find media with specified format: (${format})`)
-  return await fromMediaObj(filtered[0], clientID)
+  return await fromMediaObj(filtered[0], clientID, axiosInstance)
 }
 
 interface ClientIDData {
@@ -89,7 +88,7 @@ export class SCDL {
    * @returns A ReadableStream containing the audio data
   */
   async download (url: string) {
-    return download(url, await this.getClientID())
+    return download(url, await this.getClientID(), this.axios)
   }
 
   /**
@@ -98,7 +97,7 @@ export class SCDL {
    * @param format - The desired format
   */
   async downloadFormat (url: string, format: FORMATS) {
-    return downloadFormat(url, await this.getClientID(), format)
+    return downloadFormat(url, await this.getClientID(), format, this.axios)
   }
 
   /**
@@ -107,7 +106,7 @@ export class SCDL {
    * @returns Info about the track
   */
   async getInfo (url: string) {
-    return getInfo(url, await this.getClientID())
+    return getInfo(url, await this.getClientID(), this.axios)
   }
 
   /**
@@ -115,8 +114,8 @@ export class SCDL {
    * @param ids - The ID(s) of the tracks
    * @returns Info about the track
    */
-  async getTrackInfoByID (ids: number[]) {
-    return await getTrackInfoByID(await this.getClientID(), ids)
+  async getTrackInfoByID (ids: number[], playlistID?: number, playlistSecretToken?: string) {
+    return await getTrackInfoByID(await this.getClientID(), this.axios, ids, playlistID, playlistSecretToken)
   }
 
   /**
@@ -125,7 +124,7 @@ export class SCDL {
    * @returns Info about the set
    */
   async getSetInfo (url: string) {
-    return getSetInfo(url, await this.getClientID())
+    return getSetInfo(url, await this.getClientID(), this.axios)
   }
 
   /**
@@ -135,7 +134,7 @@ export class SCDL {
    * @returns SearchResponse
    */
   async search (type: SoundcloudResource | 'all', query: string) {
-    return search(type, query, await this.getClientID())
+    return search(type, query, this.axios, await this.getClientID())
   }
 
   /**
@@ -145,7 +144,7 @@ export class SCDL {
    * @param offset - Used for pagination, set to 0 if you will not use this feature.
    */
   async related (id: number, limit: number, offset = 0) {
-    return related(id, limit, offset, await this.getClientID())
+    return related(id, limit, offset, this.axios, await this.getClientID())
   }
 
   /**
@@ -153,7 +152,7 @@ export class SCDL {
    * @param url - The url of the playlist
    */
   async downloadPlaylist (url: string): Promise<[ReadableStream<any>[], String[]]> {
-    return downloadPlaylist(url, await this.getClientID())
+    return downloadPlaylist(url, await this.getClientID(), this.axios)
   }
 
   /**
@@ -167,13 +166,13 @@ export class SCDL {
     if (options.id) {
       id = options.id
     } else if (options.profileURL) {
-      const user = await getUser(options.profileURL, clientID)
+      const user = await getUser(options.profileURL, clientID, this.axios)
       id = user.id
     } else {
       throw new Error('options.id or options.profileURL must be provided.')
     }
 
-    return await getLikes(id, clientID, limit, offset)
+    return await getLikes(id, clientID, this.axios, limit, offset)
   }
 
   /**
@@ -182,7 +181,6 @@ export class SCDL {
    */
   setAxiosInstance (instance: AxiosInstance) {
     this.axios = instance
-    axiosManager.instance = instance
   }
 
   /**
