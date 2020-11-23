@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const scdl = require('../')
+const scdl = require('../').default
 
 scdl
   .downloadPlaylist('URL TO PLAYLIST')

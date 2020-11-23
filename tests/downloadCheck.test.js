@@ -9,7 +9,7 @@
  *
  */
 require('dotenv').config()
-const scdl = require('../')
+const scdl = require('../').default
 const fileType = require('file-type')
 let downloadedFile
 

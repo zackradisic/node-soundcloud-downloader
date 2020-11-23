@@ -37,15 +37,15 @@ Here are the two most commonly used functions:
 Read the [docs](https://zackradisic.github.io/node-soundcloud-downloader/classes/_index_.scdl.html) for more.
 
 ## Examples
-The easiest way to get Soundcloud audio is with the `scdl.download(url: string, clientID?: string)` function, which returns a Promise containing a ReadableStream. Note that the client ID is optional (the module will fetch one for you if not provided).
+The easiest way to get Soundcloud audio is with the `scdl.download(url: string)` function, which returns a Promise containing a ReadableStream.
 ```javascript
-const scdl = require('soundcloud-downloader')
+const scdl = require('soundcloud-downloader').default
 const fs = require('fs')
 
 const SOUNDCLOUD_URL = 'https://soundcloud.com/askdjfhaklshf'
 const CLIENT_ID = 'asdhkalshdkhsf'
 
-scdl.download(SOUNDCLOUD_URL, CLIENT_ID).then(stream => stream.pipe(fs.createWriteStream('audio.mp3')))
+scdl.download(SOUNDCLOUD_URL).then(stream => stream.pipe(fs.createWriteStream('audio.mp3')))
 ```
 
 You can do anything you like with the stream that is returned, an example with [Discord.js](https://github.com/discordjs/discord.js/):
@@ -61,6 +61,19 @@ client.on('ready', () => {
       connection.play(stream)
     })
   })
+})
+```
+
+You can also create a custom instance of the SCDL class with settings configured to your liking:
+```javascript
+const scdlCreate = require('../').create
+const axios = require('axios').default
+
+const scdl = scdlCreate({
+  clientID: 'adasdasd',
+  saveClientID: true,
+  filePath: './client_id.json',
+  axiosInstance: axios.create()
 })
 ```
 

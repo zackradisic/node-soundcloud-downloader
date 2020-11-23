@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-const scdl = require('../index')
+const scdl = require('../').default
 const constants = require('./constants')
 
 const client = new Discord.Client()
@@ -10,7 +10,7 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   const channel = client.channels.cache.get(channelID)
   channel.join().then(connection => {
-    scdl(constants.url, constants.clientID).then(stream => {
+    scdl.download(constants.url).then(stream => {
       connection.play(stream)
     })
   })
