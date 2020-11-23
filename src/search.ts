@@ -1,26 +1,16 @@
 /* eslint-disable camelcase */
 import { axiosManager } from './axios'
 import { TrackInfo, User, SetInfo } from './info'
-import { appendURL } from './util'
+import { appendURL, PaginatedQuery } from './util'
 
 /** @internal */
 const baseURL = 'https://api-v2.soundcloud.com/search'
 
-export type SearchResponse<T> = {
-    collection: T[]
-    total_results: number,
-    next_href: string,
-    query_urn: string
-}
-
-export type RelatedResponse<T> = {
-  collection: T[]
-  next_href: string,
-  query_urn: string,
+export interface RelatedResponse<T> extends PaginatedQuery<T> {
   variant: string
 }
 
-export type SearchResponseAll = SearchResponse<User | SetInfo | TrackInfo>
+export type SearchResponseAll = PaginatedQuery<User | SetInfo | TrackInfo>
 
 export type SoundcloudResource = 'tracks' | 'users' | 'albums' | 'playlists'
 
