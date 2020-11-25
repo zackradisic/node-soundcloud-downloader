@@ -308,6 +308,25 @@ var SCDL = /** @class */ (function () {
         });
     };
     /**
+     * Returns information about a user
+     * @param url - The profile URL of the user
+     */
+    SCDL.prototype.getUser = function (url) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = user_1.getUser;
+                        _b = [url];
+                        return [4 /*yield*/, this.getClientID()];
+                    case 1: return [4 /*yield*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _c.sent()];
+                }
+            });
+        });
+    };
+    /**
      * Sets the instance of Axios to use to make requests to SoundCloud API
      * @param instance - An instance of Axios
      */

@@ -47,6 +47,7 @@ exports.getLikes = function (id, clientID, axiosInstance, limit, offset) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    limit = limit + 1; // For some reason SoundCloud returns limit - 1, but only for likes??
                     u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + id + "/likes", 'client_id', clientID, 'limit', '' + limit, 'offset', '' + offset);
                     return [4 /*yield*/, axiosInstance.get(u)];
                 case 1:
