@@ -5,7 +5,7 @@ import { AxiosError } from 'axios'
 /* eslint-disable camelcase */
 export interface PaginatedQuery<T> {
   collection: T[],
-  total_results: number,
+  total_results?: number, // is omitted if limit parameter is supplied
   next_href: string,
   query_urn: string
 }
