@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.appendURL = exports.handleRequestErrs = void 0;
+exports.kindMismatchError = exports.extractIDFromPersonalizedTrackURL = exports.appendURL = exports.handleRequestErrs = exports.resolveURL = void 0;
 /** @internal @packageDocumentation */
 var url_1 = require("url");
+exports.resolveURL = 'https://api-v2.soundcloud.com/resolve';
 exports.handleRequestErrs = function (err) {
     if (!err.response)
         return err;
@@ -26,3 +27,12 @@ exports.appendURL = function (url) {
     });
     return u.href;
 };
+exports.extractIDFromPersonalizedTrackURL = function (url) {
+    if (!url.includes('https://soundcloud.com/discover/sets/personalized-tracks::'))
+        return '';
+    var split = url.split(':');
+    if (split.length < 5)
+        return '';
+    return split[4];
+};
+exports.kindMismatchError = function (expected, received) { return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")"); };

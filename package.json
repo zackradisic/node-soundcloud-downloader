@@ -29,7 +29,7 @@
     "axios": "^0.21.0",
     "dotenv": "^8.2.0",
     "m3u8stream": "^0.8.0",
-    "soundcloud-key-fetch": "^1.0.6"
+    "soundcloud-key-fetch": "^1.0.10"
   },
   "typings": "./index.d.ts",
   "devDependencies": {

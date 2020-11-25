@@ -1,6 +1,5 @@
-const scdl = require('../')
-const constants = require('./constants')
+const scdl = require('../').default
 
-scdl.getSetInfo('adfkjhalskdjfhlas', constants.clientID)
+scdl.getSetInfo('adfkjhalskdjfhlas')
   .then(info => console.log(info))
   .catch(err => console.log(err))

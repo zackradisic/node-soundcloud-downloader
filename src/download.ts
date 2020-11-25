@@ -1,7 +1,6 @@
 /** @internal @packageDocumentation */
 
 import { AxiosInstance } from 'axios'
-import { axiosManager } from './axios'
 import m3u8stream from 'm3u8stream'
 import { handleRequestErrs, appendURL } from './util'
 import getInfo, { Transcoding } from './info'
@@ -54,25 +53,25 @@ export const fromURLBase: fromURLFunctionBase = async (url: string, clientID: st
   }
 }
 
-export const fromURL = async (url: string, clientID: string): Promise<any | m3u8stream.Stream> => await fromURLBase(url, clientID, getMediaURL, getProgressiveStream, getHLSStream, axiosManager.instance)
+export const fromURL = async (url: string, clientID: string, axiosInstance: AxiosInstance): Promise<any | m3u8stream.Stream> => await fromURLBase(url, clientID, getMediaURL, getProgressiveStream, getHLSStream, axiosInstance)
 
 export const fromMediaObjBase = async (media: Transcoding, clientID: string,
   getMediaURLFunction: (url: string, clientID: string, axiosInstance: AxiosInstance) => Promise<string>,
   getProgressiveStreamFunction: (mediaUrl: string, axiosInstance: AxiosInstance) => Promise<any>,
   getHLSStreamFunction: (mediaUrl: string) => m3u8stream.Stream,
-  fromURLFunction: fromURLFunctionBase,
+  fromURLFunction: typeof fromURL,
   axiosInstance: AxiosInstance): Promise<any | m3u8stream.Stream> => {
   if (!validatemedia(media)) throw new Error('Invalid media object provided')
-  return await fromURLFunction(media.url, clientID, getMediaURLFunction, getProgressiveStreamFunction, getHLSStreamFunction, axiosInstance)
+  return await fromURLFunction(media.url, clientID, axiosInstance)
 }
 
-export const fromMediaObj = async (media: Transcoding, clientID: string) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axiosManager.instance)
+export const fromMediaObj = async (media: Transcoding, clientID: string, axiosInstance: AxiosInstance) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axiosInstance)
 
 /** @internal */
-export const download = async (url: string, clientID: string) => {
-  const info = await getInfo(url, clientID)
+export const download = async (url: string, clientID: string, axiosInstance: AxiosInstance) => {
+  const info = await getInfo(url, clientID, axiosInstance)
 
-  return await fromMediaObj(info.media.transcodings[0], clientID)
+  return await fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)
 }
 
 const validatemedia = (media: Transcoding) => {

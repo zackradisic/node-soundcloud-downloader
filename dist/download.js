@@ -41,7 +41,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.download = exports.fromMediaObj = exports.fromMediaObjBase = exports.fromURL = exports.fromURLBase = exports.getHLSStream = exports.getProgressiveStream = exports.getMediaURL = void 0;
-var axios_1 = require("./axios");
 var m3u8stream_1 = __importDefault(require("m3u8stream"));
 var util_1 = require("./util");
 var info_1 = __importDefault(require("./info"));
@@ -100,9 +99,9 @@ exports.fromURLBase = function (url, clientID, getMediaURLFunction, getProgressi
         }
     });
 }); };
-exports.fromURL = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+exports.fromURL = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
-        case 0: return [4 /*yield*/, exports.fromURLBase(url, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, axios_1.axiosManager.instance)];
+        case 0: return [4 /*yield*/, exports.fromURLBase(url, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, axiosInstance)];
         case 1: return [2 /*return*/, _a.sent()];
     }
 }); }); };
@@ -112,14 +111,14 @@ exports.fromMediaObjBase = function (media, clientID, getMediaURLFunction, getPr
             case 0:
                 if (!validatemedia(media))
                     throw new Error('Invalid media object provided');
-                return [4 /*yield*/, fromURLFunction(media.url, clientID, getMediaURLFunction, getProgressiveStreamFunction, getHLSStreamFunction, axiosInstance)];
+                return [4 /*yield*/, fromURLFunction(media.url, clientID, axiosInstance)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.fromMediaObj = function (media, clientID) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+exports.fromMediaObj = function (media, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
     switch (_a.label) {
-        case 0: return [4 /*yield*/, exports.fromMediaObjBase(media, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, exports.fromURL, axios_1.axiosManager.instance)
+        case 0: return [4 /*yield*/, exports.fromMediaObjBase(media, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, exports.fromURL, axiosInstance)
             /** @internal */
         ];
         case 1: return [2 /*return*/, _a.sent()
@@ -128,14 +127,14 @@ exports.fromMediaObj = function (media, clientID) { return __awaiter(void 0, voi
     }
 }); }); };
 /** @internal */
-exports.download = function (url, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+exports.download = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var info;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1["default"](url, clientID)];
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
             case 1:
                 info = _a.sent();
-                return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID)];
+                return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
             case 2: return [2 /*return*/, _a.sent()];
         }
     });

@@ -36,25 +36,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.downloadPlaylist = void 0;
-var download_1 = require("./download");
-var info_1 = require("./info");
-exports.downloadPlaylist = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var info, trackNames, result;
+exports.getUser = void 0;
+var util_1 = require("./util");
+exports.getUser = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+    var u, data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1.getSetInfo(url, clientID, axiosInstance)];
+            case 0:
+                u = util_1.appendURL(util_1.resolveURL, 'url', url, 'client_id', clientID);
+                return [4 /*yield*/, axiosInstance.get(u)];
             case 1:
-                info = _a.sent();
-                trackNames = [];
-                return [4 /*yield*/, Promise.all(info.tracks.map(function (track) {
-                        var p = download_1.download(track.permalink_url, clientID, axiosInstance);
-                        trackNames.push(track.title);
-                        return p;
-                    }))];
-            case 2:
-                result = _a.sent();
-                return [2 /*return*/, [result, trackNames]];
+                data = (_a.sent()).data;
+                if (!data.avatar_url)
+                    throw new Error('JSON response is not a user. Is profile URL correct? : ' + url);
+                return [2 /*return*/, data];
         }
     });
 }); };

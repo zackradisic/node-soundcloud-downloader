@@ -36,25 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.downloadPlaylist = void 0;
-var download_1 = require("./download");
-var info_1 = require("./info");
-exports.downloadPlaylist = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var info, trackNames, result;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1.getSetInfo(url, clientID, axiosInstance)];
-            case 1:
-                info = _a.sent();
-                trackNames = [];
-                return [4 /*yield*/, Promise.all(info.tracks.map(function (track) {
-                        var p = download_1.download(track.permalink_url, clientID, axiosInstance);
-                        trackNames.push(track.title);
-                        return p;
-                    }))];
-            case 2:
-                result = _a.sent();
-                return [2 /*return*/, [result, trackNames]];
-        }
+exports.getLikes = void 0;
+var util_1 = require("./util");
+var baseURL = 'https://api-v2.soundcloud.com/users/';
+exports.getLikes = function (id, clientID, axiosInstance, limit, offset) {
+    if (limit === void 0) { limit = 10; }
+    if (offset === void 0) { offset = 0; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var u, data, query;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    limit = limit + 1; // For some reason SoundCloud returns limit - 1, but only for likes??
+                    u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + id + "/likes", 'client_id', clientID, 'limit', '' + limit, 'offset', '' + offset);
+                    return [4 /*yield*/, axiosInstance.get(u)];
+                case 1:
+                    data = (_a.sent()).data;
+                    query = data;
+                    if (!query.collection)
+                        throw new Error('Invalid JSON response received');
+                    if (query.collection.length === 0)
+                        return [2 /*return*/, data];
+                    if (query.collection[0].kind !== 'like')
+                        throw util_1.kindMismatchError('like', query.collection[0].kind);
+                    return [2 /*return*/, query];
+            }
+        });
     });
-}); };
+};

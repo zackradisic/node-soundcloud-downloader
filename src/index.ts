@@ -1,6 +1,6 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { getSetInfo, Transcoding, getTrackInfoByID } from './info'
+import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo, User } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
@@ -10,18 +10,20 @@ import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
 import { search, related, SoundcloudResource } from './search'
 import { downloadPlaylist } from './download-playlist'
-import { AxiosInstance } from 'axios'
-import { axiosManager } from './axios'
+import axios, { AxiosInstance } from 'axios'
 
 import * as path from 'path'
 import * as fs from 'fs'
+import { PaginatedQuery } from './util'
+import { getLikes, Like } from './likes'
+import { getUser } from './user'
 
 /** @internal */
-const downloadFormat = async (url: string, clientID: string, format: FORMATS) => {
-  const info = await getInfo(url, clientID)
+const downloadFormat = async (url: string, clientID: string, format: FORMATS, axiosInstance: AxiosInstance) => {
+  const info = await getInfo(url, clientID, axiosInstance)
   const filtered = filterMedia(info.media.transcodings, { format: format })
   if (filtered.length === 0) throw new Error(`Could not find media with specified format: (${format})`)
-  return await fromMediaObj(filtered[0], clientID)
+  return await fromMediaObj(filtered[0], clientID, axiosInstance)
 }
 
 interface ClientIDData {
@@ -29,13 +31,45 @@ interface ClientIDData {
   date: Date
 }
 
+interface GetLikesOptions {
+  profileURL?: string,
+  id?: number
+}
+
+export interface SCDLOptions {
+  clientID?: string,
+  saveClientID?: boolean, // Set to true to save client ID to file
+  filePath?: string, // File path to save client ID, defaults to '../client_id.json"
+  axiosInstance?: AxiosInstance // Custom axios instance to use
+}
+
 export class SCDL {
   STREAMING_PROTOCOLS: { [key: string]: STREAMING_PROTOCOLS }
   FORMATS: { [key: string]: FORMATS }
 
   private _clientID?: string
+  private _filePath?: string
+
   axios: AxiosInstance
   saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false
+
+  constructor (options?: SCDLOptions) {
+    if (!options) options = {}
+    if (options.saveClientID) {
+      this.saveClientID = options.saveClientID
+      if (options.filePath) this._filePath = options.filePath
+    } else {
+      if (options.clientID) {
+        this._clientID = options.clientID
+      }
+    }
+
+    if (options.axiosInstance) {
+      this.setAxiosInstance(options.axiosInstance)
+    } else {
+      this.setAxiosInstance(axios)
+    }
+  }
 
   /**
    * Returns a media Transcoding that matches the given predicate object
@@ -51,62 +85,56 @@ export class SCDL {
    * Get the audio of a given track. It returns the first format found.
    *
    * @param url - The URL of the Soundcloud track
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns A ReadableStream containing the audio data
   */
-  async download (url: string, clientID?: string) {
-    return download(url, await this._assignClientID(clientID))
+  async download (url: string) {
+    return download(url, await this.getClientID(), this.axios)
   }
 
   /**
    *  Get the audio of a given track with the specified format
    * @param url - The URL of the Soundcloud track
    * @param format - The desired format
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
   */
-  async downloadFormat (url: string, format: FORMATS, clientID?: string) {
-    return downloadFormat(url, await this._assignClientID(clientID), format)
+  async downloadFormat (url: string, format: FORMATS) {
+    return downloadFormat(url, await this.getClientID(), format, this.axios)
   }
 
   /**
    * Returns info about a given track.
    * @param url - URL of the Soundcloud track
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the track
   */
-  async getInfo (url: string, clientID?: string) {
-    return getInfo(url, await this._assignClientID(clientID))
+  async getInfo (url: string) {
+    return getInfo(url, await this.getClientID(), this.axios)
   }
 
   /**
    * Returns info about the given track(s) specified by ID.
    * @param ids - The ID(s) of the tracks
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the track
    */
-  async getTrackInfoByID (ids: number[], clientID?: string) {
-    return await getTrackInfoByID(await this._assignClientID(clientID), ids)
+  async getTrackInfoByID (ids: number[], playlistID?: number, playlistSecretToken?: string) {
+    return await getTrackInfoByID(await this.getClientID(), this.axios, ids, playlistID, playlistSecretToken)
   }
 
   /**
    * Returns info about the given set
    * @param url - URL of the Soundcloud set
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns Info about the set
    */
-  async getSetInfo (url: string, clientID?: string) {
-    return getSetInfo(url, await this._assignClientID(clientID))
+  async getSetInfo (url: string) {
+    return getSetInfo(url, await this.getClientID(), this.axios)
   }
 
   /**
    * Searches for tracks/playlists for the given query
    * @param type - The type of resource, one of: 'tracks', 'users', 'albums', 'playlists', 'all'
    * @param query - The keywords for the search
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    * @returns SearchResponse
    */
-  async search (type: SoundcloudResource | 'all', query: string, clientID?: string) {
-    return search(type, query, await this._assignClientID(clientID))
+  async search (type: SoundcloudResource | 'all', query: string) {
+    return search(type, query, this.axios, await this.getClientID())
   }
 
   /**
@@ -114,19 +142,45 @@ export class SCDL {
    * @param id - The ID of the track
    * @param limit - The number of results to return
    * @param offset - Used for pagination, set to 0 if you will not use this feature.
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    */
-  async related (id: number, limit: number, offset = 0, clientID?: string) {
-    return related(id, limit, offset, await this._assignClientID(clientID))
+  async related (id: number, limit: number, offset = 0) {
+    return related(id, limit, offset, this.axios, await this.getClientID())
   }
 
   /**
    * Returns the audio streams and titles of the tracks in the given playlist.
    * @param url - The url of the playlist
-   * @param clientID - A Soundcloud Client ID, will find one if not provided
    */
-  async downloadPlaylist (url: string, clientID?: string): Promise<[ReadableStream<any>[], String[]]> {
-    return downloadPlaylist(url, await this._assignClientID(clientID))
+  async downloadPlaylist (url: string): Promise<[ReadableStream<any>[], String[]]> {
+    return downloadPlaylist(url, await this.getClientID(), this.axios)
+  }
+
+  /**
+   * Returns track information for a user's likes
+   * @param options - Can either be the profile URL of the user, or their ID
+   * @returns - An array of tracks
+   */
+  async getLikes (options: GetLikesOptions, limit = 10, offset = 0): Promise<PaginatedQuery<Like>> {
+    let id: number
+    const clientID = await this.getClientID()
+    if (options.id) {
+      id = options.id
+    } else if (options.profileURL) {
+      const user = await getUser(options.profileURL, clientID, this.axios)
+      id = user.id
+    } else {
+      throw new Error('options.id or options.profileURL must be provided.')
+    }
+
+    return await getLikes(id, clientID, this.axios, limit, offset)
+  }
+
+  /**
+   * Returns information about a user
+   * @param url - The profile URL of the user
+   */
+  async getUser (url: string): Promise<User> {
+    return await getUser(url, await this.getClientID(), this.axios)
   }
 
   /**
@@ -135,7 +189,6 @@ export class SCDL {
    */
   setAxiosInstance (instance: AxiosInstance) {
     this.axios = instance
-    axiosManager.instance = instance
   }
 
   /**
@@ -146,12 +199,20 @@ export class SCDL {
     return isValidURL(url)
   }
 
+  async getClientID (): Promise<string> {
+    if (!this._clientID) {
+      await this.setClientID()
+    }
+
+    return this._clientID
+  }
+
   /** @internal */
-  private async _assignClientID (clientID?: string): Promise<string> {
+  async setClientID (clientID?: string): Promise<string> {
     if (!clientID) {
       if (!this._clientID) {
         if (this.saveClientID) {
-          const filename = path.resolve(__dirname, '../client_id.json')
+          const filename = path.resolve(__dirname, this._filePath ? this._filePath : '../client_id.json')
           const c = await this._getClientIDFromFile(filename)
           if (!c) {
             this._clientID = await sckey.fetchKey()
@@ -172,6 +233,8 @@ export class SCDL {
 
       return this._clientID
     }
+
+    this._clientID = clientID
 
     return clientID
   }
@@ -196,9 +259,11 @@ export class SCDL {
         const d = new Date(c.date)
         if (!d.getDay()) return reject(new Error("Invalid date object from 'date' in client_id.json"))
         const dayMs = 60 * 60 * 24 * 1000
-        if (new Date().getMilliseconds() - d.getMilliseconds() >= dayMs) {
+        if (new Date().getTime() - d.getTime() >= dayMs) {
           // Older than a day, delete
-          fs.unlink(filename, err => console.log('Failed to delete client_id.json: ' + err))
+          fs.unlink(filename, err => {
+            if (err) console.log('Failed to delete client_id.json: ' + err)
+          })
           return resolve('')
         } else {
           return resolve(c.clientID)
@@ -208,6 +273,10 @@ export class SCDL {
   }
 }
 const scdl = new SCDL()
+
+const create = (options: SCDLOptions): SCDL => new SCDL(options)
+
+export { create }
 
 scdl.STREAMING_PROTOCOLS = _PROTOCOLS
 scdl.FORMATS = _FORMATS

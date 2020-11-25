@@ -1,2 +1,1 @@
-const scdl = require('./dist/index').default
-module.exports = scdl
+module.exports = require('./dist/index')

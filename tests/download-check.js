@@ -1,7 +1,8 @@
 // const readChunk = require('read-chunk')
 const fileType = require('file-type')
-const scdl = require('../')
+const scdl = require('../').default
 
+console.log(scdl)
 scdl.download('https://soundcloud.com/monsune_inc/outta-my-mind', process.env.CLIENT_ID)
   .then(stream => {
     fileType.fromStream(stream)
