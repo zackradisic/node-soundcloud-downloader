@@ -9,6 +9,7 @@ import FORMATS from './formats'
  * A Soundcloud user
  */
 export interface User {
+  kind: string,
   avatar_url: string,
   city: string,
   comments_count: number,
