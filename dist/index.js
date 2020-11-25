@@ -447,7 +447,9 @@ var SCDL = /** @class */ (function () {
     return SCDL;
 }());
 exports.SCDL = SCDL;
+// SCDL instance with default configutarion
 var scdl = new SCDL();
+// Creates an instance of SCDL with custom configuration
 var create = function (options) { return new SCDL(options); };
 exports.create = create;
 scdl.STREAMING_PROTOCOLS = protocols_1._PROTOCOLS;
