@@ -1,6 +1,6 @@
 import sckey from 'soundcloud-key-fetch'
 
-import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo } from './info'
+import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo, User } from './info'
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
@@ -173,6 +173,14 @@ export class SCDL {
     }
 
     return await getLikes(id, clientID, this.axios, limit, offset)
+  }
+
+  /**
+   * Returns information about a user
+   * @param url - The profile URL of the user
+   */
+  async getUser (url: string): Promise<User> {
+    return await getUser(url, await this.getClientID(), this.axios)
   }
 
   /**
