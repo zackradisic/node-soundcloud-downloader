@@ -428,9 +428,12 @@ var SCDL = /** @class */ (function () {
                             if (!d.getDay())
                                 return reject(new Error("Invalid date object from 'date' in client_id.json"));
                             var dayMs = 60 * 60 * 24 * 1000;
-                            if (new Date().getMilliseconds() - d.getMilliseconds() >= dayMs) {
+                            if (new Date().getTime() - d.getTime() >= dayMs) {
                                 // Older than a day, delete
-                                fs.unlink(filename, function (err) { return console.log('Failed to delete client_id.json: ' + err); });
+                                fs.unlink(filename, function (err) {
+                                    if (err)
+                                        console.log('Failed to delete client_id.json: ' + err);
+                                });
                                 return resolve('');
                             }
                             else {
