@@ -64,9 +64,7 @@
 	<div class="row">
 		<div class="col-8 col-content">
 			<div class="tsd-panel tsd-typography">
-				<a href="#node-soundcloud-downloader" id="node-soundcloud-downloader" style="color: inherit; text-decoration: none;">
-					<h1>node-soundcloud-downloader</h1>
-				</a>
+				<p><img src="https://socialify.git.ci/zackradisic/node-soundcloud-downloader/image?font=Raleway&language=1&owner=1&stargazers=1&theme=Dark" alt="node-soundcloud-downloader"></p>
 				<p><a href="https://github.com/zackradisic"><img src="https://img.shields.io/badge/Author-Zack%20Radisic-green" alt="Zack Radisic"></a>
 					<a href="https://www.npmjs.com/package/soundcloud-downloader"><img src="https://img.shields.io/npm/dt/soundcloud-downloader" alt="downloads"></a>
 				<img src="https://github.com/zackradisic/node-soundcloud-downloader/workflows/Node.js%20CI/badge.svg" alt="Node.js CI"></p>
@@ -111,14 +109,14 @@
 				<a href="#examples" id="examples" style="color: inherit; text-decoration: none;">
 					<h2>Examples</h2>
 				</a>
-				<p>The easiest way to get Soundcloud audio is with the <code>scdl.download(url: string, clientID?: string)</code> function, which returns a Promise containing a ReadableStream. Note that the client ID is optional (the module will fetch one for you if not provided).</p>
-				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scdl = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;soundcloud-downloader&#x27;</span>)
+				<p>The easiest way to get Soundcloud audio is with the <code>scdl.download(url: string)</code> function, which returns a Promise containing a ReadableStream.</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scdl = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;soundcloud-downloader&#x27;</span>).default
 <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>)
 
 <span class="hljs-keyword">const</span> SOUNDCLOUD_URL = <span class="hljs-string">&#x27;https://soundcloud.com/askdjfhaklshf&#x27;</span>
 <span class="hljs-keyword">const</span> CLIENT_ID = <span class="hljs-string">&#x27;asdhkalshdkhsf&#x27;</span>
 
-scdl.download(SOUNDCLOUD_URL, CLIENT_ID).then(<span class="hljs-function"><span class="hljs-params">stream</span> =&gt;</span> stream.pipe(fs.createWriteStream(<span class="hljs-string">&#x27;audio.mp3&#x27;</span>)))</code></pre>
+scdl.download(SOUNDCLOUD_URL).then(<span class="hljs-function"><span class="hljs-params">stream</span> =&gt;</span> stream.pipe(fs.createWriteStream(<span class="hljs-string">&#x27;audio.mp3&#x27;</span>)))</code></pre>
 				<p>You can do anything you like with the stream that is returned, an example with <a href="https://github.com/discordjs/discord.js/">Discord.js</a>:</p>
 				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> client = <span class="hljs-keyword">new</span> Discord.Client()
 <span class="hljs-keyword">const</span> url = <span class="hljs-string">&#x27;https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the&#x27;</span>
@@ -131,6 +129,16 @@ client.on(<span class="hljs-string">&#x27;ready&#x27;</span>, <span class="hljs-
       connection.play(stream)
     })
   })
+})</code></pre>
+				<p>You can also create a custom instance of the SCDL class with settings configured to your liking:</p>
+				<pre><code class="language-javascript"><span class="hljs-keyword">const</span> scdlCreate = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;../&#x27;</span>).create
+<span class="hljs-keyword">const</span> axios = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;axios&#x27;</span>).default
+
+<span class="hljs-keyword">const</span> scdl = scdlCreate({
+  <span class="hljs-attr">clientID</span>: <span class="hljs-string">&#x27;adasdasd&#x27;</span>,
+  <span class="hljs-attr">saveClientID</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">filePath</span>: <span class="hljs-string">&#x27;./client_id.json&#x27;</span>,
+  <span class="hljs-attr">axiosInstance</span>: axios.create()
 })</code></pre>
 				<p>You can view the code for these examples and find more in the <a href="example">example</a> folder.</p>
 				<a href="#client-id" id="client-id" style="color: inherit; text-decoration: none;">
@@ -179,6 +187,9 @@ client.on(<span class="hljs-string">&#x27;ready&#x27;</span>, <span class="hljs-
 						<a href="modules/_info_.html">&quot;info&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/_likes_.html">&quot;likes&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/_protocols_.html">&quot;protocols&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -201,13 +212,13 @@ client.on(<span class="hljs-string">&#x27;ready&#x27;</span>, <span class="hljs-
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-				<li class="tsd-kind-type-alias tsd-has-type-parameter"><span class="tsd-kind-icon">Type alias with type parameter</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>

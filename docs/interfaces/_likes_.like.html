@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;download-playlist&quot; | soundcloud-downloader</title>
+	<title>Like | soundcloud-downloader</title>
 	<meta name="description" content="Documentation for soundcloud-downloader">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,59 +56,73 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_download_playlist_.html">&quot;download-playlist&quot;</a>
+					<a href="../modules/_likes_.html">&quot;likes&quot;</a>
+				</li>
+				<li>
+					<a href="_likes_.like.html">Like</a>
 				</li>
 			</ul>
-			<h1>Module &quot;download-playlist&quot;</h1>
+			<h1>Interface Like</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">Like</span>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Functions</h3>
+							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_download_playlist_.html#downloadplaylist" class="tsd-kind-icon">download<wbr>Playlist</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_likes_.like.html#created_at" class="tsd-kind-icon">created_<wbr>at</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_likes_.like.html#kind" class="tsd-kind-icon">kind</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_likes_.like.html#track" class="tsd-kind-icon">track</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Functions</h2>
-				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="downloadplaylist" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> download<wbr>Playlist</h3>
-					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">download<wbr>Playlist<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clientID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, axiosInstance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/3140044/src/download-playlist.ts#L5">download-playlist.ts:5</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>url: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>clientID: <span class="tsd-signature-type">string</span></h5>
-								</li>
-								<li>
-									<h5>axiosInstance: <span class="tsd-signature-type">AxiosInstance</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
-						</li>
-					</ul>
+				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="created_at" class="tsd-anchor"></a>
+					<h3>created_<wbr>at</h3>
+					<div class="tsd-signature tsd-kind-icon">created_<wbr>at<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/3140044/src/likes.ts#L9">likes.ts:9</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="kind" class="tsd-anchor"></a>
+					<h3>kind</h3>
+					<div class="tsd-signature tsd-kind-icon">kind<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/3140044/src/likes.ts#L10">likes.ts:10</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="track" class="tsd-anchor"></a>
+					<h3>track</h3>
+					<div class="tsd-signature tsd-kind-icon">track<span class="tsd-signature-symbol">:</span> <a href="_info_.trackinfo.html" class="tsd-signature-type">TrackInfo</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/3140044/src/likes.ts#L11">likes.ts:11</a></li>
+						</ul>
+					</aside>
 				</section>
 			</section>
 		</div>
@@ -118,36 +132,54 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_download_playlist_.html">&quot;download-<wbr>playlist&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_filter_media_.html">&quot;filter-<wbr>media&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_formats_.html">&quot;formats&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_index_.html">&quot;index&quot;</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_info_.html">&quot;info&quot;</a>
+					</li>
 					<li class="current tsd-kind-module">
-						<a href="_download_playlist_.html">&quot;download-<wbr>playlist&quot;</a>
+						<a href="../modules/_likes_.html">&quot;likes&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_filter_media_.html">&quot;filter-<wbr>media&quot;</a>
+						<a href="../modules/_protocols_.html">&quot;protocols&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_formats_.html">&quot;formats&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_info_.html">&quot;info&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_likes_.html">&quot;likes&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_protocols_.html">&quot;protocols&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_search_.html">&quot;search&quot;</a>
+						<a href="../modules/_search_.html">&quot;search&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_download_playlist_.html#downloadplaylist" class="tsd-kind-icon">download<wbr>Playlist</a>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-parent-kind-module">
+						<a href="_likes_.like.html" class="tsd-kind-icon">Like</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_likes_.like.html#created_at" class="tsd-kind-icon">created_<wbr>at</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_likes_.like.html#kind" class="tsd-kind-icon">kind</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_likes_.like.html#track" class="tsd-kind-icon">track</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_likes_.html#baseurl" class="tsd-kind-icon">baseURL</a>
 					</li>
 				</ul>
 			</nav>
@@ -166,6 +198,7 @@
 			<ul class="tsd-legend">
 				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
