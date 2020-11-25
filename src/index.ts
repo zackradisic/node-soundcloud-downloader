@@ -37,10 +37,14 @@ interface GetLikesOptions {
 }
 
 export interface SCDLOptions {
+  // Set a custom client ID to use
   clientID?: string,
-  saveClientID?: boolean, // Set to true to save client ID to file
-  filePath?: string, // File path to save client ID, defaults to '../client_id.json"
-  axiosInstance?: AxiosInstance // Custom axios instance to use
+  // Set to true to save client ID to file
+  saveClientID?: boolean,
+  // File path to save client ID, defaults to '../client_id.json"
+  filePath?: string,
+  // Custom axios instance to use
+  axiosInstance?: AxiosInstance
 }
 
 export class SCDL {
@@ -272,8 +276,11 @@ export class SCDL {
     })
   }
 }
+
+// SCDL instance with default configutarion
 const scdl = new SCDL()
 
+// Creates an instance of SCDL with custom configuration
 const create = (options: SCDLOptions): SCDL => new SCDL(options)
 
 export { create }
