@@ -4,3 +4,8 @@ img/
 example/
 tests/
 publish.sh
+jest.config.js
+jest.setup.js
+publish.sh
+.eslintrc.js
+.babelrc
