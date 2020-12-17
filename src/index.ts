@@ -119,7 +119,7 @@ export class SCDL {
    * @returns Info about the track
    */
   async getTrackInfoByID (ids: number[], playlistID?: number, playlistSecretToken?: string) {
-    return await getTrackInfoByID(await this.getClientID(), this.axios, ids, playlistID, playlistSecretToken)
+    return getTrackInfoByID(await this.getClientID(), this.axios, ids, playlistID, playlistSecretToken)
   }
 
   /**
@@ -184,7 +184,7 @@ export class SCDL {
    * @param url - The profile URL of the user
    */
   async getUser (url: string): Promise<User> {
-    return await getUser(url, await this.getClientID(), this.axios)
+    return getUser(url, await this.getClientID(), this.axios)
   }
 
   /**

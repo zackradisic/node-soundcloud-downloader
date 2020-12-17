@@ -191,8 +191,7 @@ var SCDL = /** @class */ (function () {
                     case 0:
                         _a = info_1.getTrackInfoByID;
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), this.axios, ids, playlistID, playlistSecretToken])];
-                    case 2: return [2 /*return*/, _b.sent()];
+                    case 1: return [2 /*return*/, _a.apply(void 0, [_b.sent(), this.axios, ids, playlistID, playlistSecretToken])];
                 }
             });
         });
@@ -320,8 +319,7 @@ var SCDL = /** @class */ (function () {
                         _a = user_1.getUser;
                         _b = [url];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [4 /*yield*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
-                    case 2: return [2 /*return*/, _c.sent()];
+                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });

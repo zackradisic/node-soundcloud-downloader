@@ -7,7 +7,7 @@
   "scripts": {
     "docs": "typedoc --out docs ./src --esModuleInterop --stripInternal; touch ./docs/.nojekyll",
     "build": "npx tsc src/*.ts --outDir dist --esModuleInterop",
-    "publish": "./publish.sh",
+    "publish-script": "./publish.sh",
     "test": "jest --runInBand"
   },
   "keywords": [
