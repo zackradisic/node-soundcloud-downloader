@@ -176,7 +176,7 @@ export class SCDL {
       throw new Error('options.id or options.profileURL must be provided.')
     }
 
-    return await getLikes(id, clientID, this.axios, limit, offset)
+    return getLikes(id, clientID, this.axios, limit, offset)
   }
 
   /**
