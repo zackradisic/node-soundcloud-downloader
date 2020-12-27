@@ -4,7 +4,7 @@ import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo, User } f
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
-import isValidURL from './is-url'
+import isValidURL from './url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
