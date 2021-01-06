@@ -63,7 +63,7 @@ var soundcloud_key_fetch_1 = __importDefault(require("soundcloud-key-fetch"));
 var info_1 = __importStar(require("./info"));
 var filter_media_1 = __importDefault(require("./filter-media"));
 var download_1 = require("./download");
-var is_url_1 = __importDefault(require("./is-url"));
+var url_1 = __importStar(require("./url"));
 var protocols_1 = require("./protocols");
 var formats_1 = require("./formats");
 var search_1 = require("./search");
@@ -110,6 +110,12 @@ var SCDL = /** @class */ (function () {
         else {
             this.setAxiosInstance(axios_1["default"]);
         }
+        if (!options.stripMobilePrefix)
+            options.stripMobilePrefix = true;
+        if (!options.convertFirebaseLinks)
+            options.convertFirebaseLinks = true;
+        this.stripMobilePrefix = options.stripMobilePrefix;
+        this.convertFirebaseLinks = options.convertFirebaseLinks;
     }
     /**
      * Returns a media Transcoding that matches the given predicate object
@@ -133,9 +139,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = download_1.download;
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -152,9 +160,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = downloadFormat;
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format, this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format, this.axios]))];
                 }
             });
         });
@@ -171,9 +181,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = info_1["default"];
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -208,9 +220,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = info_1.getSetInfo;
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -267,9 +281,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = download_playlist_1.downloadPlaylist;
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -283,25 +299,26 @@ var SCDL = /** @class */ (function () {
         if (limit === void 0) { limit = 10; }
         if (offset === void 0) { offset = 0; }
         return __awaiter(this, void 0, void 0, function () {
-            var id, clientID, user;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var id, clientID, user, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, this.getClientID()];
                     case 1:
-                        clientID = _a.sent();
+                        clientID = _b.sent();
                         if (!options.id) return [3 /*break*/, 2];
                         id = options.id;
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 6];
                     case 2:
-                        if (!options.profileURL) return [3 /*break*/, 4];
-                        return [4 /*yield*/, user_1.getUser(options.profileURL, clientID, this.axios)];
-                    case 3:
-                        user = _a.sent();
+                        if (!options.profileURL) return [3 /*break*/, 5];
+                        _a = user_1.getUser;
+                        return [4 /*yield*/, this.prepareURL(options.profileURL)];
+                    case 3: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), clientID, this.axios])];
+                    case 4:
+                        user = _b.sent();
                         id = user.id;
-                        return [3 /*break*/, 5];
-                    case 4: throw new Error('options.id or options.profileURL must be provided.');
-                    case 5: return [4 /*yield*/, likes_1.getLikes(id, clientID, this.axios, limit, offset)];
-                    case 6: return [2 /*return*/, _a.sent()];
+                        return [3 /*break*/, 6];
+                    case 5: throw new Error('options.id or options.profileURL must be provided.');
+                    case 6: return [2 /*return*/, likes_1.getLikes(id, clientID, this.axios, limit, offset)];
                 }
             });
         });
@@ -317,9 +334,11 @@ var SCDL = /** @class */ (function () {
                 switch (_c.label) {
                     case 0:
                         _a = user_1.getUser;
-                        _b = [url];
+                        return [4 /*yield*/, this.prepareURL(url)];
+                    case 1:
+                        _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
                 }
             });
         });
@@ -336,7 +355,7 @@ var SCDL = /** @class */ (function () {
      * @param url - URL of the Soundcloud track
     */
     SCDL.prototype.isValidUrl = function (url) {
-        return is_url_1["default"](url);
+        return url_1["default"](url);
     };
     SCDL.prototype.getClientID = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -439,6 +458,29 @@ var SCDL = /** @class */ (function () {
                             }
                         });
                     })];
+            });
+        });
+    };
+    /**
+     * Prepares the given URL by stripping its mobile prefix (if this.stripMobilePrefix is true)
+     * and converting it to a regular URL (if this.convertFireBaseLinks is true.)
+     * @param url
+     */
+    SCDL.prototype.prepareURL = function (url) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (this.stripMobilePrefix)
+                            url = url_1.stripMobilePrefix(url);
+                        if (!this.convertFirebaseLinks) return [3 /*break*/, 2];
+                        if (!url_1.isFirebaseURL(url)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, url_1.convertFirebaseURL(url, this.axios)];
+                    case 1:
+                        url = _a.sent();
+                        _a.label = 2;
+                    case 2: return [2 /*return*/, url];
+                }
             });
         });
     };
