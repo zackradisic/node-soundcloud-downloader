@@ -95,7 +95,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_index_.scdl.html#_clientid" class="tsd-kind-icon">_clientID</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="_index_.scdl.html#_filepath" class="tsd-kind-icon">_file<wbr>Path</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_index_.scdl.html#axios" class="tsd-kind-icon">axios</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_index_.scdl.html#convertfirebaselinks" class="tsd-kind-icon">convert<wbr>Firebase<wbr>Links</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_index_.scdl.html#saveclientid" class="tsd-kind-icon">save<wbr>ClientID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_index_.scdl.html#stripmobileprefix" class="tsd-kind-icon">strip<wbr>Mobile<wbr>Prefix</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -112,6 +114,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#gettrackinfobyid" class="tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>ByID</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#getuser" class="tsd-kind-icon">get<wbr>User</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#isvalidurl" class="tsd-kind-icon">is<wbr>Valid<wbr>Url</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#prepareurl" class="tsd-kind-icon">prepareURL</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#related" class="tsd-kind-icon">related</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#search" class="tsd-kind-icon">search</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_index_.scdl.html#setaxiosinstance" class="tsd-kind-icon">set<wbr>Axios<wbr>Instance</a></li>
@@ -132,7 +135,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L58">index.ts:58</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L66">index.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -154,7 +157,7 @@
 					<div class="tsd-signature tsd-kind-icon">FORMATS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L52">index.ts:52</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L57">index.ts:57</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -172,7 +175,7 @@
 					<div class="tsd-signature tsd-kind-icon">STREAMING_<wbr>PROTOCOLS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L51">index.ts:51</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L56">index.ts:56</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -190,7 +193,7 @@
 					<div class="tsd-signature tsd-kind-icon">_clientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L54">index.ts:54</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L59">index.ts:59</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -200,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">_file<wbr>Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L55">index.ts:55</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L60">index.ts:60</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -210,7 +213,17 @@
 					<div class="tsd-signature tsd-kind-icon">axios<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">AxiosInstance</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L57">index.ts:57</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L62">index.ts:62</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="convertfirebaselinks" class="tsd-anchor"></a>
+					<h3>convert<wbr>Firebase<wbr>Links</h3>
+					<div class="tsd-signature tsd-kind-icon">convert<wbr>Firebase<wbr>Links<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L66">index.ts:66</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -220,7 +233,17 @@
 					<div class="tsd-signature tsd-kind-icon">save<wbr>ClientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() &#x3D;&#x3D;&#x3D; &#x27;true&#x27; : false</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L58">index.ts:58</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L63">index.ts:63</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="stripmobileprefix" class="tsd-anchor"></a>
+					<h3>strip<wbr>Mobile<wbr>Prefix</h3>
+					<div class="tsd-signature tsd-kind-icon">strip<wbr>Mobile<wbr>Prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L65">index.ts:65</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -237,7 +260,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L94">index.ts:94</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L108">index.ts:108</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -269,7 +292,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L103">index.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L117">index.ts:117</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -306,7 +329,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L158">index.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L172">index.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -337,7 +360,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L84">index.ts:84</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L98">index.ts:98</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -375,7 +398,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L206">index.ts:206</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L220">index.ts:220</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -392,7 +415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L112">index.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L126">index.ts:126</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -424,7 +447,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L167">index.ts:167</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L181">index.ts:181</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -464,7 +487,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L130">index.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L144">index.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -496,7 +519,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L121">index.ts:121</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L135">index.ts:135</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -534,7 +557,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L186">index.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L200">index.ts:200</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -565,7 +588,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L202">index.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L216">index.ts:216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -587,6 +610,37 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="prepareurl" class="tsd-anchor"></a>
+					<h3>prepareURL</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">prepareURL<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L298">index.ts:298</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Prepares the given URL by stripping its mobile prefix (if this.stripMobilePrefix is true)
+									and converting it to a regular URL (if this.convertFireBaseLinks is true.)</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>url: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="related" class="tsd-anchor"></a>
 					<h3>related</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -596,7 +650,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L150">index.ts:150</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L164">index.ts:164</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -639,7 +693,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L140">index.ts:140</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L154">index.ts:154</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -677,7 +731,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/a0db640/src/index.ts#L194">index.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/899a6e6/src/index.ts#L208">index.ts:208</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -730,6 +784,9 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_search_.html">&quot;search&quot;</a>
 					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/_url_.html">&quot;url&quot;</a>
+					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
@@ -758,7 +815,13 @@
 								<a href="_index_.scdl.html#axios" class="tsd-kind-icon">axios</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_index_.scdl.html#convertfirebaselinks" class="tsd-kind-icon">convert<wbr>Firebase<wbr>Links</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_index_.scdl.html#saveclientid" class="tsd-kind-icon">save<wbr>ClientID</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_index_.scdl.html#stripmobileprefix" class="tsd-kind-icon">strip<wbr>Mobile<wbr>Prefix</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.scdl.html#download" class="tsd-kind-icon">download</a>
@@ -792,6 +855,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.scdl.html#isvalidurl" class="tsd-kind-icon">is<wbr>Valid<wbr>Url</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_index_.scdl.html#prepareurl" class="tsd-kind-icon">prepareURL</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="_index_.scdl.html#related" class="tsd-kind-icon">related</a>
