@@ -4,7 +4,7 @@ import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo, User } f
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
-import isValidURL from './is-url'
+import isValidURL, { convertFirebaseURL, isFirebaseURL, stripMobilePrefix } from './url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
@@ -44,7 +44,12 @@ export interface SCDLOptions {
   // File path to save client ID, defaults to '../client_id.json"
   filePath?: string,
   // Custom axios instance to use
-  axiosInstance?: AxiosInstance
+  axiosInstance?: AxiosInstance,
+  // Whether or not to automatically convert mobile links to regular links, defaults to true
+  stripMobilePrefix?: boolean,
+  // Whether or not to automatically convert SoundCloud Firebase links copied from the mobile app
+  // (e.g. https://soundcloud.app.goo.gl/xxxxxxxxx), defaults to true.
+  convertFirebaseLinks?: boolean,
 }
 
 export class SCDL {
@@ -56,6 +61,9 @@ export class SCDL {
 
   axios: AxiosInstance
   saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false
+
+  stripMobilePrefix: boolean
+  convertFirebaseLinks: boolean
 
   constructor (options?: SCDLOptions) {
     if (!options) options = {}
@@ -73,6 +81,12 @@ export class SCDL {
     } else {
       this.setAxiosInstance(axios)
     }
+
+    if (!options.stripMobilePrefix) options.stripMobilePrefix = true
+    if (!options.convertFirebaseLinks) options.convertFirebaseLinks = true
+
+    this.stripMobilePrefix = options.stripMobilePrefix
+    this.convertFirebaseLinks = options.convertFirebaseLinks
   }
 
   /**
@@ -92,7 +106,7 @@ export class SCDL {
    * @returns A ReadableStream containing the audio data
   */
   async download (url: string) {
-    return download(url, await this.getClientID(), this.axios)
+    return download(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 
   /**
@@ -101,7 +115,7 @@ export class SCDL {
    * @param format - The desired format
   */
   async downloadFormat (url: string, format: FORMATS) {
-    return downloadFormat(url, await this.getClientID(), format, this.axios)
+    return downloadFormat(await this.prepareURL(url), await this.getClientID(), format, this.axios)
   }
 
   /**
@@ -110,7 +124,7 @@ export class SCDL {
    * @returns Info about the track
   */
   async getInfo (url: string) {
-    return getInfo(url, await this.getClientID(), this.axios)
+    return getInfo(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 
   /**
@@ -128,7 +142,7 @@ export class SCDL {
    * @returns Info about the set
    */
   async getSetInfo (url: string) {
-    return getSetInfo(url, await this.getClientID(), this.axios)
+    return getSetInfo(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 
   /**
@@ -156,7 +170,7 @@ export class SCDL {
    * @param url - The url of the playlist
    */
   async downloadPlaylist (url: string): Promise<[ReadableStream<any>[], String[]]> {
-    return downloadPlaylist(url, await this.getClientID(), this.axios)
+    return downloadPlaylist(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 
   /**
@@ -170,13 +184,13 @@ export class SCDL {
     if (options.id) {
       id = options.id
     } else if (options.profileURL) {
-      const user = await getUser(options.profileURL, clientID, this.axios)
+      const user = await getUser(await this.prepareURL(options.profileURL), clientID, this.axios)
       id = user.id
     } else {
       throw new Error('options.id or options.profileURL must be provided.')
     }
 
-    return await getLikes(id, clientID, this.axios, limit, offset)
+    return getLikes(id, clientID, this.axios, limit, offset)
   }
 
   /**
@@ -184,7 +198,7 @@ export class SCDL {
    * @param url - The profile URL of the user
    */
   async getUser (url: string): Promise<User> {
-    return getUser(url, await this.getClientID(), this.axios)
+    return getUser(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 
   /**
@@ -274,6 +288,20 @@ export class SCDL {
         }
       })
     })
+  }
+
+  /**
+   * Prepares the given URL by stripping its mobile prefix (if this.stripMobilePrefix is true)
+   * and converting it to a regular URL (if this.convertFireBaseLinks is true.)
+   * @param url
+   */
+  async prepareURL (url: string): Promise<string> {
+    if (this.stripMobilePrefix) url = stripMobilePrefix(url)
+    if (this.convertFirebaseLinks) {
+      if (isFirebaseURL(url)) url = await convertFirebaseURL(url, this.axios)
+    }
+
+    return url
   }
 }
 

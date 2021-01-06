@@ -22,7 +22,7 @@ describe('related()', () => {
   })
 
   it('resource count returned is equal to limit', () => {
-    expect(searchResponse.collection.length).toEqual(limit)
+    expect(searchResponse.collection.length).toBeLessThanOrEqual(limit)
   })
 
   it('returns a valid track object', () => {
