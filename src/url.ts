@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios'
 
 /** @internal @packageDocumentation */
-const regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/
+const regexp = /(^https?:\/\/((m.)?soundcloud\.com)\/(.*)$)|(^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$)/
 
 const firebaseRegexp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,500}\.[a-zA-Z0-9()]{1,500}\b([-a-zA-Z0-9()@:%_+.~#?&//\\=]*)/g
 
