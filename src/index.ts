@@ -214,7 +214,7 @@ export class SCDL {
    * @param url - URL of the Soundcloud track
   */
   isValidUrl (url: string) {
-    return isValidURL(url)
+    return isValidURL(url, this.convertFirebaseLinks, this.stripMobilePrefix)
   }
 
   async getClientID (): Promise<string> {

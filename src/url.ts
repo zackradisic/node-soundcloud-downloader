@@ -1,13 +1,27 @@
 import axios, { AxiosInstance } from 'axios'
 
 /** @internal @packageDocumentation */
-const regexp = /(^https?:\/\/((m.)?soundcloud\.com)\/(.*)$)|(^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$)/
+const regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/
+
+const mobileUrlRegex = /^https?:\/\/(m\.soundcloud\.com)\/(.*)$/
+
+const firebasrUrlRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$)/
 
 const firebaseRegexp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,500}\.[a-zA-Z0-9()]{1,500}\b([-a-zA-Z0-9()@:%_+.~#?&//\\=]*)/g
 
-const isURL = (url: string) => {
-  if (!url.match(regexp)) return false
-  return url.match(regexp) && (url.match(regexp) as RegExpMatchArray)[2]
+const isURL = (url: string, testMobile?: boolean, testFirebase?: boolean) => {
+  let success = false
+  if (testMobile) {
+    if (url.match(mobileUrlRegex)) success = !!(url.match(regexp) as RegExpMatchArray)[2]
+  }
+
+  if (!success && testFirebase) {
+    if (url.match(firebaseRegexp)) success = !!(url.match(firebaseRegexp) as RegExpMatchArray)[2]
+  }
+
+  if (!success && url.match(regexp)) success = !!(url.match(regexp) as RegExpMatchArray)[2]
+
+  return success
 }
 
 export const isPlaylistURL = (url: string) => {
