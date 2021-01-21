@@ -5,6 +5,7 @@
 import scdl from '../'
 
 describe('search()', () => {
+  let nextHref = ''
   it('returns a valid search object', async done => {
     try {
       const query = 'borderline tame impala'
@@ -17,6 +18,7 @@ describe('search()', () => {
             resourceType: types[idx]
           })
           const keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(searchResponse[key]).toBeDefined())
+          nextHref = searchResponse.next_href
           done()
         } catch (err) {
           console.error(err)
@@ -32,27 +34,17 @@ describe('search()', () => {
   it('next_href pagination works', async done => {
     try {
       const query = 'borderline tame impala'
-      const types = ['all', 'tracks', 'users', 'albums', 'playlists']
-      let nextHref = ''
 
-      types.forEach(async (type, idx) => {
-        try {
-          const searchResponse = await scdl.search({
-            query,
-            resourceType: types[idx]
-          })
-          let keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(searchResponse[key]).toBeDefined())
-          nextHref = searchResponse.next_href
-          const response = await scdl.search({
-            nextHref
-          })
-          keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(response[key]).toBeDefined())
-          done()
-        } catch (err) {
-          console.error(err)
-          done(err)
-        }
-      })
+      try {
+        const response = await scdl.search({
+          nextHref
+        })
+        const keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(response[key]).toBeDefined())
+        done()
+      } catch (err) {
+        console.error(err)
+        done(err)
+      }
     } catch (err) {
       console.error(err)
       done(err)
