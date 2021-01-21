@@ -8,7 +8,7 @@ import isValidURL, { convertFirebaseURL, isFirebaseURL, stripMobilePrefix } from
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
-import { search, related, SoundcloudResource } from './search'
+import { search, related, SoundcloudResource, SearchOptions } from './search'
 import { downloadPlaylist } from './download-playlist'
 import axios, { AxiosInstance } from 'axios'
 
@@ -147,12 +147,11 @@ export class SCDL {
 
   /**
    * Searches for tracks/playlists for the given query
-   * @param type - The type of resource, one of: 'tracks', 'users', 'albums', 'playlists', 'all'
-   * @param query - The keywords for the search
+   * @param options - The search option
    * @returns SearchResponse
    */
-  async search (type: SoundcloudResource | 'all', query: string) {
-    return search(type, query, this.axios, await this.getClientID())
+  async search (options: SearchOptions) {
+    return search(options, this.axios, await this.getClientID())
   }
 
   /**
@@ -214,7 +213,7 @@ export class SCDL {
    * @param url - URL of the Soundcloud track
   */
   isValidUrl (url: string) {
-    return isValidURL(url)
+    return isValidURL(url, this.convertFirebaseLinks, this.stripMobilePrefix)
   }
 
   async getClientID (): Promise<string> {
