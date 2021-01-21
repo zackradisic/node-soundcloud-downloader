@@ -4,7 +4,7 @@ import getInfo, { getSetInfo, Transcoding, getTrackInfoByID, TrackInfo, User } f
 import filterMedia, { FilterPredicateObject } from './filter-media'
 import { download, fromMediaObj } from './download'
 
-import isValidURL, { convertFirebaseURL, isFirebaseURL, stripMobilePrefix } from './url'
+import isValidURL, { convertFirebaseURL, isFirebaseURL, isPersonalizedTrackURL, isPlaylistURL, stripMobilePrefix } from './url'
 
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
 import FORMATS, { _FORMATS } from './formats'
@@ -216,6 +216,30 @@ export class SCDL {
     return isValidURL(url, this.convertFirebaseLinks, this.stripMobilePrefix)
   }
 
+  /**
+   * Returns whether or not the given URL is a valid playlist SoundCloud URL
+   * @param url - The URL to check
+   */
+  isPlaylistURL (url: string) {
+    return isPlaylistURL(url)
+  }
+
+  /**
+   * Returns true if the given URL is a personalized track URL. (of the form https://soundcloud.com/discover/sets/personalized-tracks::user-sdlkfjsldfljs:847104873)
+   * @param url - The URL to check
+   */
+  isPersonalizedTrackURL (url: string) {
+    return isPersonalizedTrackURL(url)
+  }
+
+  /**
+   * Returns true if the given URL is a Firebase URL (of the form https://soundcloud.app.goo.gl/XXXXXXXX)
+   * @param url - The URL to check
+   */
+  isFirebaseURL (url: string) {
+    return isFirebaseURL(url)
+  }
+
   async getClientID (): Promise<string> {
     if (!this._clientID) {
       await this.setClientID()
@@ -269,7 +293,6 @@ export class SCDL {
         } catch (err) {
           return reject(err)
         }
-
         if (!c.date && !c.clientID) return reject(new Error("Property 'data' or 'clientID' missing from client_id.json"))
         if (typeof c.clientID !== 'string') return reject(new Error("Property 'clientID' is not a string in client_id.json"))
         if (typeof c.date !== 'string') return reject(new Error("Property 'date' is not a string in client_id.json"))

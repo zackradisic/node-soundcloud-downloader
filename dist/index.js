@@ -356,6 +356,27 @@ var SCDL = /** @class */ (function () {
     SCDL.prototype.isValidUrl = function (url) {
         return url_1["default"](url, this.convertFirebaseLinks, this.stripMobilePrefix);
     };
+    /**
+     * Returns whether or not the given URL is a valid playlist SoundCloud URL
+     * @param url - The URL to check
+     */
+    SCDL.prototype.isPlaylistURL = function (url) {
+        return url_1.isPlaylistURL(url);
+    };
+    /**
+     * Returns true if the given URL is a personalized track URL. (of the form https://soundcloud.com/discover/sets/personalized-tracks::user-sdlkfjsldfljs:847104873)
+     * @param url - The URL to check
+     */
+    SCDL.prototype.isPersonalizedTrackURL = function (url) {
+        return url_1.isPersonalizedTrackURL(url);
+    };
+    /**
+     * Returns true if the given URL is a Firebase URL (of the form https://soundcloud.app.goo.gl/XXXXXXXX)
+     * @param url - The URL to check
+     */
+    SCDL.prototype.isFirebaseURL = function (url) {
+        return url_1.isFirebaseURL(url);
+    };
     SCDL.prototype.getClientID = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
