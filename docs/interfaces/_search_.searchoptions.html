@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Transcoding | soundcloud-downloader</title>
+	<title>SearchOptions | soundcloud-downloader</title>
 	<meta name="description" content="Documentation for soundcloud-downloader">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,31 +56,24 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_info_.html">&quot;info&quot;</a>
+					<a href="../modules/_search_.html">&quot;search&quot;</a>
 				</li>
 				<li>
-					<a href="_info_.transcoding.html">Transcoding</a>
+					<a href="_search_.searchoptions.html">SearchOptions</a>
 				</li>
 			</ul>
-			<h1>Interface Transcoding</h1>
+			<h1>Interface SearchOptions</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-comment">
-				<div class="tsd-comment tsd-typography">
-					<div class="lead">
-						<p>Represents an audio link to a Soundcloud Track</p>
-					</div>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Transcoding</span>
+						<span class="target">SearchOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -91,10 +84,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_info_.transcoding.html#format" class="tsd-kind-icon">format</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_info_.transcoding.html#preset" class="tsd-kind-icon">preset</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_info_.transcoding.html#snipped" class="tsd-kind-icon">snipped</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_info_.transcoding.html#url" class="tsd-kind-icon">url</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_search_.searchoptions.html#limit" class="tsd-kind-icon">limit</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_search_.searchoptions.html#nexthref" class="tsd-kind-icon">next<wbr>Href</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_search_.searchoptions.html#offset" class="tsd-kind-icon">offset</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_search_.searchoptions.html#query" class="tsd-kind-icon">query</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="_search_.searchoptions.html#resourcetype" class="tsd-kind-icon">resource<wbr>Type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -103,53 +97,52 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="format" class="tsd-anchor"></a>
-					<h3>format</h3>
-					<div class="tsd-signature tsd-kind-icon">format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>mime_type<span class="tsd-signature-symbol">: </span><a href="../enums/_formats_.formats.html" class="tsd-signature-type">FORMATS</a><span class="tsd-signature-symbol">; </span>protocol<span class="tsd-signature-symbol">: </span><a href="../enums/_protocols_.streaming_protocols.html" class="tsd-signature-type">STREAMING_PROTOCOLS</a><span class="tsd-signature-symbol"> }</span></div>
+					<a name="limit" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> limit</h3>
+					<div class="tsd-signature tsd-kind-icon">limit<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/info.ts#L116">info.ts:116</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter">
-								<h5>mime_<wbr>type<span class="tsd-signature-symbol">: </span><a href="../enums/_formats_.formats.html" class="tsd-signature-type">FORMATS</a></h5>
-							</li>
-							<li class="tsd-parameter">
-								<h5>protocol<span class="tsd-signature-symbol">: </span><a href="../enums/_protocols_.streaming_protocols.html" class="tsd-signature-type">STREAMING_PROTOCOLS</a></h5>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="preset" class="tsd-anchor"></a>
-					<h3>preset</h3>
-					<div class="tsd-signature tsd-kind-icon">preset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/info.ts#L114">info.ts:114</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/search.ts#L14">search.ts:14</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="snipped" class="tsd-anchor"></a>
-					<h3>snipped</h3>
-					<div class="tsd-signature tsd-kind-icon">snipped<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="nexthref" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> next<wbr>Href</h3>
+					<div class="tsd-signature tsd-kind-icon">next<wbr>Href<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/info.ts#L115">info.ts:115</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/search.ts#L18">search.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="url" class="tsd-anchor"></a>
-					<h3>url</h3>
-					<div class="tsd-signature tsd-kind-icon">url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="offset" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> offset</h3>
+					<div class="tsd-signature tsd-kind-icon">offset<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/info.ts#L113">info.ts:113</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/search.ts#L15">search.ts:15</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="query" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> query</h3>
+					<div class="tsd-signature tsd-kind-icon">query<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/search.ts#L17">search.ts:17</a></li>
+						</ul>
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="resourcetype" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> resource<wbr>Type</h3>
+					<div class="tsd-signature tsd-kind-icon">resource<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../modules/_search_.html#soundcloudresource" class="tsd-signature-type">SoundcloudResource</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"all"</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/4f5b5d3/src/search.ts#L16">search.ts:16</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -173,7 +166,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_index_.html">&quot;index&quot;</a>
 					</li>
-					<li class="current tsd-kind-module">
+					<li class=" tsd-kind-module">
 						<a href="../modules/_info_.html">&quot;info&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -182,7 +175,7 @@
 					<li class=" tsd-kind-module">
 						<a href="../modules/_protocols_.html">&quot;protocols&quot;</a>
 					</li>
-					<li class=" tsd-kind-module">
+					<li class="current tsd-kind-module">
 						<a href="../modules/_search_.html">&quot;search&quot;</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -192,41 +185,41 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_info_.setinfo.html" class="tsd-kind-icon">Set<wbr>Info</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_info_.trackinfo.html" class="tsd-kind-icon">Track<wbr>Info</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-module tsd-has-type-parameter">
+						<a href="_search_.relatedresponse.html" class="tsd-kind-icon">Related<wbr>Response</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="_info_.transcoding.html" class="tsd-kind-icon">Transcoding</a>
+						<a href="_search_.searchoptions.html" class="tsd-kind-icon">Search<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_info_.transcoding.html#format" class="tsd-kind-icon">format</a>
+								<a href="_search_.searchoptions.html#limit" class="tsd-kind-icon">limit</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_info_.transcoding.html#preset" class="tsd-kind-icon">preset</a>
+								<a href="_search_.searchoptions.html#nexthref" class="tsd-kind-icon">next<wbr>Href</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_info_.transcoding.html#snipped" class="tsd-kind-icon">snipped</a>
+								<a href="_search_.searchoptions.html#offset" class="tsd-kind-icon">offset</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="_info_.transcoding.html#url" class="tsd-kind-icon">url</a>
+								<a href="_search_.searchoptions.html#query" class="tsd-kind-icon">query</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="_search_.searchoptions.html#resourcetype" class="tsd-kind-icon">resource<wbr>Type</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="_info_.user.html" class="tsd-kind-icon">User</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_search_.html#searchresponseall" class="tsd-kind-icon">Search<wbr>Response<wbr>All</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-not-exported">
-						<a href="../modules/_info_.html#gettrackinfobase" class="tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>Base</a>
+					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
+						<a href="../modules/_search_.html#soundcloudresource" class="tsd-kind-icon">Soundcloud<wbr>Resource</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/_info_.html#gettrackinfobyid" class="tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>ByID</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-not-exported">
+						<a href="../modules/_search_.html#validresourcetypes" class="tsd-kind-icon">valid<wbr>Resource<wbr>Types</a>
 					</li>
 				</ul>
 			</nav>
