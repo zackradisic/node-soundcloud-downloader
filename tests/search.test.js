@@ -5,7 +5,6 @@
 import scdl from '../'
 
 describe('search()', () => {
-  let nextHref = ''
   it('returns a valid search object', async done => {
     try {
       const query = 'borderline tame impala'
@@ -18,7 +17,6 @@ describe('search()', () => {
             resourceType: types[idx]
           })
           const keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(searchResponse[key]).toBeDefined())
-          nextHref = searchResponse.next_href
           done()
         } catch (err) {
           console.error(err)
@@ -33,11 +31,13 @@ describe('search()', () => {
 
   it('next_href pagination works', async done => {
     try {
-      const query = 'borderline tame impala'
-
       try {
-        const response = await scdl.search({
-          nextHref
+        let response = await scdl.search({
+          query: 'redbone childish gambino',
+          resourceType: 'tracks'
+        })
+        response = await scdl.search({
+          nextHref: response.next_href
         })
         const keys = ['collection', 'total_results', 'query_urn'].forEach(key => expect(response[key]).toBeDefined())
         done()
