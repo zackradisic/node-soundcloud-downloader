@@ -39,11 +39,22 @@ exports.__esModule = true;
 exports.convertFirebaseURL = exports.isFirebaseURL = exports.stripMobilePrefix = exports.isPersonalizedTrackURL = exports.isPlaylistURL = void 0;
 /** @internal @packageDocumentation */
 var regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/;
+var mobileUrlRegex = /^https?:\/\/(m\.soundcloud\.com)\/(.*)$/;
+var firebaseUrlRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$/;
 var firebaseRegexp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,500}\.[a-zA-Z0-9()]{1,500}\b([-a-zA-Z0-9()@:%_+.~#?&//\\=]*)/g;
-var isURL = function (url) {
-    if (!url.match(regexp))
-        return false;
-    return url.match(regexp) && url.match(regexp)[2];
+var isURL = function (url, testMobile, testFirebase) {
+    var success = false;
+    if (testMobile) {
+        if (url.match(mobileUrlRegex))
+            success = !!url.match(regexp)[2];
+    }
+    if (!success && testFirebase) {
+        if (url.match(firebaseRegexp))
+            success = !!url.match(firebaseRegexp)[2];
+    }
+    if (!success && url.match(regexp))
+        success = !!url.match(regexp)[2];
+    return success;
 };
 exports.isPlaylistURL = function (url) {
     if (!isURL(url))

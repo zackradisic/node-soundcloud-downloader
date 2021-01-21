@@ -40,12 +40,32 @@ exports.related = exports.search = void 0;
 var util_1 = require("./util");
 /** @internal */
 var baseURL = 'https://api-v2.soundcloud.com/search';
+var validResourceTypes = ['tracks', 'users', 'albums', 'playlists', 'all'];
 /** @internal */
-exports.search = function (type, query, axiosInstance, clientID) { return __awaiter(void 0, void 0, void 0, function () {
-    var data;
+exports.search = function (options, axiosInstance, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, data;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axiosInstance.get(util_1.appendURL("" + baseURL + (type === 'all' ? '' : "/" + type), 'client_id', clientID, 'q', query))];
+            case 0:
+                url = '';
+                if (!options.limit)
+                    options.limit = 10;
+                if (!options.offset)
+                    options.offset = 0;
+                if (!options.resourceType)
+                    options.resourceType = 'tracks';
+                if (options.nextHref) {
+                    url = util_1.appendURL(options.nextHref, 'client_id', clientID);
+                }
+                else if (options.query) {
+                    if (!validResourceTypes.includes(options.resourceType))
+                        throw new Error(options.resourceType + " is not one of " + validResourceTypes.map(function (str) { return "'" + str + "'"; }).join(', '));
+                    url = util_1.appendURL("" + baseURL + (options.resourceType === 'all' ? '' : "/" + options.resourceType), 'client_id', clientID, 'q', options.query, 'limit', '' + options.limit, 'offset', '' + options.offset);
+                }
+                else {
+                    throw new Error('One of options.query or options.nextHref is required');
+                }
+                return [4 /*yield*/, axiosInstance.get(url)];
             case 1:
                 data = (_a.sent()).data;
                 return [2 /*return*/, data];

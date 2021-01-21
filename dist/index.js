@@ -231,18 +231,17 @@ var SCDL = /** @class */ (function () {
     };
     /**
      * Searches for tracks/playlists for the given query
-     * @param type - The type of resource, one of: 'tracks', 'users', 'albums', 'playlists', 'all'
-     * @param query - The keywords for the search
+     * @param options - The search option
      * @returns SearchResponse
      */
-    SCDL.prototype.search = function (type, query) {
+    SCDL.prototype.search = function (options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
                         _a = search_1.search;
-                        _b = [type, query, this.axios];
+                        _b = [options, this.axios];
                         return [4 /*yield*/, this.getClientID()];
                     case 1: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent()]))];
                 }
@@ -355,7 +354,7 @@ var SCDL = /** @class */ (function () {
      * @param url - URL of the Soundcloud track
     */
     SCDL.prototype.isValidUrl = function (url) {
-        return url_1["default"](url);
+        return url_1["default"](url, this.convertFirebaseLinks, this.stripMobilePrefix);
     };
     SCDL.prototype.getClientID = function () {
         return __awaiter(this, void 0, void 0, function () {
