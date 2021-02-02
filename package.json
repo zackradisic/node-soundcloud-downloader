@@ -12,6 +12,7 @@
   },
   "keywords": [
     "soundcloud",
+    "soundcloud-api",
     "soundcloud downloader",
     "soundcloud download",
     "soundcloud audio",
@@ -23,7 +24,7 @@
     "url": "https://github.com/zackradisic/node-soundcloud-downloader"
   },
   "author": "Zack Radisic",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.10.3",
     "axios": "^0.21.0",
