@@ -56,7 +56,7 @@ var isURL = function (url, testMobile, testFirebase) {
         success = !!url.match(regexp)[2];
     return success;
 };
-exports.isPlaylistURL = function (url) {
+var isPlaylistURL = function (url) {
     if (!isURL(url))
         return false;
     try {
@@ -67,22 +67,26 @@ exports.isPlaylistURL = function (url) {
         return false;
     }
 };
-exports.isPersonalizedTrackURL = function (url) {
+exports.isPlaylistURL = isPlaylistURL;
+var isPersonalizedTrackURL = function (url) {
     if (!isURL(url))
         return false;
     return url.includes('https://soundcloud.com/discover/sets/personalized-tracks::');
 };
-exports.stripMobilePrefix = function (url) {
+exports.isPersonalizedTrackURL = isPersonalizedTrackURL;
+var stripMobilePrefix = function (url) {
     if (!url.includes('m.soundcloud.com'))
         return url;
     var _url = new URL(url);
     _url.hostname = 'soundcloud.com';
     return _url.toString();
 };
-exports.isFirebaseURL = function (url) {
+exports.stripMobilePrefix = stripMobilePrefix;
+var isFirebaseURL = function (url) {
     return url.includes('https://soundcloud.app.goo.gl');
 };
-exports.convertFirebaseURL = function (url, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+exports.isFirebaseURL = isFirebaseURL;
+var convertFirebaseURL = function (url, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var _url, data, matches, firebaseURL;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -107,4 +111,5 @@ exports.convertFirebaseURL = function (url, axiosInstance) { return __awaiter(vo
         }
     });
 }); };
+exports.convertFirebaseURL = convertFirebaseURL;
 exports["default"] = isURL;

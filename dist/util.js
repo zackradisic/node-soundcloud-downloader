@@ -4,7 +4,7 @@ exports.kindMismatchError = exports.extractIDFromPersonalizedTrackURL = exports.
 /** @internal @packageDocumentation */
 var url_1 = require("url");
 exports.resolveURL = 'https://api-v2.soundcloud.com/resolve';
-exports.handleRequestErrs = function (err) {
+var handleRequestErrs = function (err) {
     if (!err.response)
         return err;
     if (!err.response.status)
@@ -15,7 +15,8 @@ exports.handleRequestErrs = function (err) {
         err.message += ', could not find the song... it may be private - check the URL';
     return err;
 };
-exports.appendURL = function (url) {
+exports.handleRequestErrs = handleRequestErrs;
+var appendURL = function (url) {
     var params = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         params[_i - 1] = arguments[_i];
@@ -27,7 +28,8 @@ exports.appendURL = function (url) {
     });
     return u.href;
 };
-exports.extractIDFromPersonalizedTrackURL = function (url) {
+exports.appendURL = appendURL;
+var extractIDFromPersonalizedTrackURL = function (url) {
     if (!url.includes('https://soundcloud.com/discover/sets/personalized-tracks::'))
         return '';
     var split = url.split(':');
@@ -35,4 +37,6 @@ exports.extractIDFromPersonalizedTrackURL = function (url) {
         return '';
     return split[4];
 };
-exports.kindMismatchError = function (expected, received) { return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")"); };
+exports.extractIDFromPersonalizedTrackURL = extractIDFromPersonalizedTrackURL;
+var kindMismatchError = function (expected, received) { return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")"); };
+exports.kindMismatchError = kindMismatchError;

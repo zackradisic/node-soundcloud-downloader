@@ -39,7 +39,7 @@ exports.__esModule = true;
 exports.downloadPlaylist = void 0;
 var download_1 = require("./download");
 var info_1 = require("./info");
-exports.downloadPlaylist = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var downloadPlaylist = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var info, trackNames, result;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -58,3 +58,4 @@ exports.downloadPlaylist = function (url, clientID, axiosInstance) { return __aw
         }
     });
 }); };
+exports.downloadPlaylist = downloadPlaylist;

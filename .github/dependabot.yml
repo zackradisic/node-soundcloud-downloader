@@ -13,3 +13,6 @@ updates:
       - dependency-name: "axios"
       - dependency-name: "m3u8stream"
       - dependency-name: "typescript"
+      - dependency-name: "soundcloud-key-fetch"
+      - dependency-name: "typedoc"
+      - dependency-name: "jest"
