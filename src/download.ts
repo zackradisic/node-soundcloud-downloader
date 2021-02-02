@@ -67,9 +67,19 @@ export const fromMediaObjBase = async (media: Transcoding, clientID: string,
 
 export const fromMediaObj = async (media: Transcoding, clientID: string, axiosInstance: AxiosInstance) => await fromMediaObjBase(media, clientID, getMediaURL, getProgressiveStream, getHLSStream, fromURL, axiosInstance)
 
+export const fromDownloadLink = async (id: number, clientID: string, axiosInstance: AxiosInstance) => {
+  const { data: { redirectUri } } = await axiosInstance.get(appendURL(`https://api-v2.soundcloud.com/tracks/${id}/download`, 'client_id', clientID))
+  const { data } = await axiosInstance.get(redirectUri, {
+    responseType: 'stream'
+  })
+
+  return data
+}
+
 /** @internal */
 export const download = async (url: string, clientID: string, axiosInstance: AxiosInstance) => {
   const info = await getInfo(url, clientID, axiosInstance)
+  if (info.downloadable) return await fromDownloadLink(info.id, clientID, axiosInstance)
 
   return await fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)
 }
