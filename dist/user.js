@@ -39,7 +39,7 @@ exports.__esModule = true;
 exports.getUser = void 0;
 var util_1 = require("./util");
 /** @internal */
-exports.getUser = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var getUser = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var u, data;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -54,3 +54,4 @@ exports.getUser = function (url, clientID, axiosInstance) { return __awaiter(voi
         }
     });
 }); };
+exports.getUser = getUser;

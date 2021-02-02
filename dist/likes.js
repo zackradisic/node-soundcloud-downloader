@@ -40,7 +40,7 @@ exports.getLikes = void 0;
 var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/users/';
 /** @internal */
-exports.getLikes = function (id, clientID, axiosInstance, limit, offset) {
+var getLikes = function (id, clientID, axiosInstance, limit, offset) {
     if (limit === void 0) { limit = 10; }
     if (offset === void 0) { offset = 0; }
     return __awaiter(void 0, void 0, void 0, function () {
@@ -64,3 +64,4 @@ exports.getLikes = function (id, clientID, axiosInstance, limit, offset) {
         });
     });
 };
+exports.getLikes = getLikes;

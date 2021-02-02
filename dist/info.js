@@ -69,7 +69,7 @@ var getTrackInfoBase = function (clientID, axiosRef, ids, playlistID, playlistSe
     });
 }); };
 /** @internal */
-exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
+var getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
     var res, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -89,6 +89,7 @@ exports.getInfoBase = function (url, clientID, axiosRef) { return __awaiter(void
         }
     });
 }); };
+exports.getInfoBase = getInfoBase;
 /** @internal */
 var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 0, void 0, void 0, function () {
     var setInfo, temp, playlistID, playlistSecretToken, incompleteTracks, completeTracks, ids, splitIds, x, x, i, promises, info_1, info;
@@ -186,7 +187,7 @@ var getInfo = function (url, clientID, axiosInstance) { return __awaiter(void 0,
     });
 }); };
 /** @internal */
-exports.getSetInfo = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var getSetInfo = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var data;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -199,8 +200,9 @@ exports.getSetInfo = function (url, clientID, axiosInstance) { return __awaiter(
         }
     });
 }); };
+exports.getSetInfo = getSetInfo;
 /** @intenral */
-exports.getTrackInfoByID = function (clientID, axiosInstance, ids, playlistID, playlistSecretToken) { return __awaiter(void 0, void 0, void 0, function () {
+var getTrackInfoByID = function (clientID, axiosInstance, ids, playlistID, playlistSecretToken) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, getTrackInfoBase(clientID, axiosInstance, ids, playlistID, playlistSecretToken)];
@@ -208,4 +210,5 @@ exports.getTrackInfoByID = function (clientID, axiosInstance, ids, playlistID, p
         }
     });
 }); };
+exports.getTrackInfoByID = getTrackInfoByID;
 exports["default"] = getInfo;

@@ -42,7 +42,7 @@ var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/search';
 var validResourceTypes = ['tracks', 'users', 'albums', 'playlists', 'all'];
 /** @internal */
-exports.search = function (options, axiosInstance, clientID) { return __awaiter(void 0, void 0, void 0, function () {
+var search = function (options, axiosInstance, clientID) { return __awaiter(void 0, void 0, void 0, function () {
     var url, data;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -72,8 +72,9 @@ exports.search = function (options, axiosInstance, clientID) { return __awaiter(
         }
     });
 }); };
+exports.search = search;
 /** @internal */
-exports.related = function (id, limit, offset, axiosInstance, clientID) {
+var related = function (id, limit, offset, axiosInstance, clientID) {
     if (limit === void 0) { limit = 10; }
     if (offset === void 0) { offset = 0; }
     return __awaiter(void 0, void 0, void 0, function () {
@@ -88,3 +89,4 @@ exports.related = function (id, limit, offset, axiosInstance, clientID) {
         });
     });
 };
+exports.related = related;
