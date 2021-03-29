@@ -54,7 +54,7 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                     u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + options.id + "/likes", 'client_id', clientID, 'limit', '' + options.limit, 'offset', '' + options.offset);
                 }
                 else {
-                    u = util_1.appendURL(u, 'client_id', clientID);
+                    u = util_1.appendURL(options.nextHref, 'client_id', clientID);
                 }
                 return [4 /*yield*/, axiosInstance.get(u)];
             case 1:
