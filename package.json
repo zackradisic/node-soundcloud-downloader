@@ -1,6 +1,6 @@
 {
   "name": "soundcloud-downloader",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Download Soundcloud audio with Node.js",
   "main": "index.js",
   "types": "./index.d.ts",
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "soundcloud",
+    "soundcloud-api",
     "soundcloud downloader",
     "soundcloud download",
     "soundcloud audio",
@@ -23,7 +24,7 @@
     "url": "https://github.com/zackradisic/node-soundcloud-downloader"
   },
   "author": "Zack Radisic",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "dependencies": {
     "@babel/runtime": "^7.10.3",
     "axios": "^0.21.0",
@@ -51,7 +52,7 @@
     "file-type": "^14.6.2",
     "jest": "^26.0.1",
     "music-metadata": "^7.6.6",
-    "typedoc": "^0.17.8",
+    "typedoc": "^0.20.20",
     "typescript": "^4.0.2"
   }
 }

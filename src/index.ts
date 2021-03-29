@@ -293,7 +293,7 @@ export class SCDL {
         if (typeof c.clientID !== 'string') return reject(new Error("Property 'clientID' is not a string in client_id.json"))
         if (typeof c.date !== 'string') return reject(new Error("Property 'date' is not a string in client_id.json"))
         const d = new Date(c.date)
-        if (!d.getDay()) return reject(new Error("Invalid date object from 'date' in client_id.json"))
+        if (Number.isNaN(d.getDay())) return reject(new Error("Invalid date object from 'date' in client_id.json"))
         const dayMs = 60 * 60 * 24 * 1000
         if (new Date().getTime() - d.getTime() >= dayMs) {
           // Older than a day, delete
