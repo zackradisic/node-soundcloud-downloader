@@ -28,7 +28,7 @@ export const getLikes = async (options: GetLikesOptions, clientID: string, axios
     if (!options.offset) options.offset = 0
     u = appendURL(`https://api-v2.soundcloud.com/users/${options.id}/likes`, 'client_id', clientID, 'limit', '' + options.limit, 'offset', '' + options.offset)
   } else {
-    u = appendURL(u, 'client_id', clientID)
+    u = appendURL(options.nextHref, 'client_id', clientID)
   }
 
   const { data } = await axiosInstance.get(u)
