@@ -75,7 +75,7 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                     response = query;
                 }
                 else {
-                    (_a = response.collection).push.apply(_a, query.collection);
+                    (_a = response.collection).push.apply(_a, query.collection.reduce(function (prev, curr) { return curr.track ? prev.concat(curr) : prev; }, []));
                 }
                 nextHref = query.next_href;
                 if (nextHref)

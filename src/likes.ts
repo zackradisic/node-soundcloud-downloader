@@ -46,7 +46,8 @@ export const getLikes = async (options: GetLikesOptions, clientID: string, axios
       response = query
     } else {
       response.collection.push(
-        ...query.collection
+        // Only push tracks (for now)
+        ...query.collection.reduce((prev, curr) => curr.track ? prev.concat(curr) : prev, [])
       )
     }
     nextHref = query.next_href
