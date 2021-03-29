@@ -40,7 +40,6 @@ exports.getLikes = void 0;
 var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/users/';
 /** @internal */
-<<<<<<< HEAD
 var getLikes = function (options, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var u, data, query;
     return __generator(this, function (_a) {
@@ -71,30 +70,4 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
         }
     });
 }); };
-=======
-var getLikes = function (id, clientID, axiosInstance, limit, offset) {
-    if (limit === void 0) { limit = 10; }
-    if (offset === void 0) { offset = 0; }
-    return __awaiter(void 0, void 0, void 0, function () {
-        var u, data, query;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + id + "/likes", 'client_id', clientID, 'limit', '' + limit, 'offset', '' + offset);
-                    return [4 /*yield*/, axiosInstance.get(u)];
-                case 1:
-                    data = (_a.sent()).data;
-                    query = data;
-                    if (!query.collection)
-                        throw new Error('Invalid JSON response received');
-                    if (query.collection.length === 0)
-                        return [2 /*return*/, data];
-                    if (query.collection[0].kind !== 'like')
-                        throw util_1.kindMismatchError('like', query.collection[0].kind);
-                    return [2 /*return*/, query];
-            }
-        });
-    });
-};
->>>>>>> 5f14cef4b3d85ad88c96261399c27f811607ee9b
 exports.getLikes = getLikes;

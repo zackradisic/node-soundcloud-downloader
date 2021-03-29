@@ -304,7 +304,7 @@ var SCDL = /** @class */ (function () {
                         clientID = _b.sent();
                         if (!options.id) return [3 /*break*/, 2];
                         id = options.id;
-                        return [3 /*break*/, 6];
+                        return [3 /*break*/, 8];
                     case 2:
                         if (!options.profileUrl) return [3 /*break*/, 5];
                         _a = user_1.getUser;
@@ -313,9 +313,13 @@ var SCDL = /** @class */ (function () {
                     case 4:
                         user = _b.sent();
                         id = user.id;
-                        return [3 /*break*/, 6];
-                    case 5: throw new Error('options.id or options.profileURL must be provided.');
-                    case 6:
+                        return [3 /*break*/, 8];
+                    case 5:
+                        if (!options.nextHref) return [3 /*break*/, 7];
+                        return [4 /*yield*/, likes_1.getLikes(options, clientID, this.axios)];
+                    case 6: return [2 /*return*/, _b.sent()];
+                    case 7: throw new Error('options.id or options.profileURL must be provided.');
+                    case 8:
                         options.id = id;
                         return [2 /*return*/, likes_1.getLikes(options, clientID, this.axios)];
                 }
@@ -462,7 +466,7 @@ var SCDL = /** @class */ (function () {
                             if (typeof c.date !== 'string')
                                 return reject(new Error("Property 'date' is not a string in client_id.json"));
                             var d = new Date(c.date);
-                            if (!d.getDay())
+                            if (Number.isNaN(d.getDay()))
                                 return reject(new Error("Invalid date object from 'date' in client_id.json"));
                             var dayMs = 60 * 60 * 24 * 1000;
                             if (new Date().getTime() - d.getTime() >= dayMs) {

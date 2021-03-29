@@ -180,6 +180,8 @@ export class SCDL {
     } else if (options.profileUrl) {
       const user = await getUser(await this.prepareURL(options.profileUrl), clientID, this.axios)
       id = user.id
+    } else if (options.nextHref) {
+      return await getLikes(options, clientID, this.axios)
     } else {
       throw new Error('options.id or options.profileURL must be provided.')
     }

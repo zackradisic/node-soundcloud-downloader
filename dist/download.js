@@ -129,8 +129,6 @@ var fromMediaObj = function (media, clientID, axiosInstance) { return __awaiter(
     }
 }); }); };
 exports.fromMediaObj = fromMediaObj;
-<<<<<<< HEAD
-=======
 var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var redirectUri, data;
     return __generator(this, function (_a) {
@@ -148,7 +146,6 @@ var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter
     });
 }); };
 exports.fromDownloadLink = fromDownloadLink;
->>>>>>> 5f14cef4b3d85ad88c96261399c27f811607ee9b
 /** @internal */
 var download = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var info;
