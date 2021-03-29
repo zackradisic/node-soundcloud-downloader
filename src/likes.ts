@@ -50,7 +50,7 @@ export const getLikes = async (options: GetLikesOptions, clientID: string, axios
       )
     }
     nextHref = query.next_href
-    u = appendURL(options.nextHref, 'client_id', clientID)
+    u = appendURL(nextHref, 'client_id', clientID)
   }
 
   return response

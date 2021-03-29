@@ -78,7 +78,7 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                     (_a = response.collection).push.apply(_a, query.collection);
                 }
                 nextHref = query.next_href;
-                u = util_1.appendURL(options.nextHref, 'client_id', clientID);
+                u = util_1.appendURL(nextHref, 'client_id', clientID);
                 return [3 /*break*/, 1];
             case 3: return [2 /*return*/, response];
         }
