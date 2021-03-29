@@ -5,7 +5,7 @@
 import scdl from '..'
 
 describe('getLikes()', () => {
-  const profileURL = 'https://soundcloud.com/uiceheidd'
+  const profileUrl = 'https://soundcloud.com/uiceheidd'
   const limit = 10
 
   let response
@@ -13,9 +13,11 @@ describe('getLikes()', () => {
   beforeAll(async () => {
     try {
       response = await scdl.getLikes({
-        profileURL
-      }, limit)
+        profileUrl
+      })
     } catch (err) {
+      console.log('THE ERROR')
+      console.log('sdfsdf: ', err)
       console.error(err)
       process.exit(1)
     }
