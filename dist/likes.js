@@ -41,9 +41,10 @@ var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/users/';
 /** @internal */
 var getLikes = function (options, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var u, data, query;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var u, response, nextHref, data, query;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 u = '';
                 if (!options.nextHref) {
@@ -56,9 +57,13 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                 else {
                     u = util_1.appendURL(options.nextHref, 'client_id', clientID);
                 }
-                return [4 /*yield*/, axiosInstance.get(u)];
+                nextHref = 'start';
+                _b.label = 1;
             case 1:
-                data = (_a.sent()).data;
+                if (!nextHref) return [3 /*break*/, 3];
+                return [4 /*yield*/, axiosInstance.get(u)];
+            case 2:
+                data = (_b.sent()).data;
                 query = data;
                 if (!query.collection)
                     throw new Error('Invalid JSON response received');
@@ -66,7 +71,16 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                     return [2 /*return*/, data];
                 if (query.collection[0].kind !== 'like')
                     throw util_1.kindMismatchError('like', query.collection[0].kind);
-                return [2 /*return*/, query];
+                if (!response) {
+                    response = query;
+                }
+                else {
+                    (_a = response.collection).push.apply(_a, query.collection);
+                }
+                nextHref = query.next_href;
+                u = util_1.appendURL(options.nextHref, 'client_id', clientID);
+                return [3 /*break*/, 1];
+            case 3: return [2 /*return*/, response];
         }
     });
 }); };
