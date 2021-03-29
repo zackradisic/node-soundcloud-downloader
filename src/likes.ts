@@ -31,13 +31,27 @@ export const getLikes = async (options: GetLikesOptions, clientID: string, axios
     u = appendURL(options.nextHref, 'client_id', clientID)
   }
 
-  const { data } = await axiosInstance.get(u)
+  let response: PaginatedQuery<Like>
+  let nextHref = 'start'
+  while (nextHref) {
+    const { data } = await axiosInstance.get(u)
 
-  const query = data as PaginatedQuery<Like>
-  if (!query.collection) throw new Error('Invalid JSON response received')
-  if (query.collection.length === 0) return data
+    const query = data as PaginatedQuery<Like>
+    if (!query.collection) throw new Error('Invalid JSON response received')
+    if (query.collection.length === 0) return data
 
-  if (query.collection[0].kind !== 'like') throw kindMismatchError('like', query.collection[0].kind)
+    if (query.collection[0].kind !== 'like') throw kindMismatchError('like', query.collection[0].kind)
 
-  return query
+    if (!response) {
+      response = query
+    } else {
+      response.collection.push(
+        ...query.collection
+      )
+    }
+    nextHref = query.next_href
+    u = appendURL(options.nextHref, 'client_id', clientID)
+  }
+
+  return response
 }
