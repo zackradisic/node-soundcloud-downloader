@@ -148,17 +148,23 @@ var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter
 exports.fromDownloadLink = fromDownloadLink;
 /** @internal */
 var download = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var info;
+    var info, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
             case 1:
                 info = _a.sent();
-                if (!info.downloadable) return [3 /*break*/, 3];
+                if (!info.downloadable) return [3 /*break*/, 5];
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
                 return [4 /*yield*/, exports.fromDownloadLink(info.id, clientID, axiosInstance)];
-            case 2: return [2 /*return*/, _a.sent()];
-            case 3: return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
-            case 4: return [2 /*return*/, _a.sent()];
+            case 3: return [2 /*return*/, _a.sent()];
+            case 4:
+                err_2 = _a.sent();
+                return [3 /*break*/, 5];
+            case 5: return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
+            case 6: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
