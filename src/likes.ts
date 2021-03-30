@@ -11,18 +11,48 @@ export interface Like {
     track: TrackInfo
 }
 
+export interface GetLikesOptions {
+  profileUrl?: string
+  id?: number
+  limit?: number
+  offset?: number
+  nextHref?: string
+}
+
 /** @internal */
-export const getLikes = async (id: number, clientID: string, axiosInstance: AxiosInstance, limit = 10, offset = 0): Promise<PaginatedQuery<Like>> => {
+export const getLikes = async (options: GetLikesOptions, clientID: string, axiosInstance: AxiosInstance): Promise<PaginatedQuery<Like>> => {
   // limit = limit + 1 // For some reason SoundCloud returns limit - 1, but only for likes??
-  const u = appendURL(`https://api-v2.soundcloud.com/users/${id}/likes`, 'client_id', clientID, 'limit', '' + limit, 'offset', '' + offset)
+  let u = ''
+  if (!options.nextHref) {
+    if (!options.limit) options.limit = 10
+    if (!options.offset) options.offset = 0
+    u = appendURL(`https://api-v2.soundcloud.com/users/${options.id}/likes`, 'client_id', clientID, 'limit', '' + options.limit, 'offset', '' + options.offset)
+  } else {
+    u = appendURL(options.nextHref, 'client_id', clientID)
+  }
 
-  const { data } = await axiosInstance.get(u)
+  let response: PaginatedQuery<Like>
+  let nextHref = 'start'
+  while (nextHref) {
+    const { data } = await axiosInstance.get(u)
 
-  const query = data as PaginatedQuery<Like>
-  if (!query.collection) throw new Error('Invalid JSON response received')
-  if (query.collection.length === 0) return data
+    const query = data as PaginatedQuery<Like>
+    if (!query.collection) throw new Error('Invalid JSON response received')
+    if (query.collection.length === 0) return data
 
-  if (query.collection[0].kind !== 'like') throw kindMismatchError('like', query.collection[0].kind)
+    if (query.collection[0].kind !== 'like') throw kindMismatchError('like', query.collection[0].kind)
 
-  return query
+    if (!response) {
+      response = query
+    } else {
+      response.collection.push(
+        // Only push tracks (for now)
+        ...query.collection.reduce((prev, curr) => curr.track ? prev.concat(curr) : prev, [])
+      )
+    }
+    nextHref = query.next_href
+    if (nextHref) u = appendURL(nextHref, 'client_id', clientID)
+  }
+
+  return response
 }

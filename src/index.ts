@@ -15,7 +15,7 @@ import axios, { AxiosInstance } from 'axios'
 import * as path from 'path'
 import * as fs from 'fs'
 import { PaginatedQuery } from './util'
-import { getLikes, Like } from './likes'
+import { GetLikesOptions, getLikes, Like } from './likes'
 import { getUser } from './user'
 
 /** @internal */
@@ -29,11 +29,6 @@ const downloadFormat = async (url: string, clientID: string, format: FORMATS, ax
 interface ClientIDData {
   clientID: string,
   date: Date
-}
-
-interface GetLikesOptions {
-  profileURL?: string,
-  id?: number
 }
 
 export interface SCDLOptions {
@@ -103,10 +98,11 @@ export class SCDL {
    * Get the audio of a given track. It returns the first format found.
    *
    * @param url - The URL of the Soundcloud track
+   * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
    * @returns A ReadableStream containing the audio data
   */
-  async download (url: string) {
-    return download(await this.prepareURL(url), await this.getClientID(), this.axios)
+  async download (url: string, useDirectLink = true) {
+    return download(await this.prepareURL(url), await this.getClientID(), this.axios, useDirectLink)
   }
 
   /**
@@ -177,19 +173,22 @@ export class SCDL {
    * @param options - Can either be the profile URL of the user, or their ID
    * @returns - An array of tracks
    */
-  async getLikes (options: GetLikesOptions, limit = 10, offset = 0): Promise<PaginatedQuery<Like>> {
+  async getLikes (options: GetLikesOptions): Promise<PaginatedQuery<Like>> {
     let id: number
     const clientID = await this.getClientID()
     if (options.id) {
       id = options.id
-    } else if (options.profileURL) {
-      const user = await getUser(await this.prepareURL(options.profileURL), clientID, this.axios)
+    } else if (options.profileUrl) {
+      const user = await getUser(await this.prepareURL(options.profileUrl), clientID, this.axios)
       id = user.id
+    } else if (options.nextHref) {
+      return await getLikes(options, clientID, this.axios)
     } else {
       throw new Error('options.id or options.profileURL must be provided.')
     }
+    options.id = id
 
-    return getLikes(id, clientID, this.axios, limit, offset)
+    return getLikes(options, clientID, this.axios)
   }
 
   /**

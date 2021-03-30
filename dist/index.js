@@ -130,9 +130,11 @@ var SCDL = /** @class */ (function () {
      * Get the audio of a given track. It returns the first format found.
      *
      * @param url - The URL of the Soundcloud track
+     * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
      * @returns A ReadableStream containing the audio data
     */
-    SCDL.prototype.download = function (url) {
+    SCDL.prototype.download = function (url, useDirectLink) {
+        if (useDirectLink === void 0) { useDirectLink = true; }
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
@@ -143,7 +145,7 @@ var SCDL = /** @class */ (function () {
                     case 1:
                         _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios, useDirectLink]))];
                 }
             });
         });
@@ -294,9 +296,7 @@ var SCDL = /** @class */ (function () {
      * @param options - Can either be the profile URL of the user, or their ID
      * @returns - An array of tracks
      */
-    SCDL.prototype.getLikes = function (options, limit, offset) {
-        if (limit === void 0) { limit = 10; }
-        if (offset === void 0) { offset = 0; }
+    SCDL.prototype.getLikes = function (options) {
         return __awaiter(this, void 0, void 0, function () {
             var id, clientID, user, _a;
             return __generator(this, function (_b) {
@@ -306,18 +306,24 @@ var SCDL = /** @class */ (function () {
                         clientID = _b.sent();
                         if (!options.id) return [3 /*break*/, 2];
                         id = options.id;
-                        return [3 /*break*/, 6];
+                        return [3 /*break*/, 8];
                     case 2:
-                        if (!options.profileURL) return [3 /*break*/, 5];
+                        if (!options.profileUrl) return [3 /*break*/, 5];
                         _a = user_1.getUser;
-                        return [4 /*yield*/, this.prepareURL(options.profileURL)];
+                        return [4 /*yield*/, this.prepareURL(options.profileUrl)];
                     case 3: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), clientID, this.axios])];
                     case 4:
                         user = _b.sent();
                         id = user.id;
-                        return [3 /*break*/, 6];
-                    case 5: throw new Error('options.id or options.profileURL must be provided.');
-                    case 6: return [2 /*return*/, likes_1.getLikes(id, clientID, this.axios, limit, offset)];
+                        return [3 /*break*/, 8];
+                    case 5:
+                        if (!options.nextHref) return [3 /*break*/, 7];
+                        return [4 /*yield*/, likes_1.getLikes(options, clientID, this.axios)];
+                    case 6: return [2 /*return*/, _b.sent()];
+                    case 7: throw new Error('options.id or options.profileURL must be provided.');
+                    case 8:
+                        options.id = id;
+                        return [2 /*return*/, likes_1.getLikes(options, clientID, this.axios)];
                 }
             });
         });
@@ -462,7 +468,7 @@ var SCDL = /** @class */ (function () {
                             if (typeof c.date !== 'string')
                                 return reject(new Error("Property 'date' is not a string in client_id.json"));
                             var d = new Date(c.date);
-                            if (!d.getDay())
+                            if (Number.isNaN(d.getDay()))
                                 return reject(new Error("Invalid date object from 'date' in client_id.json"));
                             var dayMs = 60 * 60 * 24 * 1000;
                             if (new Date().getTime() - d.getTime() >= dayMs) {
