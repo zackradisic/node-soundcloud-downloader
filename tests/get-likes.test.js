@@ -6,18 +6,18 @@ import scdl from '..'
 
 describe('getLikes()', () => {
   const profileUrl = 'https://soundcloud.com/uiceheidd'
-  const limit = 10
+  const limit = 41
 
   let response
+  let count
 
   beforeAll(async () => {
     try {
       response = await scdl.getLikes({
-        profileUrl
+        profileUrl,
+        limit
       })
     } catch (err) {
-      console.log('THE ERROR')
-      console.log('sdfsdf: ', err)
       console.error(err)
       process.exit(1)
     }
@@ -38,7 +38,22 @@ describe('getLikes()', () => {
     expect(like.track.kind).toEqual('track')
   }))
 
-  it('collection length should be equal to limit', () => {
-    expect(response.collection.length).toEqual(limit)
+  it('collection length should be less than or equal to limit if limit !== -1', () => {
+    count = response.collection.length
+    expect(response.collection.length).toBeLessThanOrEqual(limit)
+  })
+
+  it('should fetch as many liked tracks as possible when limit === -1', async (done) => {
+    try {
+      const likes = await scdl.getLikes({
+        profileUrl,
+        limit: -1
+      })
+      expect(likes.collection.length).toBeGreaterThanOrEqual(count)
+      done()
+    } catch (err) {
+      console.error(err)
+      done(err)
+    }
   })
 })
