@@ -147,36 +147,30 @@ var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter
 }); };
 exports.fromDownloadLink = fromDownloadLink;
 /** @internal */
-var download = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var info;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)
-                // if (info.downloadable) {
-                //   // Some tracks have `downloadable` set to true but will return a 404
-                //   // when using download API route.
-                //   try {
-                //     return await fromDownloadLink(info.id, clientID, axiosInstance)
-                //   } catch (err) {
-                //   }
-                // }
-            ];
-            case 1:
-                info = _a.sent();
-                return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
-            case 2: 
-            // if (info.downloadable) {
-            //   // Some tracks have `downloadable` set to true but will return a 404
-            //   // when using download API route.
-            //   try {
-            //     return await fromDownloadLink(info.id, clientID, axiosInstance)
-            //   } catch (err) {
-            //   }
-            // }
-            return [2 /*return*/, _a.sent()];
-        }
+var download = function (url, clientID, axiosInstance, useDownloadLink) {
+    if (useDownloadLink === void 0) { useDownloadLink = true; }
+    return __awaiter(void 0, void 0, void 0, function () {
+        var info, err_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
+                case 1:
+                    info = _a.sent();
+                    if (!(info.downloadable && useDownloadLink)) return [3 /*break*/, 5];
+                    _a.label = 2;
+                case 2:
+                    _a.trys.push([2, 4, , 5]);
+                    return [4 /*yield*/, exports.fromDownloadLink(info.id, clientID, axiosInstance)];
+                case 3: return [2 /*return*/, _a.sent()];
+                case 4:
+                    err_2 = _a.sent();
+                    return [3 /*break*/, 5];
+                case 5: return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
+                case 6: return [2 /*return*/, _a.sent()];
+            }
+        });
     });
-}); };
+};
 exports.download = download;
 var validatemedia = function (media) {
     if (!media.url || !media.format)

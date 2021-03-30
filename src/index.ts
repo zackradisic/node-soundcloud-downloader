@@ -98,9 +98,10 @@ export class SCDL {
    * Get the audio of a given track. It returns the first format found.
    *
    * @param url - The URL of the Soundcloud track
+   * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
    * @returns A ReadableStream containing the audio data
   */
-  async download (url: string) {
+  async download (url: string, useDirectLink = true) {
     return download(await this.prepareURL(url), await this.getClientID(), this.axios)
   }
 

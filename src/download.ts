@@ -77,16 +77,16 @@ export const fromDownloadLink = async (id: number, clientID: string, axiosInstan
 }
 
 /** @internal */
-export const download = async (url: string, clientID: string, axiosInstance: AxiosInstance) => {
+export const download = async (url: string, clientID: string, axiosInstance: AxiosInstance, useDownloadLink = true) => {
   const info = await getInfo(url, clientID, axiosInstance)
-  // if (info.downloadable) {
-  //   // Some tracks have `downloadable` set to true but will return a 404
-  //   // when using download API route.
-  //   try {
-  //     return await fromDownloadLink(info.id, clientID, axiosInstance)
-  //   } catch (err) {
-  //   }
-  // }
+  if (info.downloadable && useDownloadLink) {
+    // Some tracks have `downloadable` set to true but will return a 404
+    // when using download API route.
+    try {
+      return await fromDownloadLink(info.id, clientID, axiosInstance)
+    } catch (err) {
+    }
+  }
 
   return await fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)
 }

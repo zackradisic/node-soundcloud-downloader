@@ -130,9 +130,11 @@ var SCDL = /** @class */ (function () {
      * Get the audio of a given track. It returns the first format found.
      *
      * @param url - The URL of the Soundcloud track
+     * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
      * @returns A ReadableStream containing the audio data
     */
-    SCDL.prototype.download = function (url) {
+    SCDL.prototype.download = function (url, useDirectLink) {
+        if (useDirectLink === void 0) { useDirectLink = true; }
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
