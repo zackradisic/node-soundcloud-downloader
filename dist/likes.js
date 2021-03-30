@@ -41,7 +41,7 @@ var util_1 = require("./util");
 var baseURL = 'https://api-v2.soundcloud.com/users/';
 /** @internal */
 var getLikes = function (options, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
-    var u, response, nextHref, data, query;
+    var u, response, nextHref, data, query, url;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -49,10 +49,10 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                 u = '';
                 if (!options.nextHref) {
                     if (!options.limit)
-                        options.limit = 10;
+                        options.limit = -1;
                     if (!options.offset)
                         options.offset = 0;
-                    u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + options.id + "/likes", 'client_id', clientID, 'limit', '' + options.limit, 'offset', '' + options.offset);
+                    u = util_1.appendURL("https://api-v2.soundcloud.com/users/" + options.id + "/likes", 'client_id', clientID, 'limit', '' + (options.limit === -1 ? 200 : options.limit), 'offset', '' + options.offset);
                 }
                 else {
                     u = util_1.appendURL(options.nextHref, 'client_id', clientID);
@@ -60,7 +60,7 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                 nextHref = 'start';
                 _b.label = 1;
             case 1:
-                if (!nextHref) return [3 /*break*/, 3];
+                if (!(nextHref && (options.limit > 0 || options.limit === -1))) return [3 /*break*/, 3];
                 return [4 /*yield*/, axiosInstance.get(u)];
             case 2:
                 data = (_b.sent()).data;
@@ -71,15 +71,29 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                     return [2 /*return*/, data];
                 if (query.collection[0].kind !== 'like')
                     throw util_1.kindMismatchError('like', query.collection[0].kind);
+                // Only add tracks (for now)
+                query.collection = query.collection.reduce(function (prev, curr) { return curr.track ? prev.concat(curr) : prev; }, []);
                 if (!response) {
                     response = query;
                 }
                 else {
-                    (_a = response.collection).push.apply(_a, query.collection.reduce(function (prev, curr) { return curr.track ? prev.concat(curr) : prev; }, []));
+                    (_a = response.collection).push.apply(_a, query.collection);
+                }
+                if (options.limit !== -1) {
+                    options.limit -= query.collection.length;
+                    // We have collected enough likes
+                    if (options.limit <= 0)
+                        return [3 /*break*/, 3];
                 }
                 nextHref = query.next_href;
-                if (nextHref)
+                if (nextHref) {
+                    if (options.limit !== -1) {
+                        url = new URL(nextHref);
+                        url.searchParams.set('limit', '' + options.limit);
+                        nextHref = url.toString();
+                    }
                     u = util_1.appendURL(nextHref, 'client_id', clientID);
+                }
                 return [3 /*break*/, 1];
             case 3: return [2 /*return*/, response];
         }
