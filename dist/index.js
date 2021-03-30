@@ -145,7 +145,7 @@ var SCDL = /** @class */ (function () {
                     case 1:
                         _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios, useDirectLink]))];
                 }
             });
         });

@@ -102,7 +102,7 @@ export class SCDL {
    * @returns A ReadableStream containing the audio data
   */
   async download (url: string, useDirectLink = true) {
-    return download(await this.prepareURL(url), await this.getClientID(), this.axios)
+    return download(await this.prepareURL(url), await this.getClientID(), this.axios, useDirectLink)
   }
 
   /**
