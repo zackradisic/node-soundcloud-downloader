@@ -3,10 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>STREAMING_PROTOCOLS | soundcloud-downloader</title>
+	<title>default | soundcloud-downloader</title>
 	<meta name="description" content="Documentation for soundcloud-downloader">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -53,16 +52,16 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">soundcloud-downloader</a>
 				</li>
 				<li>
-					<a href="../modules/_protocols_.html">&quot;protocols&quot;</a>
+					<a href="../modules/formats.html">formats</a>
 				</li>
 				<li>
-					<a href="_protocols_.streaming_protocols.html">STREAMING_PROTOCOLS</a>
+					<a href="formats.default.html">default</a>
 				</li>
 			</ul>
-			<h1>Enumeration STREAMING_PROTOCOLS</h1>
+			<h1>Enumeration default</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +71,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Soundcloud streams tracks using these protocols.</p>
+						<p>Audio formats a track can be encoded in.</p>
 					</div>
 				</div>
 			</section>
@@ -83,8 +82,8 @@
 						<section class="tsd-index-section ">
 							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_protocols_.streaming_protocols.html#hls" class="tsd-kind-icon">HLS</a></li>
-								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_protocols_.streaming_protocols.html#progressive" class="tsd-kind-icon">PROGRESSIVE</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="formats.default.html#mp3" class="tsd-kind-icon">MP3</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="formats.default.html#opus" class="tsd-kind-icon">OPUS</a></li>
 							</ul>
 						</section>
 					</div>
@@ -93,22 +92,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Enumeration members</h2>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="hls" class="tsd-anchor"></a>
-					<h3>HLS</h3>
-					<div class="tsd-signature tsd-kind-icon">HLS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;hls&quot;</span></div>
+					<a name="mp3" class="tsd-anchor"></a>
+					<h3>MP3</h3>
+					<div class="tsd-signature tsd-kind-icon">MP3<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;audio/mpeg&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/6df1c30/src/protocols.ts#L5">protocols.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/759a505/src/formats.ts#L5">formats.ts:5</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
-					<a name="progressive" class="tsd-anchor"></a>
-					<h3>PROGRESSIVE</h3>
-					<div class="tsd-signature tsd-kind-icon">PROGRESSIVE<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;progressive&quot;</span></div>
+					<a name="opus" class="tsd-anchor"></a>
+					<h3>OPUS</h3>
+					<div class="tsd-signature tsd-kind-icon">OPUS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> = &quot;audio/ogg; codecs&#x3D;\&quot;opus\&quot;&quot;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/6df1c30/src/protocols.ts#L6">protocols.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/759a505/src/formats.ts#L6">formats.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -117,35 +116,35 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_download_playlist_.html">&quot;download-<wbr>playlist&quot;</a>
+						<a href="../modules/download_playlist.html">download-<wbr>playlist</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_filter_media_.html">&quot;filter-<wbr>media&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_formats_.html">&quot;formats&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_index_.html">&quot;index&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_info_.html">&quot;info&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="../modules/_likes_.html">&quot;likes&quot;</a>
+						<a href="../modules/filter_media.html">filter-<wbr>media</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="../modules/_protocols_.html">&quot;protocols&quot;</a>
+						<a href="../modules/formats.html">formats</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_search_.html">&quot;search&quot;</a>
+						<a href="../modules/index.html">index</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="../modules/_url_.html">&quot;url&quot;</a>
+						<a href="../modules/info.html">info</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/likes.html">likes</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/protocols.html">protocols</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/search.html">search</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="../modules/url.html">url</a>
 					</li>
 				</ul>
 			</nav>
@@ -154,13 +153,13 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-enum tsd-parent-kind-module">
-						<a href="_protocols_.streaming_protocols.html" class="tsd-kind-icon">STREAMING_<wbr>PROTOCOLS</a>
+						<a href="formats.default.html" class="tsd-kind-icon">default</a>
 						<ul>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="_protocols_.streaming_protocols.html#hls" class="tsd-kind-icon">HLS</a>
+								<a href="formats.default.html#mp3" class="tsd-kind-icon">MP3</a>
 							</li>
 							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
-								<a href="_protocols_.streaming_protocols.html#progressive" class="tsd-kind-icon">PROGRESSIVE</a>
+								<a href="formats.default.html#opus" class="tsd-kind-icon">OPUS</a>
 							</li>
 						</ul>
 					</li>

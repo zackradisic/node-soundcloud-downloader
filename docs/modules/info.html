@@ -3,10 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;download-playlist&quot; | soundcloud-downloader</title>
+	<title>info | soundcloud-downloader</title>
 	<meta name="description" content="Documentation for soundcloud-downloader">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -53,13 +52,13 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../globals.html">Globals</a>
+					<a href="../modules.html">soundcloud-downloader</a>
 				</li>
 				<li>
-					<a href="_download_playlist_.html">&quot;download-playlist&quot;</a>
+					<a href="info.html">info</a>
 				</li>
 			</ul>
-			<h1>Module &quot;download-playlist&quot;</h1>
+			<h1>Module info</h1>
 		</div>
 	</div>
 </header>
@@ -71,9 +70,18 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Interfaces</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/info.setinfo.html" class="tsd-kind-icon">Set<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/info.trackinfo.html" class="tsd-kind-icon">Track<wbr>Info</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/info.transcoding.html" class="tsd-kind-icon">Transcoding</a></li>
+								<li class="tsd-kind-interface tsd-parent-kind-module"><a href="../interfaces/info.user.html" class="tsd-kind-icon">User</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_download_playlist_.html#downloadplaylist" class="tsd-kind-icon">download<wbr>Playlist</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="info.html#gettrackinfobyid" class="tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>ByID</a></li>
 							</ul>
 						</section>
 					</div>
@@ -82,31 +90,43 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="downloadplaylist" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> download<wbr>Playlist</h3>
+					<a name="gettrackinfobyid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> get<wbr>Track<wbr>Info<wbr>ByID</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">download<wbr>Playlist<span class="tsd-signature-symbol">(</span>url<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, clientID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, axiosInstance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>ByID<span class="tsd-signature-symbol">(</span>clientID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, axiosInstance<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AxiosInstance</span>, ids<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span>, playlistID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, playlistSecretToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/info.trackinfo.html" class="tsd-signature-type" data-tsd-kind="Interface">TrackInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/6df1c30/src/download-playlist.ts#L5">download-playlist.ts:5</a></li>
+									<li>Defined in <a href="https://github.com/zackradisic/node-soundcloud-downloader/blob/759a505/src/info.ts#L231">info.ts:231</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>intenral</dt>
+									<dd></dd>
+								</dl>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
-								<li>
-									<h5>url: <span class="tsd-signature-type">string</span></h5>
-								</li>
 								<li>
 									<h5>clientID: <span class="tsd-signature-type">string</span></h5>
 								</li>
 								<li>
 									<h5>axiosInstance: <span class="tsd-signature-type">AxiosInstance</span></h5>
 								</li>
+								<li>
+									<h5>ids: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> playlistID: <span class="tsd-signature-type">number</span></h5>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> playlistSecretToken: <span class="tsd-signature-type">string</span></h5>
+								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/info.trackinfo.html" class="tsd-signature-type" data-tsd-kind="Interface">TrackInfo</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -115,42 +135,54 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="../globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="download_playlist.html">download-<wbr>playlist</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="filter_media.html">filter-<wbr>media</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="formats.html">formats</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="index.html">index</a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_download_playlist_.html">&quot;download-<wbr>playlist&quot;</a>
+						<a href="info.html">info</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_filter_media_.html">&quot;filter-<wbr>media&quot;</a>
+						<a href="likes.html">likes</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_formats_.html">&quot;formats&quot;</a>
+						<a href="protocols.html">protocols</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_index_.html">&quot;index&quot;</a>
+						<a href="search.html">search</a>
 					</li>
 					<li class=" tsd-kind-module">
-						<a href="_info_.html">&quot;info&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_likes_.html">&quot;likes&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_protocols_.html">&quot;protocols&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_search_.html">&quot;search&quot;</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="_url_.html">&quot;url&quot;</a>
+						<a href="url.html">url</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/info.setinfo.html" class="tsd-kind-icon">Set<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/info.trackinfo.html" class="tsd-kind-icon">Track<wbr>Info</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/info.transcoding.html" class="tsd-kind-icon">Transcoding</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="../interfaces/info.user.html" class="tsd-kind-icon">User</a>
+					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_download_playlist_.html#downloadplaylist" class="tsd-kind-icon">download<wbr>Playlist</a>
+						<a href="info.html#gettrackinfobyid" class="tsd-kind-icon">get<wbr>Track<wbr>Info<wbr>ByID</a>
 					</li>
 				</ul>
 			</nav>
