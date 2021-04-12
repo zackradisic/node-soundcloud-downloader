@@ -122,7 +122,8 @@ export class SCDL {
    * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
    * @returns A ReadableStream containing the audio data
    */
-  async download(url: string, options: DownloadOptions): Promise<Readable> {
+  async download(url: string, options?: DownloadOptions): Promise<Readable> {
+    if (!options) options = {}
     return await download(
       await this.prepareURL(url),
       options,

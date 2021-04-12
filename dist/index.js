@@ -142,6 +142,8 @@ var SCDL = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
+                        if (!options)
+                            options = {};
                         _a = download_1.download;
                         return [4 /*yield*/, this.prepareURL(url)];
                     case 1:
