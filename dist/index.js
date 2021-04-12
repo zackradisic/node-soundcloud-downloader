@@ -59,19 +59,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.create = exports.SCDL = void 0;
-var soundcloud_key_fetch_1 = __importDefault(require("soundcloud-key-fetch"));
-var info_1 = __importStar(require("./info"));
-var filter_media_1 = __importDefault(require("./filter-media"));
-var download_1 = require("./download");
-var url_1 = __importStar(require("./url"));
-var protocols_1 = require("./protocols");
-var formats_1 = require("./formats");
-var search_1 = require("./search");
-var download_playlist_1 = require("./download-playlist");
-var axios_1 = __importDefault(require("axios"));
-var path = __importStar(require("path"));
 var fs = __importStar(require("fs"));
+var path = __importStar(require("path"));
+var axios_1 = __importDefault(require("axios"));
+var soundcloud_key_fetch_1 = __importDefault(require("soundcloud-key-fetch"));
+var download_1 = require("./download");
+var download_playlist_1 = require("./download-playlist");
+var filter_media_1 = __importDefault(require("./filter-media"));
+var formats_1 = require("./formats");
+var info_1 = __importStar(require("./info"));
 var likes_1 = require("./likes");
+var protocols_1 = require("./protocols");
+var search_1 = require("./search");
+var url_1 = __importStar(require("./url"));
 var user_1 = require("./user");
 /** @internal */
 var downloadFormat = function (url, clientID, format, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
@@ -82,8 +82,9 @@ var downloadFormat = function (url, clientID, format, axiosInstance) { return __
             case 1:
                 info = _a.sent();
                 filtered = filter_media_1["default"](info.media.transcodings, { format: format });
-                if (filtered.length === 0)
+                if (filtered.length === 0) {
                     throw new Error("Could not find media with specified format: (" + format + ")");
+                }
                 return [4 /*yield*/, download_1.fromMediaObj(filtered[0], clientID, axiosInstance)];
             case 2: return [2 /*return*/, _a.sent()];
         }
@@ -91,7 +92,9 @@ var downloadFormat = function (url, clientID, format, axiosInstance) { return __
 }); };
 var SCDL = /** @class */ (function () {
     function SCDL(options) {
-        this.saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false;
+        this.saveClientID = process.env.SAVE_CLIENT_ID
+            ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true'
+            : false;
         if (!options)
             options = {};
         if (options.saveClientID) {
@@ -132,9 +135,8 @@ var SCDL = /** @class */ (function () {
      * @param url - The URL of the Soundcloud track
      * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
      * @returns A ReadableStream containing the audio data
-    */
-    SCDL.prototype.download = function (url, useDirectLink) {
-        if (useDirectLink === void 0) { useDirectLink = true; }
+     */
+    SCDL.prototype.download = function (url, options) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
@@ -143,9 +145,10 @@ var SCDL = /** @class */ (function () {
                         _a = download_1.download;
                         return [4 /*yield*/, this.prepareURL(url)];
                     case 1:
-                        _b = [_c.sent()];
+                        _b = [_c.sent(), options];
                         return [4 /*yield*/, this.getClientID()];
-                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios, useDirectLink]))];
+                    case 2: return [4 /*yield*/, _a.apply(void 0, _b.concat([_c.sent(), this.axios]))];
+                    case 3: return [2 /*return*/, _c.sent()];
                 }
             });
         });
@@ -154,7 +157,7 @@ var SCDL = /** @class */ (function () {
      *  Get the audio of a given track with the specified format
      * @param url - The URL of the Soundcloud track
      * @param format - The desired format
-    */
+     */
     SCDL.prototype.downloadFormat = function (url, format) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
@@ -166,7 +169,8 @@ var SCDL = /** @class */ (function () {
                     case 1:
                         _b = [_c.sent()];
                         return [4 /*yield*/, this.getClientID()];
-                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format, this.axios]))];
+                    case 2: return [2 /*return*/, _a.apply(void 0, _b.concat([_c.sent(), format,
+                            this.axios]))];
                 }
             });
         });
@@ -175,7 +179,7 @@ var SCDL = /** @class */ (function () {
      * Returns info about a given track.
      * @param url - URL of the Soundcloud track
      * @returns Info about the track
-    */
+     */
     SCDL.prototype.getInfo = function (url) {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
@@ -205,7 +209,10 @@ var SCDL = /** @class */ (function () {
                     case 0:
                         _a = info_1.getTrackInfoByID;
                         return [4 /*yield*/, this.getClientID()];
-                    case 1: return [2 /*return*/, _a.apply(void 0, [_b.sent(), this.axios, ids, playlistID, playlistSecretToken])];
+                    case 1: return [2 /*return*/, _a.apply(void 0, [_b.sent(), this.axios,
+                            ids,
+                            playlistID,
+                            playlistSecretToken])];
                 }
             });
         });
@@ -311,7 +318,8 @@ var SCDL = /** @class */ (function () {
                         if (!options.profileUrl) return [3 /*break*/, 5];
                         _a = user_1.getUser;
                         return [4 /*yield*/, this.prepareURL(options.profileUrl)];
-                    case 3: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), clientID, this.axios])];
+                    case 3: return [4 /*yield*/, _a.apply(void 0, [_b.sent(), clientID,
+                            this.axios])];
                     case 4:
                         user = _b.sent();
                         id = user.id;
@@ -358,7 +366,7 @@ var SCDL = /** @class */ (function () {
     /**
      * Returns whether or not the given URL is a valid Soundcloud URL
      * @param url - URL of the Soundcloud track
-    */
+     */
     SCDL.prototype.isValidUrl = function (url) {
         return url_1["default"](url, this.convertFirebaseLinks, this.stripMobilePrefix);
     };
@@ -461,15 +469,19 @@ var SCDL = /** @class */ (function () {
                             catch (err) {
                                 return reject(err);
                             }
-                            if (!c.date && !c.clientID)
+                            if (!c.date && !c.clientID) {
                                 return reject(new Error("Property 'data' or 'clientID' missing from client_id.json"));
-                            if (typeof c.clientID !== 'string')
+                            }
+                            if (typeof c.clientID !== 'string') {
                                 return reject(new Error("Property 'clientID' is not a string in client_id.json"));
-                            if (typeof c.date !== 'string')
+                            }
+                            if (typeof c.date !== 'string') {
                                 return reject(new Error("Property 'date' is not a string in client_id.json"));
+                            }
                             var d = new Date(c.date);
-                            if (Number.isNaN(d.getDay()))
+                            if (Number.isNaN(d.getDay())) {
                                 return reject(new Error("Invalid date object from 'date' in client_id.json"));
+                            }
                             var dayMs = 60 * 60 * 24 * 1000;
                             if (new Date().getTime() - d.getTime() >= dayMs) {
                                 // Older than a day, delete

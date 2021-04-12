@@ -40,10 +40,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.download = exports.fromDownloadLink = exports.fromMediaObj = exports.fromMediaObjBase = exports.fromURL = exports.fromURLBase = exports.getHLSStream = exports.getProgressiveStream = exports.getMediaURL = void 0;
+exports.download = exports.fromDownloadLink = exports.fromMediaObj = exports.fromURL = exports.getHLSStream = exports.getProgressive = exports.getMediaURL = void 0;
 var m3u8stream_1 = __importDefault(require("m3u8stream"));
-var util_1 = require("./util");
 var info_1 = __importDefault(require("./info"));
+var util_1 = require("./util");
 var getMediaURL = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var res;
     return __generator(this, function (_a) {
@@ -58,14 +58,15 @@ var getMediaURL = function (url, clientID, axiosInstance) { return __awaiter(voi
                 })];
             case 1:
                 res = _a.sent();
-                if (!res.data.url)
+                if (!res.data.url) {
                     throw new Error("Invalid response from Soundcloud. Check if the URL provided is correct: " + url);
+                }
                 return [2 /*return*/, res.data.url];
         }
     });
 }); };
 exports.getMediaURL = getMediaURL;
-var getProgressiveStream = function (mediaUrl, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var getProgressive = function (mediaUrl, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var r;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -79,22 +80,22 @@ var getProgressiveStream = function (mediaUrl, axiosInstance) { return __awaiter
         }
     });
 }); };
-exports.getProgressiveStream = getProgressiveStream;
+exports.getProgressive = getProgressive;
 var getHLSStream = function (mediaUrl) { return m3u8stream_1["default"](mediaUrl); };
 exports.getHLSStream = getHLSStream;
-var fromURLBase = function (url, clientID, getMediaURLFunction, getProgressiveStreamFunction, getHLSStreamFunction, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var fromURL = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var mediaUrl, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, getMediaURLFunction(url, clientID, axiosInstance)];
+                return [4 /*yield*/, exports.getMediaURL(url, clientID, axiosInstance)];
             case 1:
                 mediaUrl = _a.sent();
                 if (!url.includes('/progressive')) return [3 /*break*/, 3];
-                return [4 /*yield*/, getProgressiveStreamFunction(mediaUrl, axiosInstance)];
+                return [4 /*yield*/, exports.getProgressive(mediaUrl, axiosInstance)];
             case 2: return [2 /*return*/, _a.sent()];
-            case 3: return [2 /*return*/, getHLSStreamFunction(mediaUrl)];
+            case 3: return [2 /*return*/, exports.getHLSStream(mediaUrl)];
             case 4:
                 err_1 = _a.sent();
                 throw util_1.handleRequestErrs(err_1);
@@ -102,32 +103,18 @@ var fromURLBase = function (url, clientID, getMediaURLFunction, getProgressiveSt
         }
     });
 }); };
-exports.fromURLBase = fromURLBase;
-var fromURL = function (url, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    switch (_a.label) {
-        case 0: return [4 /*yield*/, exports.fromURLBase(url, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, axiosInstance)];
-        case 1: return [2 /*return*/, _a.sent()];
-    }
-}); }); };
 exports.fromURL = fromURL;
-var fromMediaObjBase = function (media, clientID, getMediaURLFunction, getProgressiveStreamFunction, getHLSStreamFunction, fromURLFunction, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+var fromMediaObj = function (media, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 if (!validatemedia(media))
                     throw new Error('Invalid media object provided');
-                return [4 /*yield*/, fromURLFunction(media.url, clientID, axiosInstance)];
+                return [4 /*yield*/, exports.fromURL(media.url, clientID, axiosInstance)];
             case 1: return [2 /*return*/, _a.sent()];
         }
     });
 }); };
-exports.fromMediaObjBase = fromMediaObjBase;
-var fromMediaObj = function (media, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    switch (_a.label) {
-        case 0: return [4 /*yield*/, exports.fromMediaObjBase(media, clientID, exports.getMediaURL, exports.getProgressiveStream, exports.getHLSStream, exports.fromURL, axiosInstance)];
-        case 1: return [2 /*return*/, _a.sent()];
-    }
-}); }); };
 exports.fromMediaObj = fromMediaObj;
 var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
     var redirectUri, data;
@@ -147,30 +134,27 @@ var fromDownloadLink = function (id, clientID, axiosInstance) { return __awaiter
 }); };
 exports.fromDownloadLink = fromDownloadLink;
 /** @internal */
-var download = function (url, clientID, axiosInstance, useDownloadLink) {
-    if (useDownloadLink === void 0) { useDownloadLink = true; }
-    return __awaiter(void 0, void 0, void 0, function () {
-        var info, err_2;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
-                case 1:
-                    info = _a.sent();
-                    if (!(info.downloadable && useDownloadLink)) return [3 /*break*/, 5];
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, exports.fromDownloadLink(info.id, clientID, axiosInstance)];
-                case 3: return [2 /*return*/, _a.sent()];
-                case 4:
-                    err_2 = _a.sent();
-                    return [3 /*break*/, 5];
-                case 5: return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
-                case 6: return [2 /*return*/, _a.sent()];
-            }
-        });
+var download = function (url, options, clientID, axiosInstance) { return __awaiter(void 0, void 0, void 0, function () {
+    var info, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, info_1["default"](url, clientID, axiosInstance)];
+            case 1:
+                info = _a.sent();
+                if (!(info.downloadable && options.useDirectLink)) return [3 /*break*/, 5];
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, exports.fromDownloadLink(info.id, clientID, axiosInstance)];
+            case 3: return [2 /*return*/, _a.sent()];
+            case 4:
+                err_2 = _a.sent();
+                return [3 /*break*/, 5];
+            case 5: return [4 /*yield*/, exports.fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)];
+            case 6: return [2 /*return*/, _a.sent()];
+        }
     });
-};
+}); };
 exports.download = download;
 var validatemedia = function (media) {
     if (!media.url || !media.format)

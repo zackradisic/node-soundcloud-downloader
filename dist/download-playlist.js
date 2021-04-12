@@ -48,7 +48,7 @@ var downloadPlaylist = function (url, clientID, axiosInstance) { return __awaite
                 info = _a.sent();
                 trackNames = [];
                 return [4 /*yield*/, Promise.all(info.tracks.map(function (track) {
-                        var p = download_1.download(track.permalink_url, clientID, axiosInstance);
+                        var p = download_1.download(track.permalink_url, {}, clientID, axiosInstance);
                         trackNames.push(track.title);
                         return p;
                     }))];

@@ -12,7 +12,8 @@ var handleRequestErrs = function (err) {
     if (err.response.status === 401)
         err.message += ', is your Client ID correct?';
     if (err.response.status === 404)
-        err.message += ', could not find the song... it may be private - check the URL';
+        err.message +=
+            ', could not find the song... it may be private - check the URL';
     return err;
 };
 exports.handleRequestErrs = handleRequestErrs;
@@ -38,5 +39,7 @@ var extractIDFromPersonalizedTrackURL = function (url) {
     return split[4];
 };
 exports.extractIDFromPersonalizedTrackURL = extractIDFromPersonalizedTrackURL;
-var kindMismatchError = function (expected, received) { return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")"); };
+var kindMismatchError = function (expected, received) {
+    return new Error("Expected resouce of kind: (" + expected + "), received: (" + received + ")");
+};
 exports.kindMismatchError = kindMismatchError;

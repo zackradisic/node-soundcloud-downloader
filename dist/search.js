@@ -59,7 +59,9 @@ var search = function (options, axiosInstance, clientID) { return __awaiter(void
                 }
                 else if (options.query) {
                     if (!validResourceTypes.includes(options.resourceType))
-                        throw new Error(options.resourceType + " is not one of " + validResourceTypes.map(function (str) { return "'" + str + "'"; }).join(', '));
+                        throw new Error(options.resourceType + " is not one of " + validResourceTypes
+                            .map(function (str) { return "'" + str + "'"; })
+                            .join(', '));
                     url = util_1.appendURL("" + baseURL + (options.resourceType === 'all' ? '' : "/" + options.resourceType), 'client_id', clientID, 'q', options.query, 'limit', '' + options.limit, 'offset', '' + options.offset);
                 }
                 else {

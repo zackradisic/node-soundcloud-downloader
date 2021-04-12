@@ -35,12 +35,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
 exports.__esModule = true;
 exports.getTrackInfoByID = exports.getSetInfo = exports.getInfoBase = void 0;
@@ -98,7 +96,7 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
             case 0: return [4 /*yield*/, exports.getInfoBase(url, clientID, axiosRef)];
             case 1:
                 setInfo = _a.sent();
-                temp = __spreadArrays(setInfo.tracks).map(function (track) { return track.id; });
+                temp = __spreadArray([], setInfo.tracks).map(function (track) { return track.id; });
                 playlistID = setInfo.id;
                 playlistSecretToken = setInfo.secret_token;
                 incompleteTracks = setInfo.tracks.filter(function (track) { return !track.title; });
@@ -116,12 +114,14 @@ var getSetInfoBase = function (url, clientID, axiosRef) { return __awaiter(void 
                     i = Math.floor(x / 50);
                     splitIds[i].push(ids[x]);
                 }
-                promises = splitIds.map(function (ids) { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0: return [4 /*yield*/, exports.getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken)];
-                        case 1: return [2 /*return*/, _a.sent()];
-                    }
-                }); }); });
+                promises = splitIds.map(function (ids) { return __awaiter(void 0, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0: return [4 /*yield*/, exports.getTrackInfoByID(clientID, axiosRef, ids, playlistID, playlistSecretToken)];
+                            case 1: return [2 /*return*/, _a.sent()];
+                        }
+                    });
+                }); });
                 return [4 /*yield*/, Promise.all(promises)];
             case 2:
                 info_1 = _a.sent();

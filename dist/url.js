@@ -107,7 +107,9 @@ var convertFirebaseURL = function (url, axiosInstance) { return __awaiter(void 0
                     ];
                 // Some of the characters are in their unicode character code form (e.g. \u003d),
                 // use regex to find occurences of \uXXXX, parse their hexidecimal unicode value and convert to regular char
-                return [2 /*return*/, firebaseURL.replace(/\\u([\d\w]{4})/gi, function (_match, grp) { return String.fromCharCode(parseInt(grp, 16)); })];
+                return [2 /*return*/, firebaseURL.replace(/\\u([\d\w]{4})/gi, function (_match, grp) {
+                        return String.fromCharCode(parseInt(grp, 16));
+                    })];
         }
     });
 }); };

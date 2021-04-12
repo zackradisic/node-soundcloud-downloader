@@ -72,7 +72,7 @@ var getLikes = function (options, clientID, axiosInstance) { return __awaiter(vo
                 if (query.collection[0].kind !== 'like')
                     throw util_1.kindMismatchError('like', query.collection[0].kind);
                 // Only add tracks (for now)
-                query.collection = query.collection.reduce(function (prev, curr) { return curr.track ? prev.concat(curr) : prev; }, []);
+                query.collection = query.collection.reduce(function (prev, curr) { return (curr.track ? prev.concat(curr) : prev); }, []);
                 if (!response) {
                     response = query;
                 }
