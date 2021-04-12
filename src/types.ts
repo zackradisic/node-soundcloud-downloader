@@ -1,5 +1,3 @@
-export type DownloadType = 'stream' | 'arraybuffer'
-export type DownloadOptions<ResponseType extends DownloadType> = {
-  responseType?: ResponseType
+export type DownloadOptions = {
   useDirectLink?: boolean
 }

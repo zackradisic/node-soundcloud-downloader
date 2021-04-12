@@ -1,5 +1,5 @@
-import { Transcoding } from './info'
 import FORMATS from './formats'
+import { Transcoding } from './info'
 import STREAMING_PROTOCOLS from './protocols'
 
 export interface FilterPredicateObject {

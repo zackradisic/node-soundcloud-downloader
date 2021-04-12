@@ -1,5 +1,6 @@
 /** @internal @packageDocumentation */
 import { URL } from 'url'
+
 import { AxiosError } from 'axios'
 
 /* eslint-disable camelcase */

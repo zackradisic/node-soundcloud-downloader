@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios'
+
 import { TrackInfo } from './info'
 import { appendURL, kindMismatchError, PaginatedQuery } from './util'
 

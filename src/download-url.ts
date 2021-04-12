@@ -2,7 +2,8 @@
 
 import { AxiosInstance } from 'axios'
 import m3u8stream from 'm3u8stream'
-import { handleRequestErrs, appendURL } from './util'
+
+import { appendURL, handleRequestErrs } from './util'
 
 const fromURL = async (
   url: string,

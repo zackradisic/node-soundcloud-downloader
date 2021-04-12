@@ -1,15 +1,25 @@
+import * as fs from 'fs'
+import * as path from 'path'
+import { Readable } from 'stream'
+
+import axios, { AxiosInstance } from 'axios'
 import sckey from 'soundcloud-key-fetch'
 
+import { download, fromMediaObj } from './download'
+import { downloadPlaylist } from './download-playlist'
+import filterMedia, { FilterPredicateObject } from './filter-media'
+import FORMATS, { _FORMATS } from './formats'
 import getInfo, {
   getSetInfo,
-  Transcoding,
   getTrackInfoByID,
   TrackInfo,
+  Transcoding,
   User
 } from './info'
-import filterMedia, { FilterPredicateObject } from './filter-media'
-import { download, fromMediaObj } from './download'
-
+import { getLikes, GetLikesOptions, Like } from './likes'
+import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
+import { related, search, SearchOptions, SoundcloudResource } from './search'
+import { DownloadOptions } from './types'
 import isValidURL, {
   convertFirebaseURL,
   isFirebaseURL,
@@ -17,19 +27,8 @@ import isValidURL, {
   isPlaylistURL,
   stripMobilePrefix
 } from './url'
-
-import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
-import FORMATS, { _FORMATS } from './formats'
-import { search, related, SoundcloudResource, SearchOptions } from './search'
-import { downloadPlaylist } from './download-playlist'
-import axios, { AxiosInstance } from 'axios'
-
-import * as path from 'path'
-import * as fs from 'fs'
-import { PaginatedQuery } from './util'
-import { GetLikesOptions, getLikes, Like } from './likes'
 import { getUser } from './user'
-import { DownloadOptions, DownloadType } from './types'
+import { PaginatedQuery } from './util'
 
 /** @internal */
 const downloadFormat = async (
@@ -40,8 +39,9 @@ const downloadFormat = async (
 ) => {
   const info = await getInfo(url, clientID, axiosInstance)
   const filtered = filterMedia(info.media.transcodings, { format: format })
-  if (filtered.length === 0)
+  if (filtered.length === 0) {
     throw new Error(`Could not find media with specified format: (${format})`)
+  }
   return await fromMediaObj(filtered[0], clientID, axiosInstance)
 }
 
@@ -122,15 +122,12 @@ export class SCDL {
    * @param useDirectLink - Whether or not to use the download link if the artist has set the track to be downloadable. This has erratic behaviour on some environments.
    * @returns A ReadableStream containing the audio data
    */
-  async download<ResponseType extends DownloadType>(
-    url: string,
-    options: DownloadOptions<ResponseType>
-  ) {
-    return download(
+  async download(url: string, options: DownloadOptions): Promise<Readable> {
+    return await download(
       await this.prepareURL(url),
+      options,
       await this.getClientID(),
-      this.axios,
-      options
+      this.axios
     )
   }
 
@@ -139,7 +136,7 @@ export class SCDL {
    * @param url - The URL of the Soundcloud track
    * @param format - The desired format
    */
-  async downloadFormat(url: string, format: FORMATS) {
+  async downloadFormat(url: string, format: FORMATS): Promise<Readable> {
     return downloadFormat(
       await this.prepareURL(url),
       await this.getClientID(),
@@ -216,9 +213,7 @@ export class SCDL {
    * Returns the audio streams and titles of the tracks in the given playlist.
    * @param url - The url of the playlist
    */
-  async downloadPlaylist(
-    url: string
-  ): Promise<[ReadableStream<any>[], String[]]> {
+  async downloadPlaylist(url: string): Promise<[Readable[], String[]]> {
     return downloadPlaylist(
       await this.prepareURL(url),
       await this.getClientID(),
@@ -364,25 +359,29 @@ export class SCDL {
           } catch (err) {
             return reject(err)
           }
-          if (!c.date && !c.clientID)
+          if (!c.date && !c.clientID) {
             return reject(
               new Error(
                 "Property 'data' or 'clientID' missing from client_id.json"
               )
             )
-          if (typeof c.clientID !== 'string')
+          }
+          if (typeof c.clientID !== 'string') {
             return reject(
               new Error("Property 'clientID' is not a string in client_id.json")
             )
-          if (typeof c.date !== 'string')
+          }
+          if (typeof c.date !== 'string') {
             return reject(
               new Error("Property 'date' is not a string in client_id.json")
             )
+          }
           const d = new Date(c.date)
-          if (Number.isNaN(d.getDay()))
+          if (Number.isNaN(d.getDay())) {
             return reject(
               new Error("Invalid date object from 'date' in client_id.json")
             )
+          }
           const dayMs = 60 * 60 * 24 * 1000
           if (new Date().getTime() - d.getTime() >= dayMs) {
             // Older than a day, delete

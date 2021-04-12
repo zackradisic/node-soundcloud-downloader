@@ -1,10 +1,11 @@
 /** @internal @packageDocumentation */
 
-import m3u8stream from 'm3u8stream'
-import STREAMING_PROTOCOLS from './protocols'
-import { handleRequestErrs, appendURL } from './util'
-import { Transcoding } from './info'
 import { AxiosInstance } from 'axios'
+import m3u8stream from 'm3u8stream'
+
+import { Transcoding } from './info'
+import STREAMING_PROTOCOLS from './protocols'
+import { appendURL, handleRequestErrs } from './util'
 
 const fromMedia = async (
   media: Transcoding,

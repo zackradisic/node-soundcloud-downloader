@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 import { AxiosInstance } from 'axios'
-import {
-  handleRequestErrs,
-  appendURL,
-  extractIDFromPersonalizedTrackURL
-} from './util'
 
-import STREAMING_PROTOCOLS from './protocols'
 import FORMATS from './formats'
+import STREAMING_PROTOCOLS from './protocols'
+import {
+  appendURL,
+  extractIDFromPersonalizedTrackURL,
+  handleRequestErrs
+} from './util'
 
 /**
  * A Soundcloud user

@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { AxiosInstance } from 'axios'
-import { TrackInfo, User, SetInfo } from './info'
+
+import { SetInfo, TrackInfo, User } from './info'
 import { appendURL, PaginatedQuery } from './util'
 
 /** @internal */

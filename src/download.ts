@@ -1,10 +1,13 @@
 /** @internal @packageDocumentation */
 
+import { Readable } from 'stream'
+
 import { AxiosInstance } from 'axios'
 import m3u8stream from 'm3u8stream'
-import { handleRequestErrs, appendURL } from './util'
+
 import getInfo, { Transcoding } from './info'
-import { DownloadOptions, DownloadType } from './types'
+import { DownloadOptions } from './types'
+import { appendURL, handleRequestErrs } from './util'
 
 export const getMediaURL = async (
   url: string,
@@ -21,14 +24,14 @@ export const getMediaURL = async (
     withCredentials: true
   })
   if (!res.data.url) {
-  { throw new Error(
+    throw new Error(
       `Invalid response from Soundcloud. Check if the URL provided is correct: ${url}`
-  )
+    )
   }
   return res.data.url
 }
 
-export const getProgressiveStream = async (
+export const getProgressive = async (
   mediaUrl: string,
   axiosInstance: AxiosInstance
 ) => {
@@ -42,104 +45,38 @@ export const getProgressiveStream = async (
 
 export const getHLSStream = (mediaUrl: string) => m3u8stream(mediaUrl)
 
-type fromURLFunctionBase = (
-  url: string,
-  clientID: string,
-  getMediaURLFunction: (
-    url: string,
-    clientID: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<string>,
-  getProgressiveStreamFunction: (
-    mediaUrl: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<any>,
-  getHLSStreamFunction: (mediaUrl: string) => m3u8stream.Stream,
-  axiosInstance: AxiosInstance
-) => Promise<any | m3u8stream.Stream>
-
-export const fromURLBase: fromURLFunctionBase = async (
-  url: string,
-  clientID: string,
-  getMediaURLFunction: (
-    url: string,
-    clientID: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<string>,
-  getProgressiveStreamFunction: (
-    mediaUrl: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<any>,
-  getHLSStreamFunction: (mediaUrl: string) => m3u8stream.Stream,
-  axiosInstance: AxiosInstance
-): Promise<any | m3u8stream.Stream> => {
-  try {
-    const mediaUrl = await getMediaURLFunction(url, clientID, axiosInstance)
-
-    if (url.includes('/progressive')) {
-      return await getProgressiveStreamFunction(mediaUrl, axiosInstance)
-    }
-
-    return getHLSStreamFunction(mediaUrl)
-  } catch (err) {
-    throw handleRequestErrs(err)
-  }
-}
-
 export const fromURL = async (
   url: string,
   clientID: string,
   axiosInstance: AxiosInstance
-): Promise<any | m3u8stream.Stream> =>
-  await fromURLBase(
-    url,
-    clientID,
-    getMediaURL,
-    getProgressiveStream,
-    getHLSStream,
-    axiosInstance
-  )
-
-export const fromMediaObjBase = async (
-  media: Transcoding,
-  clientID: string,
-  getMediaURLFunction: (
-    url: string,
-    clientID: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<string>,
-  getProgressiveStreamFunction: (
-    mediaUrl: string,
-    axiosInstance: AxiosInstance
-  ) => Promise<any>,
-  getHLSStreamFunction: (mediaUrl: string) => m3u8stream.Stream,
-  fromURLFunction: typeof fromURL,
-  axiosInstance: AxiosInstance
 ): Promise<any | m3u8stream.Stream> => {
-  if (!validatemedia(media)) throw new Error('Invalid media object provided')
-  return await fromURLFunction(media.url, clientID, axiosInstance)
+  try {
+    const mediaUrl = await getMediaURL(url, clientID, axiosInstance)
+
+    if (url.includes('/progressive')) {
+      return await getProgressive(mediaUrl, axiosInstance)
+    }
+
+    return getHLSStream(mediaUrl)
+  } catch (err) {
+    throw handleRequestErrs(err)
+  }
 }
 
 export const fromMediaObj = async (
   media: Transcoding,
   clientID: string,
   axiosInstance: AxiosInstance
-) =>
-  await fromMediaObjBase(
-    media,
-    clientID,
-    getMediaURL,
-    getProgressiveStream,
-    getHLSStream,
-    fromURL,
-    axiosInstance
-  )
+) => {
+  if (!validatemedia(media)) throw new Error('Invalid media object provided')
+  return await fromURL(media.url, clientID, axiosInstance)
+}
 
 export const fromDownloadLink = async (
   id: number,
   clientID: string,
   axiosInstance: AxiosInstance
-) => {
+): Promise<Readable> => {
   const {
     data: { redirectUri }
   } = await axiosInstance.get(
@@ -157,16 +94,15 @@ export const fromDownloadLink = async (
 }
 
 /** @internal */
-export const download = async <ResponseType extends DownloadType>(
+export const download = async (
   url: string,
+  options: DownloadOptions,
   clientID: string,
-  axiosInstance: AxiosInstance,
-  options: DownloadOptions<ResponseType>
-) => {
+  axiosInstance: AxiosInstance
+): Promise<Readable> => {
   const info = await getInfo(url, clientID, axiosInstance)
-  if (info.downloadable && useDownloadLink) {
-    // Some tracks have `downloadable` set to true but will return a 404
-    // when using download API route.
+  if (info.downloadable && options.useDirectLink) {
+    // Try the direct link. If it fails use standard procedure
     try {
       return await fromDownloadLink(info.id, clientID, axiosInstance)
     } catch (err) {}
