@@ -26,17 +26,18 @@ describe('getLikes()', () => {
   it('returns a paginated query', () => {
     expect(response).toBeDefined()
     const keys = ['collection', 'next_href', 'query_urn']
-    keys.forEach(key => expect(response[key]).toBeDefined())
+    keys.forEach((key) => expect(response[key]).toBeDefined())
   })
 
   it('the paginated query collection is an array of likes', () => {
-    response.collection.forEach(like => expect(like.kind).toEqual('like'))
+    response.collection.forEach((like) => expect(like.kind).toEqual('like'))
   })
 
-  it('each like should have a track object', () => response.collection.forEach(like => {
-    expect(like.track.kind).toBeDefined()
-    expect(like.track.kind).toEqual('track')
-  }))
+  it('each like should have a track object', () =>
+    response.collection.forEach((like) => {
+      expect(like.track.kind).toBeDefined()
+      expect(like.track.kind).toEqual('track')
+    }))
 
   it('collection length should be less than or equal to limit if limit !== -1', () => {
     count = response.collection.length

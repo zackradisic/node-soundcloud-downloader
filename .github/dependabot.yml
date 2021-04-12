@@ -5,14 +5,14 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm" # See documentation for possible values
-    directory: "/" # Location of package manifests
+  - package-ecosystem: 'npm' # See documentation for possible values
+    directory: '/' # Location of package manifests
     schedule:
-      interval: "daily"
+      interval: 'daily'
     allow:
-      - dependency-name: "axios"
-      - dependency-name: "m3u8stream"
-      - dependency-name: "typescript"
-      - dependency-name: "soundcloud-key-fetch"
-      - dependency-name: "typedoc"
-      - dependency-name: "jest"
+      - dependency-name: 'axios'
+      - dependency-name: 'm3u8stream'
+      - dependency-name: 'typescript'
+      - dependency-name: 'soundcloud-key-fetch'
+      - dependency-name: 'typedoc'
+      - dependency-name: 'jest'

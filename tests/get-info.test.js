@@ -12,7 +12,8 @@ const sampleData = {
   media: {
     transcodings: [
       {
-        url: 'https://api-v2.soundcloud.com/media/soundcloud:tracks:290949554/81a476f0-412c-4df7-b004-1e73da41ac72/stream/hls',
+        url:
+          'https://api-v2.soundcloud.com/media/soundcloud:tracks:290949554/81a476f0-412c-4df7-b004-1e73da41ac72/stream/hls',
         preset: 'mp3_0_0',
         duration: 380873,
         snipped: false,
@@ -23,7 +24,8 @@ const sampleData = {
         quality: 'sq'
       },
       {
-        url: 'https://api-v2.soundcloud.com/media/soundcloud:tracks:290949554/48624ebe-5a88-40df-9d11-a76a68fe5975/stream/hls',
+        url:
+          'https://api-v2.soundcloud.com/media/soundcloud:tracks:290949554/48624ebe-5a88-40df-9d11-a76a68fe5975/stream/hls',
         preset: 'opus_0_0',
         duration: 380793,
         snipped: false,
@@ -85,7 +87,8 @@ const sampleData = {
   permalink: 'me-and-your-mama',
   permalink_url: 'https://soundcloud.com/childish-gambino/me-and-your-mama',
   user: {
-    avatar_url: 'https://i1.sndcdn.com/avatars-EJ9GGrkQ9typ3a0d-v74n4Q-large.jpg',
+    avatar_url:
+      'https://i1.sndcdn.com/avatars-EJ9GGrkQ9typ3a0d-v74n4Q-large.jpg',
     city: '',
     comments_count: 1,
     country_code: 'US',
@@ -130,7 +133,8 @@ const sampleData = {
         {
           urn: 'soundcloud:visuals:91859694',
           entry_time: 0,
-          visual_url: 'https://i1.sndcdn.com/visuals-000000547647-O9aRcV-original.jpg'
+          visual_url:
+            'https://i1.sndcdn.com/visuals-000000547647-O9aRcV-original.jpg'
         }
       ],
       tracking: null
@@ -140,7 +144,7 @@ const sampleData = {
 }
 
 describe('getInfo()', () => {
-  it('returns track info when given a valid url', async done => {
+  it('returns track info when given a valid url', async (done) => {
     const mock = new MockAdapter(axios)
     const url = 'https://soundcloud.com/childish-gambino/me-and-your-mama'
     const instance = axios.create()

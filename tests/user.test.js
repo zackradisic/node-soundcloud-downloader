@@ -7,7 +7,7 @@ import scdl from '..'
 describe('getUser()', () => {
   const profileURL = 'https://soundcloud.com/uiceheidd'
 
-  it('returns a valid user response', async done => {
+  it('returns a valid user response', async (done) => {
     try {
       const user = await scdl.getUser(profileURL)
 

@@ -4,7 +4,8 @@ import FORMATS from '../dist/formats'
 
 const testInfo = [
   {
-    url: 'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/hls',
+    url:
+      'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/hls',
     preset: 'mp3_0_0',
     duration: 226031,
     snipped: false,
@@ -12,7 +13,8 @@ const testInfo = [
     quality: 'sq'
   },
   {
-    url: 'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/progressive',
+    url:
+      'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/5bbe88bd-64e9-4512-a98a-c1cba75a5cef/stream/progressive',
     preset: 'mp3_0_0',
     duration: 226031,
     snipped: false,
@@ -20,7 +22,8 @@ const testInfo = [
     quality: 'sq'
   },
   {
-    url: 'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/1f2b5d95-95e2-4bd2-a7ec-dab872d7e725/stream/hls',
+    url:
+      'https://api-v2.soundcloud.com/media/soundcloud:tracks:673346252/1f2b5d95-95e2-4bd2-a7ec-dab872d7e725/stream/hls',
     preset: 'opus_0_0',
     duration: 225955,
     snipped: false,
@@ -31,7 +34,9 @@ const testInfo = [
 
 describe('filterFormats', () => {
   it('should match a format with the given streaming protocol', () => {
-    let formats = filterFormats(testInfo, { protocol: STREAMING_PROTOCOLS.PROGRESSIVE })
+    let formats = filterFormats(testInfo, {
+      protocol: STREAMING_PROTOCOLS.PROGRESSIVE
+    })
     expect(formats.length).toBe(1)
     expect(formats[0]).toMatchObject(testInfo[1])
 

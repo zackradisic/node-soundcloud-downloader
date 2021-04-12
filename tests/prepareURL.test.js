@@ -5,9 +5,11 @@
 import scdl from '../'
 
 describe('prepareURL()', () => {
-  it('strips a mobile URL of its prefix', async done => {
-    const url = 'https://m.soundcloud.com/sidewalksandskeletons/ic3peak-ill-be-found-sidewalks-and-skeletons-remix'
-    const expected = 'https://soundcloud.com/sidewalksandskeletons/ic3peak-ill-be-found-sidewalks-and-skeletons-remix'
+  it('strips a mobile URL of its prefix', async (done) => {
+    const url =
+      'https://m.soundcloud.com/sidewalksandskeletons/ic3peak-ill-be-found-sidewalks-and-skeletons-remix'
+    const expected =
+      'https://soundcloud.com/sidewalksandskeletons/ic3peak-ill-be-found-sidewalks-and-skeletons-remix'
 
     try {
       const result = await scdl.prepareURL(url)
@@ -18,9 +20,10 @@ describe('prepareURL()', () => {
     }
   })
 
-  it('converts a Firebase URL to a regular URL', async done => {
+  it('converts a Firebase URL to a regular URL', async (done) => {
     const url = 'https://soundcloud.app.goo.gl/z8snjNyHU8zMHH29A'
-    const expected = 'https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the?ref=clipboard&p=i&c=0'
+    const expected =
+      'https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the?ref=clipboard&p=i&c=0'
 
     try {
       const result = await scdl.prepareURL(url)
@@ -31,8 +34,9 @@ describe('prepareURL()', () => {
     }
   })
 
-  it('returns the original string if it is not a mobile or Firebase URL', async done => {
-    const url = 'https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the?ref=clipboard&p=i&c=0'
+  it('returns the original string if it is not a mobile or Firebase URL', async (done) => {
+    const url =
+      'https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the?ref=clipboard&p=i&c=0'
     try {
       const result = await scdl.prepareURL(url)
       expect(result).toEqual(url)

@@ -5,10 +5,10 @@ import { appendURL, kindMismatchError, PaginatedQuery } from './util'
 const baseURL = 'https://api-v2.soundcloud.com/users/'
 
 export interface Like {
-    // eslint-disable-next-line camelcase
-    created_at: string,
-    kind: string,
-    track: TrackInfo
+  // eslint-disable-next-line camelcase
+  created_at: string
+  kind: string
+  track: TrackInfo
 }
 
 export interface GetLikesOptions {
@@ -20,16 +20,24 @@ export interface GetLikesOptions {
 }
 
 /** @internal */
-export const getLikes = async (options: GetLikesOptions, clientID: string, axiosInstance: AxiosInstance): Promise<PaginatedQuery<Like>> => {
+export const getLikes = async (
+  options: GetLikesOptions,
+  clientID: string,
+  axiosInstance: AxiosInstance
+): Promise<PaginatedQuery<Like>> => {
   let u = ''
   if (!options.nextHref) {
     if (!options.limit) options.limit = -1
     if (!options.offset) options.offset = 0
     u = appendURL(
       `https://api-v2.soundcloud.com/users/${options.id}/likes`,
-      'client_id', clientID,
-      'limit', '' + (options.limit === -1 ? 200 : options.limit),
-      'offset', '' + options.offset)
+      'client_id',
+      clientID,
+      'limit',
+      '' + (options.limit === -1 ? 200 : options.limit),
+      'offset',
+      '' + options.offset
+    )
   } else {
     u = appendURL(options.nextHref, 'client_id', clientID)
   }
@@ -47,16 +55,18 @@ export const getLikes = async (options: GetLikesOptions, clientID: string, axios
     if (!query.collection) throw new Error('Invalid JSON response received')
     if (query.collection.length === 0) return data
 
-    if (query.collection[0].kind !== 'like') throw kindMismatchError('like', query.collection[0].kind)
+    if (query.collection[0].kind !== 'like')
+      throw kindMismatchError('like', query.collection[0].kind)
 
     // Only add tracks (for now)
-    query.collection = query.collection.reduce((prev, curr) => curr.track ? prev.concat(curr) : prev, [])
+    query.collection = query.collection.reduce(
+      (prev, curr) => (curr.track ? prev.concat(curr) : prev),
+      []
+    )
     if (!response) {
       response = query
     } else {
-      response.collection.push(
-        ...query.collection
-      )
+      response.collection.push(...query.collection)
     }
 
     if (options.limit !== -1) {

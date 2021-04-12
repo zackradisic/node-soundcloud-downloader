@@ -9,7 +9,9 @@ let trackNames
 describe('downloadPlaylist()', () => {
   beforeAll(async () => {
     try {
-      const [s, t] = await scdl.downloadPlaylist('https://soundcloud.com/zack-radisic-103764335/sets/test')
+      const [s, t] = await scdl.downloadPlaylist(
+        'https://soundcloud.com/zack-radisic-103764335/sets/test'
+      )
       streams = s
       trackNames = t
     } catch (err) {
@@ -18,10 +20,10 @@ describe('downloadPlaylist()', () => {
   })
 
   it('streams are defined', () => {
-    streams.forEach(stream => expect(stream).toBeDefined())
+    streams.forEach((stream) => expect(stream).toBeDefined())
   })
 
-  it('stream mime type is mpeg', async done => {
+  it('stream mime type is mpeg', async (done) => {
     try {
       for (const stream of streams) {
         const type = await fileType.fromStream(stream)
@@ -36,15 +38,17 @@ describe('downloadPlaylist()', () => {
   })
 
   it('Track names are defined and are of type string', () => {
-    trackNames.forEach(trackName => {
+    trackNames.forEach((trackName) => {
       expect(trackName).toBeDefined()
       expect(typeof trackName).toBe('string')
     })
   })
 
   it('No Errors in Stream', () => {
-    streams.forEach(stream => stream.on('error', (err) => {
-      expect(err).toBeFalsy()
-    }))
+    streams.forEach((stream) =>
+      stream.on('error', (err) => {
+        expect(err).toBeFalsy()
+      })
+    )
   })
 })

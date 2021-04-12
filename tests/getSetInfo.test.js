@@ -10,8 +10,12 @@ describe('getSetInfo()', () => {
     let infoLarge
     beforeAll(async () => {
       try {
-        info = await scdl.getSetInfo('https://soundcloud.com/user-845046062/sets/playlist')
-        infoLarge = await scdl.getSetInfo('https://soundcloud.com/ilyanaazman/sets/best-of-mrrevillz')
+        info = await scdl.getSetInfo(
+          'https://soundcloud.com/user-845046062/sets/playlist'
+        )
+        infoLarge = await scdl.getSetInfo(
+          'https://soundcloud.com/ilyanaazman/sets/best-of-mrrevillz'
+        )
       } catch (err) {
         console.log(err)
         process.exit(1)

@@ -4,19 +4,20 @@ module.exports = {
     node: true,
     'jest/globals': true
   },
-  extends: [
-    'standard'
-  ],
+  extends: ['standard'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 11,
     sourceType: 'module'
   },
-  plugins: [
-    '@typescript-eslint',
-    'jest'
-  ],
+  plugins: ['@typescript-eslint', 'jest', 'prettier'],
   rules: {
-    'no-unused-vars': 'off'
+    'no-unused-vars': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto'
+      }
+    ]
   }
 }

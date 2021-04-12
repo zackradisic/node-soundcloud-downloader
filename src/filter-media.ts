@@ -3,12 +3,15 @@ import FORMATS from './formats'
 import STREAMING_PROTOCOLS from './protocols'
 
 export interface FilterPredicateObject {
-  protocol?: STREAMING_PROTOCOLS,
+  protocol?: STREAMING_PROTOCOLS
   format?: FORMATS
 }
 
 /** @internal */
-const filterMedia = (media: Transcoding[], predicateObj: FilterPredicateObject): Transcoding[] => {
+const filterMedia = (
+  media: Transcoding[],
+  predicateObj: FilterPredicateObject
+): Transcoding[] => {
   return media.filter(({ format }) => {
     let match = false
     if (predicateObj.protocol) match = format.protocol === predicateObj.protocol

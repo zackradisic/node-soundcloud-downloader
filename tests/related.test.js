@@ -18,7 +18,12 @@ describe('related()', () => {
   })
 
   it('returns a valid SearchResponse object', () => {
-    const keys = ['collection', 'next_href', 'variant', 'query_urn'].forEach(key => expect(searchResponse[key]).toBeDefined())
+    const keys = [
+      'collection',
+      'next_href',
+      'variant',
+      'query_urn'
+    ].forEach((key) => expect(searchResponse[key]).toBeDefined())
   })
 
   it('resource count returned is equal to limit', () => {
@@ -26,7 +31,7 @@ describe('related()', () => {
   })
 
   it('returns a valid track object', () => {
-    searchResponse.collection.forEach(track => {
+    searchResponse.collection.forEach((track) => {
       expect(track.kind).toEqual('track')
     })
   })

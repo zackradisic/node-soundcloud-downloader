@@ -9,8 +9,8 @@ const channelID = '123456789'
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`)
   const channel = client.channels.cache.get(channelID)
-  channel.join().then(connection => {
-    scdl.download(constants.url).then(stream => {
+  channel.join().then((connection) => {
+    scdl.download(constants.url).then((stream) => {
       connection.play(stream)
     })
   })
