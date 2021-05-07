@@ -139,7 +139,6 @@ export const getInfoBase = async <T extends TrackInfo | SetInfo>(url: string, cl
 
     return res.data as T
   } catch (err) {
-    console.log(err)
     throw handleRequestErrs(err)
   }
 }
