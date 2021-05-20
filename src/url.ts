@@ -1,11 +1,11 @@
-import axios, { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios'
 
 /** @internal @packageDocumentation */
 const regexp = /^https?:\/\/(soundcloud\.com)\/(.*)$/
 
 const mobileUrlRegex = /^https?:\/\/(m\.soundcloud\.com)\/(.*)$/
 
-const firebaseUrlRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$/
+// const firebaseUrlRegex = /^https?:\/\/(soundcloud\.app\.goo\.gl)\/(.*)$/
 
 const firebaseRegexp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,500}\.[a-zA-Z0-9()]{1,500}\b([-a-zA-Z0-9()@:%_+.~#?&//\\=]*)/g
 

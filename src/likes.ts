@@ -3,8 +3,6 @@ import { AxiosInstance } from 'axios'
 import { TrackInfo } from './info'
 import { appendURL, kindMismatchError, PaginatedQuery } from './util'
 
-const baseURL = 'https://api-v2.soundcloud.com/users/'
-
 export interface Like {
   // eslint-disable-next-line camelcase
   created_at: string
@@ -43,13 +41,13 @@ export const getLikes = async (
     u = appendURL(options.nextHref, 'client_id', clientID)
   }
 
-  let response: PaginatedQuery<Like>
+  let response: PaginatedQuery<Like> | undefined 
   let nextHref = 'start'
 
   // If options.limit > 0, query each page of likes until we have collected
   // `options.limit` liked tracks.
   // If options.limit === -1, query every page of likes
-  while (nextHref && (options.limit > 0 || options.limit === -1)) {
+  while (nextHref && (options.limit! > 0 || options.limit === -1)) {
     const { data } = await axiosInstance.get(u)
 
     const query = data as PaginatedQuery<Like>
@@ -60,7 +58,7 @@ export const getLikes = async (
       throw kindMismatchError('like', query.collection[0].kind)
 
     // Only add tracks (for now)
-    query.collection = query.collection.reduce(
+    query.collection = query.collection.reduce<Like[]>(
       (prev, curr) => (curr.track ? prev.concat(curr) : prev),
       []
     )
@@ -71,9 +69,9 @@ export const getLikes = async (
     }
 
     if (options.limit !== -1) {
-      options.limit -= query.collection.length
+      options.limit! -= query.collection.length
       // We have collected enough likes
-      if (options.limit <= 0) break
+      if (options.limit! <= 0) break
     }
 
     nextHref = query.next_href
@@ -87,5 +85,5 @@ export const getLikes = async (
     }
   }
 
-  return response
+  return response!
 }

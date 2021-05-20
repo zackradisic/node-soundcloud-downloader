@@ -107,7 +107,7 @@ export const download = async (
       return await fromDownloadLink(info.id, clientID, axiosInstance)
     } catch (err) {}
   }
-
+  if (!info.media) throw new Error('No media found for given URL')
   return await fromMediaObj(info.media.transcodings[0], clientID, axiosInstance)
 }
 

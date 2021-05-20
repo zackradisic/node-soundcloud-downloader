@@ -112,17 +112,20 @@
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">SOUNDCLOUD_URL</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;https://soundcloud.com/askdjfhaklshf&#039;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">CLIENT_ID</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;asdhkalshdkhsf&#039;</span>
 
-<span style="color: #001080">scdl</span><span style="color: #000000">.</span><span style="color: #795E26">download</span><span style="color: #000000">(</span><span style="color: #0070C1">SOUNDCLOUD_URL</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #001080">stream</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">stream</span><span style="color: #000000">.</span><span style="color: #795E26">pipe</span><span style="color: #000000">(</span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">createWriteStream</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;audio.mp3&#039;</span><span style="color: #000000">)))</span>
+<span style="color: #001080">scdl</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">download</span><span style="color: #000000">(</span><span style="color: #0070C1">SOUNDCLOUD_URL</span><span style="color: #000000">)</span>
+<span style="color: #000000">  .</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">stream</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> </span><span style="color: #001080">stream</span><span style="color: #000000">.</span><span style="color: #795E26">pipe</span><span style="color: #000000">(</span><span style="color: #001080">fs</span><span style="color: #000000">.</span><span style="color: #795E26">createWriteStream</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;audio.mp3&#039;</span><span style="color: #000000">)))</span>
 </code></pre>
 				<p>You can do anything you like with the stream that is returned, an example with <a href="https://github.com/discordjs/discord.js/">Discord.js</a>:</p>
 				<pre><code class="language-javascript"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">client</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #001080">Discord</span><span style="color: #000000">.</span><span style="color: #795E26">Client</span><span style="color: #000000">()</span>
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">url</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the&#039;</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">url</span><span style="color: #000000"> =</span>
+<span style="color: #000000">  </span><span style="color: #A31515">&#039;https://soundcloud.com/taliya-jenkins/double-cheese-burger-hold-the&#039;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">clientID</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;asdlkajasd&#039;</span>
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">channelID</span><span style="color: #000000"> = </span><span style="color: #A31515">&#039;123456789&#039;</span>
 <span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #795E26">on</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;ready&#039;</span><span style="color: #000000">, () </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">channel</span><span style="color: #000000"> = </span><span style="color: #001080">client</span><span style="color: #000000">.</span><span style="color: #001080">channels</span><span style="color: #000000">.</span><span style="color: #001080">cache</span><span style="color: #000000">.</span><span style="color: #795E26">get</span><span style="color: #000000">(</span><span style="color: #001080">channelID</span><span style="color: #000000">)</span>
-<span style="color: #000000">  </span><span style="color: #001080">channel</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #001080">connection</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
-<span style="color: #000000">    </span><span style="color: #001080">scdl</span><span style="color: #000000">.</span><span style="color: #795E26">download</span><span style="color: #000000">(</span><span style="color: #001080">url</span><span style="color: #000000">, </span><span style="color: #001080">clientID</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">(</span><span style="color: #001080">stream</span><span style="color: #000000"> </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">channel</span><span style="color: #000000">.</span><span style="color: #795E26">join</span><span style="color: #000000">().</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">connection</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">scdl</span><span style="color: #000000">.</span><span style="color: #795E26">download</span><span style="color: #000000">(</span><span style="color: #001080">url</span><span style="color: #000000">, </span><span style="color: #001080">clientID</span><span style="color: #000000">).</span><span style="color: #795E26">then</span><span style="color: #000000">((</span><span style="color: #001080">stream</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
 <span style="color: #000000">      </span><span style="color: #001080">connection</span><span style="color: #000000">.</span><span style="color: #795E26">play</span><span style="color: #000000">(</span><span style="color: #001080">stream</span><span style="color: #000000">)</span>
 <span style="color: #000000">    })</span>
 <span style="color: #000000">  })</span>
@@ -173,6 +176,9 @@
 						<a href="modules.html">Exports</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/declaration.html">declaration</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/download_playlist.html">download-<wbr>playlist</a>
 					</li>
 					<li class=" tsd-kind-module">
@@ -197,7 +203,13 @@
 						<a href="modules/search.html">search</a>
 					</li>
 					<li class=" tsd-kind-module">
+						<a href="modules/types.html">types</a>
+					</li>
+					<li class=" tsd-kind-module">
 						<a href="modules/url.html">url</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/user.html">user</a>
 					</li>
 				</ul>
 			</nav>
@@ -213,6 +225,7 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
+				<li class="tsd-kind-namespace"><span class="tsd-kind-icon">Namespace</span></li>
 				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
 				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>

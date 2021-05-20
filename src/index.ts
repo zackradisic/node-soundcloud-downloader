@@ -12,13 +12,12 @@ import FORMATS, { _FORMATS } from './formats'
 import getInfo, {
   getSetInfo,
   getTrackInfoByID,
-  TrackInfo,
   Transcoding,
   User
 } from './info'
 import { getLikes, GetLikesOptions, Like } from './likes'
 import STREAMING_PROTOCOLS, { _PROTOCOLS } from './protocols'
-import { related, search, SearchOptions, SoundcloudResource } from './search'
+import { related, search, SearchOptions} from './search'
 import { DownloadOptions } from './types'
 import isValidURL, {
   convertFirebaseURL,
@@ -38,6 +37,7 @@ const downloadFormat = async (
   axiosInstance: AxiosInstance
 ) => {
   const info = await getInfo(url, clientID, axiosInstance)
+  if (!info.media) throw new Error('No media found')
   const filtered = filterMedia(info.media.transcodings, { format: format })
   if (filtered.length === 0) {
     throw new Error(`Could not find media with specified format: (${format})`)
@@ -67,13 +67,13 @@ export interface SCDLOptions {
 }
 
 export class SCDL {
-  STREAMING_PROTOCOLS: { [key: string]: STREAMING_PROTOCOLS }
-  FORMATS: { [key: string]: FORMATS }
+  STREAMING_PROTOCOLS: { [key: string]: STREAMING_PROTOCOLS } = _PROTOCOLS
+  FORMATS: { [key: string]: FORMATS } = _FORMATS
 
-  private _clientID?: string
+  private _clientID = ''
   private _filePath?: string
 
-  axios: AxiosInstance
+  axios: AxiosInstance = axios
   saveClientID = process.env.SAVE_CLIENT_ID
     ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true'
     : false
@@ -214,7 +214,7 @@ export class SCDL {
    * Returns the audio streams and titles of the tracks in the given playlist.
    * @param url - The url of the playlist
    */
-  async downloadPlaylist(url: string): Promise<[Readable[], String[]]> {
+  async downloadPlaylist(url: string): Promise<[Readable[], string[]]> {
     return downloadPlaylist(
       await this.prepareURL(url),
       await this.getClientID(),
@@ -348,11 +348,8 @@ export class SCDL {
   private async _getClientIDFromFile(filename: string): Promise<string> {
     return new Promise((resolve, reject) => {
       if (!fs.existsSync(filename)) return resolve('')
-
-      fs.readFile(
-        filename,
-        'utf8',
-        (err: NodeJS.ErrnoException, data: string) => {
+      
+      fs.readFile(filename, { encoding: 'utf8'}, (err, data) => {
           if (err) return reject(err)
           let c: ClientIDData
           try {
@@ -390,11 +387,9 @@ export class SCDL {
               if (err) console.log('Failed to delete client_id.json: ' + err)
             })
             return resolve('')
-          } else {
+          } 
             return resolve(c.clientID)
-          }
-        }
-      )
+      })
     })
   }
 
@@ -406,7 +401,12 @@ export class SCDL {
   async prepareURL(url: string): Promise<string> {
     if (this.stripMobilePrefix) url = stripMobilePrefix(url)
     if (this.convertFirebaseLinks) {
-      if (isFirebaseURL(url)) url = await convertFirebaseURL(url, this.axios)
+      if (isFirebaseURL(url)) { 
+        const firebaseUrl = await convertFirebaseURL(url, this.axios) 
+        if (firebaseUrl) {
+          url = firebaseUrl
+        }
+      }
     }
 
     return url

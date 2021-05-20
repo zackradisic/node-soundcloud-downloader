@@ -76,6 +76,7 @@ export interface TrackInfo {
  * Details about a Set
  */
 export interface SetInfo {
+  title: string
   duration: number
   permalink_url: string
   reposts_count: number
@@ -197,7 +198,7 @@ const getSetInfoBase = async (
 
   const ids = incompleteTracks.map((t) => t.id)
   if (ids.length > 50) {
-    const splitIds = []
+    const splitIds: number[][] = []
     for (let x = 0; x <= Math.floor(ids.length / 50); x++) {
       splitIds.push([])
     }
