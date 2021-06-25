@@ -91,7 +91,6 @@ var downloadFormat = function (url, clientID, format, axiosInstance) { return __
 }); };
 var SCDL = /** @class */ (function () {
     function SCDL(options) {
-        this.saveClientID = process.env.SAVE_CLIENT_ID ? process.env.SAVE_CLIENT_ID.toLowerCase() === 'true' : false;
         if (!options)
             options = {};
         if (options.saveClientID) {
