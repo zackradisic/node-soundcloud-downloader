@@ -52,7 +52,7 @@
     "file-type": "^14.6.2",
     "jest": "^26.0.1",
     "music-metadata": "^7.6.6",
-    "typedoc": "^0.20.20",
+    "typedoc": "^0.22.5",
     "typescript": "^4.0.2"
   }
 }
